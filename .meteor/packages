@@ -9,3 +9,5 @@ autopublish
 insecure
 coffeescript
 iron:router
+manuel:viewmodel
+nooitaf:semantic-ui
