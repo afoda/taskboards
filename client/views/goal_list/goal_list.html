@@ -1,0 +1,29 @@
+<template name="goal_list">
+
+<div class="twelve wide column">
+  <div class="ui fluid action input">
+    <input type="text" placeholder="Goal title" id="new-goal-title">
+    <div id="add-goal-button" class="ui teal labeled icon button">
+      <i class="icon plus"></i>
+      Add Goal
+    </div>
+  </div>
+</div>
+
+
+<div class="twelve wide column">
+  <div class="ui two cards">
+    {{#each goals}}
+      {{> goal}}
+    {{/each}}
+  </div>
+</div>
+
+</template>
+
+
+<template name="goal">
+<a class="ui card" href="#">
+  {{title}}
+</a>
+</template>
