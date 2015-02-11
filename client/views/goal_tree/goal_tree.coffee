@@ -12,3 +12,15 @@ Template.goal_tree.events
 Template.registerHelper "isParent", (parentContext) -> this._id == parentContext?.parent?._id
 Template.registerHelper "isContext", (parentContext) -> this._id == parentContext.goal._id
 Template.registerHelper "isParentOrContext", (parentContext) -> this._id == parentContext.goal._id || this._id == parentContext?.parent?._id
+
+
+recursiveRemove = (_id) ->
+  goal = Goals.find _id
+  subgoals = Goals.find {parent: _id}
+  (recursiveRemove g._id  for g in subgoals)
+  Goals.remove _id
+
+
+Template.goal_row.events
+
+  'click .goal-remove-button': -> recursiveRemove this._id
