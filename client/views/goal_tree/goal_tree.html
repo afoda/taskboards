@@ -1,0 +1,73 @@
+<template name="goal_tree">
+
+<div class="fourteen wide column">
+  <div class="ui breadcrumb">
+    <a class="section" href="/"><i class="icon home"></i></a>
+    <i class="right chevron icon divider"></i>
+  {{#each breadcrumb}}
+    {{> breadcrumb_entry}}
+  {{/each}}
+  </div>
+</div>
+
+
+<div class="fourteen wide column">
+
+  <div class="goal_column">
+    {{#if parent}}
+      {{#with parent}}
+        {{> goal_row}}
+      {{/with}}
+    {{/if}}
+  </div>
+
+  <div class="goal_column">
+    {{#if parent}}
+      {{#each parent.subGoals}}
+        {{> goal_row}}
+      {{/each}}
+    {{else}}
+      {{#with goal}}
+        {{> goal_row}}
+      {{/with}}
+    {{/if}}
+  </div>
+
+  <div class="goal_column">
+
+    <div class="goal_column_entry">
+      <div class="ui fluid action input">
+        <input type="text" placeholder="New Subgoal" id="new-subgoal-title">
+        <div id="add-subgoal-button" class="ui teal icon button">
+          <i class="icon plus"></i>
+        </div>
+      </div>
+    </div>
+
+    {{#each goal.subGoals}}
+      {{> goal_row}}
+    {{/each}}
+
+  </div>
+</div>
+
+</template>
+
+
+<template name="goal_row">
+<div class="goal_column_entry {{#if isParentOrContext ..}}goal_column_entry_active arrow_box{{/if}}">
+  {{#linkTo route='goal' _id=_id}}
+    {{title}}
+  {{/linkTo}}
+</div>
+</template>
+
+
+<template name="breadcrumb_entry">
+{{#if isContext ..}}
+<div class="active section">{{title}}</div>
+{{else}}
+  <a class="section" href="{{pathFor route='goal' _id=_id}}">{{title}}</a>
+  <i class="right chevron icon divider"></i>
+{{/if}}
+</template>

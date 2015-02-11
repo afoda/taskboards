@@ -1,0 +1,35 @@
+.goal_column_wrapper {
+  height: 80%;
+}
+
+.goal_column {
+  box-sizing: border-box;
+  float: left;
+  width: 33%;
+  height: 100%;
+  min-height: 1px;
+  margin-left: -1px;
+}
+
+.goal_column:first-child {
+  margin-left: 2px;
+}
+
+.goal_column_entry {
+  border-top: 1px solid #CCC;
+  border-left: 1px solid #CCC;
+  border-right: 1px solid #CCC;
+  padding: 1.2em;
+}
+
+.goal_column_entry:last-child {
+  border-bottom: 1px solid #CCC;
+}
+
+.goal_column_entry_active {
+  padding-top: 4em;
+  padding-bottom: 4em;
+  font-size: 1.2em;
+  font-weight: 600;
+  background: #EEE;
+}
