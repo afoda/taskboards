@@ -23,5 +23,9 @@ recursiveRemove = (_id) ->
 
 Template.goal_row.events
 
-  'click .goal-remove-button': -> recursiveRemove this._id
-  'click .goal-complete-box': -> Goals.update this._id, $set: complete: !this.complete
+  'click .goal-remove-button': (event) ->
+    event.preventDefault()
+    recursiveRemove this._id
+  'click .goal-complete-box': (event) ->
+    event.preventDefault()
+    Goals.update this._id, $set: complete: !this.complete

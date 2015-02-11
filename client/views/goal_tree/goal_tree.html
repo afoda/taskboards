@@ -55,18 +55,18 @@
 
 
 <template name="goal_row">
-<div class="goal_column_entry {{#if isParentOrContext ..}}goal_column_entry_active arrow_box{{/if}}">
-  {{#linkTo route='goal' _id=_id}}
+<a href="{{pathFor route='goal' _id=_id}}">
+  <div class="goal_column_entry {{#if isParentOrContext ..}}goal_column_entry_active arrow_box{{/if}}">
     {{title}}
-  {{/linkTo}}
-  <div class="goal-remove-button">
-    <i class="remove icon"></i>
+    <div class="goal-remove-button">
+      <i class="remove icon"></i>
+    </div>
+    <div class="ui fitted checkbox goal-complete-box">
+      <input type="checkbox" checked={{complete}}>
+      <label></label>
+    </div>
   </div>
-  <div class="ui fitted checkbox goal-complete-box">
-    <input type="checkbox" checked={{complete}}>
-    <label></label>
-  </div>
-</div>
+</a>
 </template>
 
 

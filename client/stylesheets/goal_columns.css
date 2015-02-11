@@ -16,14 +16,9 @@
 }
 
 .goal_column_entry {
-  border-top: 1px solid #CCC;
-  border-left: 1px solid #CCC;
-  border-right: 1px solid #CCC;
+  border: 1px solid #CCC;
+  margin-top: -1px;
   padding: 1.2em;
-}
-
-.goal_column_entry:last-child {
-  border-bottom: 1px solid #CCC;
 }
 
 .goal_column_entry_active {
