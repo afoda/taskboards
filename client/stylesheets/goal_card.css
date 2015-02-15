@@ -1,0 +1,29 @@
+.goal-card {
+  transition: all 0.4s !important;
+}
+
+.goal-card.complete {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+.ui.table.goal-card-checklist, .ui.table.goal-card-checklist tr, .ui.table.goal-card-checklist td {
+  border: 0;
+}
+
+.ui.table.goal-card-checklist tr.complete td a {
+  color: #ddd;
+  text-decoration: line-through;
+}
+
+.new-subgoal-box {
+  margin-bottom: 0.75em;
+}
+
+.goal-card a {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.goal-card a:hover {
+  color: #009fda;
+}

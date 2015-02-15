@@ -12,61 +12,39 @@
 
 
 <div class="fourteen wide column">
+  <a href="{{pathFor route='goal' _id=context._id}}">
+    <h1 class="ui center aligned header">
+      {{context.title}}
+    </h1>
+  </a>
+</div>
 
-  <div class="goal_column">
-    {{#if parent}}
-      {{#with parent}}
-        {{> goal_row}}
-      {{/with}}
-    {{/if}}
-  </div>
 
-  <div class="goal_column">
-    {{#if parent}}
-      {{#each parent.subGoals}}
-        {{> goal_row}}
-      {{/each}}
-    {{else}}
-      {{#with goal}}
-        {{> goal_row}}
-      {{/with}}
-    {{/if}}
-  </div>
-
-  <div class="goal_column">
-
-    <div class="goal_column_entry">
-      <div class="ui fluid action input">
-        <input type="text" placeholder="New Subgoal" id="new-subgoal-title">
-        <div id="add-subgoal-button" class="ui teal icon button">
-          <i class="icon plus"></i>
-        </div>
-      </div>
+<div class="twelve wide column">
+  <div class="ui large fluid action input">
+    <input type="text" placeholder="Subgoal title" id="new-goal-title">
+    <div id="add-goal-button" class="ui teal labeled icon button">
+      <i class="icon plus"></i>
+      Add
     </div>
-
-    {{#each goal.subGoals}}
-      {{> goal_row}}
-    {{/each}}
-
   </div>
 </div>
 
-</template>
 
-
-<template name="goal_row">
-<a href="{{pathFor route='goal' _id=_id}}">
-  <div class="goal_column_entry {{#if isParentOrContext ..}}goal_column_entry_active arrow_box{{/if}}">
-    {{title}}
-    <div class="goal-remove-button">
-      <i class="remove icon"></i>
-    </div>
-    <div class="ui fitted checkbox goal-complete-box">
-      <input type="checkbox" checked={{complete}}>
-      <label></label>
-    </div>
+<div class="twelve wide column">
+  <div class="ui two cards">
+    {{#each goal.subGoals}}
+      {{> goal_card}}
+    {{/each}}
   </div>
-</a>
+</div>
+
+<div class="goal-card">
+  <div class="extra content">
+    Testing!
+  </div>
+</div>
+
 </template>
 
 

@@ -1,0 +1,56 @@
+<template name="goal_card">
+<div class="ui card goal-card {{#if complete}}complete{{/if}}">
+  <div class="content">
+
+    <div class="header">
+      <a href="{{pathFor route='goal' _id=_id}}">
+        {{title}}
+      </a>
+    </div>
+
+    <table class="ui table goal-card-checklist">
+    {{#each subgoals}}
+      <tr class="{{#if complete}}complete{{/if}}">
+        <td class="collapsing">
+          <div class="ui fitted checkbox subgoal-complete-box">
+            <input type="checkbox" checked={{complete}}>
+            <label></label>
+          </div>
+        </td>
+        <td>
+          <a href="{{pathFor route='goal' _id=_id}}">
+            {{title}}
+          </a>
+        </td>
+      </tr>
+    {{/each}}
+    </table>
+
+  </div>
+
+  <div class="extra content">
+
+    <div class="ui left floated fluid action input new-subgoal-box">
+      <input type="text" placeholder="New Subgoal" id="new-subgoal-title">
+      <div id="add-subgoal-button" class="ui teal icon button">
+        <i class="icon plus"></i>
+      </div>
+    </div>
+
+    <div class="ui left floated teal icon button goal-remove-button">
+      <i class="remove icon"></i>
+    </div>
+
+    <div class="ui right floated right labeled teal icon button goal-complete-button">
+      Complete
+      {{#if complete}}
+        <i class="check circle outline icon"></i>
+      {{else}}
+        <i class="radio icon"></i>
+      {{/if}}
+    </div>
+
+  </div>
+
+</div>
+</template>

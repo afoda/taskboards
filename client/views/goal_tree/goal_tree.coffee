@@ -1,31 +1,21 @@
 Template.goal_tree.events
 
-  'click #add-subgoal-button, keypress #new-subgoal-title': (event, template) ->
+  'click #add-goal-button, keypress #new-goal-title': (event, template) ->
     if event.type == "click" || event.type == "keypress" && event.which == 13
-      titleInput = template.find "#new-subgoal-title"
+      titleInput = template.find "#new-goal-title"
       Goals.insert
         title: titleInput.value
         parent: this.goal._id
       titleInput.value = ""
 
 
-Template.registerHelper "isParent", (parentContext) -> this._id == parentContext?.parent?._id
 Template.registerHelper "isContext", (parentContext) -> this._id == parentContext.goal._id
-Template.registerHelper "isParentOrContext", (parentContext) -> this._id == parentContext.goal._id || this._id == parentContext?.parent?._id
 
 
-recursiveRemove = (_id) ->
-  goal = Goals.find _id
-  subgoals = Goals.find {parent: _id}
-  (recursiveRemove g._id  for g in subgoals)
-  Goals.remove _id
+Template.goal_tree.helpers
 
+  chainLengthGte: (n) -> this.breadcrumb.length >= n
 
-Template.goal_row.events
-
-  'click .goal-remove-button': (event) ->
-    event.preventDefault()
-    recursiveRemove this._id
-  'click .goal-complete-box': (event) ->
-    event.preventDefault()
-    Goals.update this._id, $set: complete: !this.complete
+  toplevel: -> if this.breadcrumb.length >= 3 then this.breadcrumb[0] else null
+  parent: -> if this.breadcrumb.length >= 2 then this.breadcrumb[this.breadcrumb.length - 2] else null
+  context: -> this.breadcrumb[this.breadcrumb.length - 1]
