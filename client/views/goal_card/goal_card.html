@@ -10,19 +10,7 @@
 
     <table class="ui table goal-card-checklist">
     {{#each subgoals}}
-      <tr class="{{#if complete}}complete{{/if}}">
-        <td class="collapsing">
-          <div class="ui fitted checkbox subgoal-complete-box">
-            <input type="checkbox" checked={{complete}}>
-            <label></label>
-          </div>
-        </td>
-        <td>
-          <a href="{{pathFor route='goal' _id=_id}}">
-            {{title}}
-          </a>
-        </td>
-      </tr>
+      {{> subgoal_row}}
     {{/each}}
     </table>
 
@@ -53,4 +41,21 @@
   </div>
 
 </div>
+</template>
+
+
+<template name="subgoal_row">
+  <tr class="{{#if complete}}complete{{/if}}">
+    <td class="collapsing">
+      <div class="ui fitted checkbox subgoal-complete-box">
+        <input type="checkbox" checked={{complete}}>
+        <label></label>
+      </div>
+    </td>
+    <td>
+      <a href="{{pathFor route='goal' _id=_id}}">
+        {{title}}
+      </a>
+    </td>
+  </tr>
 </template>
