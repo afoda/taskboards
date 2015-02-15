@@ -14,16 +14,9 @@
 <div class="twelve wide column">
   <div class="ui two cards">
     {{#each goals}}
-      {{> goal}}
+      {{> goal_card}}
     {{/each}}
   </div>
 </div>
 
-</template>
-
-
-<template name="goal">
-<a class="ui card" href="{{pathFor route='goal' _id=_id}}">
-  {{title}}
-</a>
 </template>
