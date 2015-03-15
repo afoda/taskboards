@@ -1,4 +1,5 @@
 // goal: {
+//   title: string
 //   complete: bool
 //   parent: id
 //   (archived): bool
