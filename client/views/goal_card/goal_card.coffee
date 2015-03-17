@@ -7,7 +7,8 @@ recursiveRemove = (_id) ->
 Template.goal_card.events
 
   'click .goal-remove-button': ->
-    recursiveRemove this._id
+    if confirm 'Are you sure you want to delete this goal?'
+      recursiveRemove this._id
 
   'click .subgoal-complete-box': ->
     Goals.update this._id, $set: complete: !this.complete
