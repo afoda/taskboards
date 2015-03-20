@@ -8,36 +8,34 @@
       </a>
     </div>
 
+    <div class="meta">
+      <i class="remove circle icon action-icons goal-remove-button link"></i>
+      <i class="edit icon action-icons goal-card-edit-button link"></i>
+    </div>
     <table class="ui table goal-card-checklist">
     {{#each subgoals}}
       {{> subgoal_row}}
     {{/each}}
     </table>
 
-  </div>
-
-  <div class="extra content">
-
-    <div class="ui left floated fluid action input new-subgoal-box">
+    {{#if editing}}
+    <div class="ui fluid action input new-subgoal-box">
       <input type="text" placeholder="New Subgoal" id="new-subgoal-title">
       <div id="add-subgoal-button" class="ui teal icon button">
         <i class="icon plus"></i>
       </div>
     </div>
+    {{/if}}
 
-    <div class="ui left floated teal icon button goal-remove-button">
-      <i class="remove icon"></i>
-    </div>
+  </div>
 
-    <div class="ui right floated right labeled teal icon button goal-complete-button">
-      Complete
-      {{#if complete}}
-        <i class="check circle outline icon"></i>
-      {{else}}
-        <i class="radio icon"></i>
-      {{/if}}
-    </div>
-
+  <div class="ui bottom attached button goal-complete-button">
+    {{#if complete}}
+      <i class="check circle outline icon"></i>
+    {{else}}
+      <i class="radio icon"></i>
+    {{/if}}
+    Complete
   </div>
 
 </div>
