@@ -4,6 +4,9 @@
 
 .goal-card.complete {
   opacity: 0.5;
+}
+
+.goal-card.complete .header {
   text-decoration: line-through;
 }
 
