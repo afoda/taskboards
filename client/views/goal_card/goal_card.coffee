@@ -40,3 +40,7 @@ Template.goal_card.helpers
 
   subgoals: -> Goals.find {parent: this._id}
   editing: -> this._id == Session.get 'EditingCard'
+
+
+Template.new_subgoal_box.rendered = ->
+  $(@find 'input').focus()

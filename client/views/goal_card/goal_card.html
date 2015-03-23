@@ -19,12 +19,7 @@
     </table>
 
     {{#if editing}}
-    <div class="ui fluid action input new-subgoal-box">
-      <input type="text" placeholder="New Subgoal" id="new-subgoal-title">
-      <div id="add-subgoal-button" class="ui teal icon button">
-        <i class="icon plus"></i>
-      </div>
-    </div>
+      {{> new_subgoal_box}}
     {{/if}}
 
   </div>
@@ -56,4 +51,14 @@
       </a>
     </td>
   </tr>
+</template>
+
+
+<template name="new_subgoal_box">
+<div class="ui fluid action input new-subgoal-box">
+  <input type="text" placeholder="New Subgoal" id="new-subgoal-title">
+  <div id="add-subgoal-button" class="ui teal icon button">
+    <i class="icon plus"></i>
+  </div>
+</div>
 </template>
