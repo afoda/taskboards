@@ -3,6 +3,11 @@ recursiveRemove = (_id) ->
   (recursiveRemove g._id for g in subgoals)
   Goals.remove _id
 
+toggleEditingCard = (_id, template) ->
+  if _id == Session.get 'EditingCard'
+    Session.set 'EditingCard', null
+  else
+    Session.set 'EditingCard', _id
 
 Template.goal_card.events
 
@@ -16,11 +21,11 @@ Template.goal_card.events
   'click .goal-complete-button': ->
     Goals.update this._id, $set: complete: !this.complete
 
-  'click .goal-card-edit-button': (event) ->
-    if this._id == Session.get 'EditingCard'
-      Session.set 'EditingCard', null
-    else
-      Session.set 'EditingCard', this._id
+  'click .goal-card-edit-button': (event, template) ->
+    toggleEditingCard this._id
+
+  'dblclick .goal-card': (event, template) ->
+    toggleEditingCard this._id
 
   'click #add-subgoal-button, keypress #new-subgoal-title': (event, template) ->
     if event.type == "click" || event.type == "keypress" && event.which == 13
