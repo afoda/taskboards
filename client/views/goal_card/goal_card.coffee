@@ -21,6 +21,9 @@ Template.goal_card.events
   'click .goal-complete-button': ->
     Goals.update this._id, $set: complete: !this.complete
 
+  'click .goal-card-active-toggle': ->
+    share.toggleActiveGoal this._id
+
   'click .goal-card-edit-button': (event, template) ->
     toggleEditingCard this._id
 
