@@ -27,6 +27,11 @@ Template.goal_card.events
   'click .goal-card-edit-button': (event, template) ->
     Session.set 'EditingCard', this._id
 
+  'click .goal-card-edit-title-button': ->
+    newTitle = prompt 'Enter goal title', this.title
+    if newTitle?
+      Goals.update this._id, $set: title: newTitle
+
   'dblclick .goal-card': (event, template) ->
     toggleEditingCard this._id
 
