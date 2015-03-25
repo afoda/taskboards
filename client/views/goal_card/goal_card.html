@@ -1,5 +1,5 @@
 <template name="goal_card">
-<div class="ui card goal-card {{#if complete}}complete{{/if}}">
+<div id="{{_id}}" class="ui card goal-card {{#if complete}}complete{{/if}}">
   <div class="content">
 
     <div class="ui right floated simple dropdown">
@@ -68,7 +68,7 @@
       </div>
     </td>
     <td>
-      <a href="{{pathFor route='goal' _id=_id}}">
+      <a href="{{pathFor route='goal' _id=../_id hash=_id}}">
         {{title}}
       </a>
     </td>
