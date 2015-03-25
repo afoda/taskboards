@@ -16,10 +16,10 @@ Template.goal_card.events
       recursiveRemove this._id
 
   'click .subgoal-complete-box': ->
-    Goals.update this._id, $set: complete: !this.complete
+    share.toggleGoalComplete this._id
 
   'click .goal-complete-button': ->
-    Goals.update this._id, $set: complete: !this.complete
+    share.toggleGoalComplete this._id
 
   'click .goal-card-active-toggle': ->
     share.toggleActiveGoal this._id
