@@ -1,3 +1,6 @@
+share.activeGoalId = ->
+  Session.get 'ActiveGoal'
+
 share.toggleActiveGoal = (_id) ->
   if Session.equals 'ActiveGoal', _id
     Session.clear 'ActiveGoal'

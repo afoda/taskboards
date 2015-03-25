@@ -2,17 +2,34 @@
 <div class="ui card goal-card {{#if complete}}complete{{/if}}">
   <div class="content">
 
+    <div class="ui right floated simple dropdown">
+      <i class="ellipsis vertical icon"></i>
+      <div class="menu">
+        <div class="item goal-card-active-toggle">
+          <i class="wait icon"></i>
+          {{#if isActive}}
+          Deactivate
+          {{else}}
+          Activate
+          {{/if}}
+        </div>
+        <div class="item goal-card-edit-button">
+          <i class="add icon"></i>
+          Add Subgoals
+        </div>
+        <div class="item goal-remove-button">
+          <i class="remove icon"></i>
+          Delete
+        </div>
+      </div>
+    </div>
+
     <div class="header">
       <a href="{{pathFor route='goal' _id=_id}}">
         {{title}}
       </a>
     </div>
 
-    <div class="meta">
-      <i class="remove circle icon action-icons goal-remove-button link"></i>
-      <i class="edit icon action-icons goal-card-edit-button link"></i>
-      <i class="wait icon action-icons goal-card-active-toggle link"></i>
-    </div>
     <table class="ui table goal-card-checklist">
     {{#each subgoals}}
       {{> subgoal_row}}

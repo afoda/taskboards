@@ -25,7 +25,7 @@ Template.goal_card.events
     share.toggleActiveGoal this._id
 
   'click .goal-card-edit-button': (event, template) ->
-    toggleEditingCard this._id
+    Session.set 'EditingCard', this._id
 
   'dblclick .goal-card': (event, template) ->
     toggleEditingCard this._id
@@ -43,6 +43,7 @@ Template.goal_card.helpers
 
   subgoals: -> Goals.find {parent: this._id}
   editing: -> this._id == Session.get 'EditingCard'
+  isActive: -> this._id == share.activeGoalId()
 
 
 Template.new_subgoal_box.rendered = ->
