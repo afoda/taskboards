@@ -19,10 +19,6 @@
   text-decoration: line-through;
 }
 
-.new-subgoal-box {
-  margin-bottom: 0.75em;
-}
-
 .goal-card a {
   color: rgba(0, 0, 0, 0.8);
 }

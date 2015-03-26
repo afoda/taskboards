@@ -1,7 +1,7 @@
 <template name="base_layout">
 
-<nav class="ui fixed menu">
-  <a class="item" href="/"> Home </a>
+<nav class="ui purple inverted fixed menu">
+  <a class="item" href="/"> <i class="home icon"></i> Home </a>
   {{#if activeGoal}}
     <a class="active-goal item" href="{{pathFor route='goal' _id=activeGoal._id}}"> {{activeGoal.title}} </a>
   {{else}}
