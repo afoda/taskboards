@@ -2,6 +2,11 @@
 
 <nav class="ui fixed menu">
   <a class="item" href="/"> Home </a>
+  {{#if activeGoal}}
+    <a class="active-goal item" href="{{pathFor route='goal' _id=activeGoal._id}}"> {{activeGoal.title}} </a>
+  {{else}}
+    <a class="active-goal item">No active goal</a>
+  {{/if}}
 </nav>
 
 <main class="ui centered vertically padded page grid">
