@@ -2,10 +2,18 @@
 <div id="{{_id}}" class="ui card goal-card {{#if complete}}complete{{/if}}">
   <div class="content">
 
+    {{#if complete}}
+      <i class="right floated green check circle outline link icon goal-complete-button"></i>
+    {{/if}}
+
+    {{#unless complete}}
     <div class="ui right floated simple dropdown">
-      <i class="ellipsis vertical icon"></i>
+      <i class="vertical ellipsis icon"></i>
       <div class="menu">
-        {{#unless complete}}
+        <div class="item goal-complete-button">
+        <i class="radio icon"></i>
+        Complete
+        </div>
         <div class="item goal-card-active-toggle">
           <i class="wait icon"></i>
           {{#if isActive}}
@@ -14,22 +22,10 @@
           Activate
           {{/if}}
         </div>
-        {{/unless}}
-        <div class="item goal-complete-button">
-        {{#if complete}}
-          <i class="radio icon"></i>
-          Incomplete
-        {{else}}
-          <i class="check circle outline icon"></i>
-          Complete
-        {{/if}}
-        </div>
-        {{#unless complete}}
         <div class="item goal-card-edit-button">
           <i class="add icon"></i>
           Add Subgoals
         </div>
-        {{/unless}}
         <div class="item goal-card-edit-title-button">
           <i class="edit icon"></i>
           Edit Title
@@ -40,6 +36,7 @@
         </div>
       </div>
     </div>
+    {{/unless}}
 
     <div class="header">
       <a href="{{pathFor route='goal' _id=_id}}">
