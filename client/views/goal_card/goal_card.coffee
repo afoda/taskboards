@@ -20,6 +20,8 @@ Template.goal_card.events
 
   'click .goal-card-edit-button': (event, template) ->
     share.setEditingCard this._id
+    if template.find('input')
+      template.find('input').focus()
 
   'click .goal-card-edit-title-button': ->
     newTitle = prompt 'Enter goal title', this.title
@@ -28,6 +30,8 @@ Template.goal_card.events
 
   'dblclick .goal-card': (event, template) ->
     share.setEditingCard this._id
+    if template.find('input')
+      template.find('input').focus()
 
   'click #add-subgoal-button, keypress #new-subgoal-title': (event, template) ->
     if event.type == "click" || event.type == "keypress" && event.which == 13
