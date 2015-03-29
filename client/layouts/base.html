@@ -2,6 +2,12 @@
 
 <nav class="ui purple inverted fixed menu">
   <a class="item" href="/"> <i class="home icon"></i> Home </a>
+  {{#if parent}}
+  <a class="item pop-stack-link" href="{{pathFor route='goal' _id=parent._id hash=goal._id}}">
+    <i class="ui chevron up icon"></i>
+    {{parent.title}}
+  </a>
+  {{/if}}
   {{#if activeGoal}}
     <a class="active-goal item" href="{{pathFor route='goal' _id=activeGoal._id}}"> {{activeGoal.title}} </a>
   {{else}}
