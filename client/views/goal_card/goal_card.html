@@ -63,10 +63,31 @@
 <template name="subgoal_row">
   <tr class="{{#if complete}}complete{{/if}}">
     <td class="collapsing">
-      <div class="ui fitted checkbox subgoal-complete-box">
-        <input type="checkbox" checked={{complete}}>
-        <label></label>
+    {{#if complete}}
+      <i class="right floated check circle link icon goal-complete-button"></i>
+    {{else}}
+      <div class="ui right floated simple right dropdown">
+        <i class="circle thin icon goal-complete-button"></i>
+        <div class="right menu">
+          <div class="item goal-card-active-toggle">
+            <i class="wait icon"></i>
+            {{#if isActive}}
+            Deactivate
+            {{else}}
+            Activate
+            {{/if}}
+          </div>
+          <div class="item goal-card-edit-title-button">
+            <i class="edit icon"></i>
+            Edit
+          </div>
+          <div class="item goal-remove-button">
+            <i class="remove icon"></i>
+            Delete
+          </div>
+        </div>
       </div>
+    {{/if}}
     </td>
     <td>
       <a href="{{pathFor route='goal' _id=../_id hash=_id}}">

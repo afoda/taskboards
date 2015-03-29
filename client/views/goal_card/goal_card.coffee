@@ -51,3 +51,7 @@ Template.goal_card.helpers
 
 Template.new_subgoal_box.rendered = ->
   $(@find 'input').focus()
+
+
+Template.subgoal_row.helpers
+  isActive: -> this._id == share.activeGoalId()
