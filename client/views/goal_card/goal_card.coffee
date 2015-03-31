@@ -36,9 +36,7 @@ Template.goal_card.events
   'click #add-subgoal-button, keypress #new-subgoal-title': (event, template) ->
     if event.type == "click" || event.type == "keypress" && event.which == 13
       titleInput = template.find "input#new-subgoal-title"
-      Goals.insert
-        title: titleInput.value
-        parent: this._id
+      share.createGoal titleInput.value, this._id
       titleInput.value = ""
 
 
