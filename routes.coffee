@@ -1,5 +1,5 @@
 Router.route '/', ->
-  topLevelGoals = Goals.find({parent: {$exists: false}})
+  topLevelGoals = Goals.find $or: [{parent: {$exists: false}}, {parent: null}]
   this.layout 'base_layout'
   this.render 'goal_list', data: {goals: topLevelGoals}
 
