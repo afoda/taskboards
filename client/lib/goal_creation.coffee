@@ -3,3 +3,4 @@ share.createGoal = (title, parentId) ->
     title: title
     createdAt: new Date()
     parent: parentId
+    userId: Meteor.userId()

@@ -12,3 +12,5 @@ iron:router
 manuel:viewmodel
 nooitaf:semantic-ui
 u2622:persistent-session
+accounts-password
+accounts-ui
