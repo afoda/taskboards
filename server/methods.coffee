@@ -11,6 +11,8 @@ validateGoalAccess = (id) ->
 Meteor.methods
   createGoal: (title, parentId) ->
     validateHasUserId()
+    check(title, String)
+    check(parentId, Match.Optional(String))
     Goals.insert
       title: title
       createdAt: new Date()
@@ -19,13 +21,17 @@ Meteor.methods
 
   deleteGoal: (id) ->
     validateGoalAccess id
+    check(id, String)
     Goals.remove id
 
   toggleGoalComplete: (id) ->
     validateGoalAccess id
+    check(id, String)
     goal = Goals.findOne(id)
     Goals.update id, $set: complete: !goal.complete
 
   setGoalTitle: (id, title) ->
     validateGoalAccess id
+    check(id, String)
+    check(title, String)
     Goals.update id, $set: title: title
