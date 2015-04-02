@@ -33,6 +33,9 @@ Template.goal_card.events
     if template.find('input')
       template.find('input').focus()
 
+  'dblclick .ui.dropdown': (event) ->
+    event.stopPropagation()
+
   'click #add-subgoal-button, keypress #new-subgoal-title': (event, template) ->
     if event.type == "click" || event.type == "keypress" && event.which == 13
       titleInput = template.find "input#new-subgoal-title"
