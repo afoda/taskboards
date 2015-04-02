@@ -3,6 +3,7 @@
 //   complete: bool
 //   parent: id
 //   createdAt: date
+//   userId: string
 //   (archived): bool
 //   (active): bool
 //   (time_intervals): [[date, date]]

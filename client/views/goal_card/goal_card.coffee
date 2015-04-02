@@ -1,7 +1,7 @@
 recursiveRemove = (_id) ->
   subgoals = Goals.find {parent: _id}
   (recursiveRemove g._id for g in subgoals)
-  Goals.remove _id
+  Meteor.call "deleteGoal", _id
 
 Template.goal_card.events
 
@@ -26,7 +26,7 @@ Template.goal_card.events
   'click .goal-card-edit-title-button': ->
     newTitle = prompt 'Enter goal title', this.title
     if newTitle?
-      Goals.update this._id, $set: title: newTitle
+      Meteor.call "setGoalTitle", this._id, newTitle
 
   'dblclick .goal-card': (event, template) ->
     share.setEditingCard this._id
@@ -39,7 +39,7 @@ Template.goal_card.events
   'click #add-subgoal-button, keypress #new-subgoal-title': (event, template) ->
     if event.type == "click" || event.type == "keypress" && event.which == 13
       titleInput = template.find "input#new-subgoal-title"
-      share.createGoal titleInput.value, this._id
+      Meteor.call "createGoal", titleInput.value, this._id
       titleInput.value = ""
 
 

@@ -5,10 +5,10 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
 coffeescript
 iron:router
 manuel:viewmodel
-nooitaf:semantic-ui
 u2622:persistent-session
+accounts-password
+accounts-ui
+semantic:ui-css
