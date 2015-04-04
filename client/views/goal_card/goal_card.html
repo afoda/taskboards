@@ -1,5 +1,5 @@
 <template name="goal_card">
-<div id="{{_id}}" class="ui card goal-card {{#if complete}}complete{{/if}}">
+<div id="{{_id}}" class="ui card goal-card {{#if complete}}complete{{/if}} {{#if isActive}}active-goal{{/if}}">
   <div class="content">
 
     {{#if complete}}
