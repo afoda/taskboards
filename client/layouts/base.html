@@ -8,14 +8,18 @@
     {{parent.title}}
   </a>
   {{/if}}
-  {{#if activeGoal}}
-    <a class="active-goal item" href="{{pathFor route='goal' _id=activeGoal._id}}"> {{activeGoal.title}} </a>
-  {{else}}
-    <a class="active-goal item">No active goal</a>
-  {{/if}}
 
   <div class="right item">
     {{> loginButtons align="right"}}
+  </div>
+
+  <div id="active-goal-box" class="{{#if noActiveGoal}}no-active-goal{{/if}} right item">
+  {{#if activeGoal}}
+  <i class="wait icon"></i>
+  <a href="{{pathFor route='goal' _id=activeGoal._id}}"> {{activeGoal.title}} </a>
+  {{else}}
+  No active goal
+  {{/if}}
   </div>
 </nav>
 
