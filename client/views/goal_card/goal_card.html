@@ -24,6 +24,15 @@
           <i class="add icon"></i>
           Add Subgoals
         </div>
+        <div class="item goal-card-hide-completed-subgoals-toggle">
+          {{#if hideCompletedSubgoals}}
+          <i class="hide icon"></i>
+          Show Complete
+          {{else}}
+          <i class="unhide icon"></i>
+          Hide Complete
+          {{/if}}
+        </div>
         <div class="item goal-card-edit-title-button">
           <i class="edit icon"></i>
           Edit Title
@@ -44,7 +53,9 @@
 
     <table class="ui table goal-card-checklist">
     {{#each subgoals}}
-      {{> subgoal_row}}
+      {{#if displayGoal complete}}
+        {{> subgoal_row}}
+      {{/if}}
     {{/each}}
     </table>
 

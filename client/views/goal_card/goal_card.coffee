@@ -28,6 +28,9 @@ Template.goal_card.events
     if newTitle?
       Meteor.call "setGoalTitle", this._id, newTitle
 
+  'click .goal-card-hide-completed-subgoals-toggle': ->
+    Meteor.call "toggleHideCompletedSubgoals", this._id
+
   'dblclick .goal-card': (event, template) ->
     if not this.complete
       share.setEditingCard this._id
@@ -49,6 +52,9 @@ Template.goal_card.helpers
   subgoals: -> Goals.find {parent: this._id}
   editing: -> this._id == Session.get 'EditingCard'
   isActive: -> this._id == share.activeGoalId()
+  displayGoal: (complete) ->
+    hideCompleted = Template.parentData(1).hideCompletedSubgoals
+    not hideCompleted || not complete
 
 
 Template.new_subgoal_box.rendered = ->

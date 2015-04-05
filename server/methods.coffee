@@ -35,3 +35,9 @@ Meteor.methods
     check(id, String)
     check(title, String)
     Goals.update id, $set: title: title
+
+  toggleHideCompletedSubgoals: (id) ->
+    validateGoalAccess id
+    check(id, String)
+    goal = Goals.findOne(id)
+    Goals.update id, $set: hideCompletedSubgoals: !goal.hideCompletedSubgoals
