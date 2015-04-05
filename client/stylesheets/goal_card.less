@@ -1,6 +1,8 @@
 @red: #D95C5C;
+@green: #5BBD72;
 
 @active-goal-color: @red;
+@completed-goal-color: @green;
 
 .subgoal-row.active-goal {
   color: @active-goal-color;
@@ -26,10 +28,12 @@
   }
 }
 
-.goal-card.complete {
+.ui.card.goal-card.complete {
   opacity: 0.5;
+  box-shadow: 0px 3px 0px 0px @completed-goal-color, 0px 0px 0px 1px @completed-goal-color;
 
-  .header {
+  .header a {
+    color: @completed-goal-color;
     text-decoration: line-through;
   }
 }
@@ -38,7 +42,12 @@
   border: 0;
 }
 
-.ui.table.goal-card-checklist tr.complete td a {
-  color: #ddd;
-  text-decoration: line-through;
+.ui.table.goal-card-checklist tr.complete td {
+  opacity: 0.5;
+  a {
+    text-decoration: line-through;
+  }
+  a, i {
+    color: @completed-goal-color;
+  }
 }
