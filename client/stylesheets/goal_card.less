@@ -15,3 +15,30 @@
     color: @active-goal-color;
   }
 }
+
+.goal-card {
+  transition: all 0.4s !important;
+  a {
+    color: rgba(0, 0, 0, 0.8);
+    &:hover {
+      color: #00b2f3;
+    }
+  }
+}
+
+.goal-card.complete {
+  opacity: 0.5;
+
+  .header {
+    text-decoration: line-through;
+  }
+}
+
+.ui.table.goal-card-checklist, .ui.table.goal-card-checklist tr, .ui.table.goal-card-checklist td {
+  border: 0;
+}
+
+.ui.table.goal-card-checklist tr.complete td a {
+  color: #ddd;
+  text-decoration: line-through;
+}
