@@ -4,3 +4,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+#active-goal-box.no-active-goal {
+  color: #AAA;
+  font-style: italic;
+}
