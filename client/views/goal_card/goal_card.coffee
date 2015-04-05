@@ -29,9 +29,10 @@ Template.goal_card.events
       Meteor.call "setGoalTitle", this._id, newTitle
 
   'dblclick .goal-card': (event, template) ->
-    share.setEditingCard this._id
-    if template.find('input')
-      template.find('input').focus()
+    if not this.complete
+      share.setEditingCard this._id
+      if template.find('input')
+        template.find('input').focus()
 
   'dblclick .ui.dropdown': (event) ->
     event.stopPropagation()
