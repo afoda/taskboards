@@ -3,10 +3,8 @@
   <div class="content">
 
     {{#if complete}}
-      <i class="right floated green check circle outline link icon goal-complete-button"></i>
-    {{/if}}
-
-    {{#unless complete}}
+    <i class="right floated green check circle outline link icon goal-complete-button"></i>
+    {{else}}
     <div class="ui right floated simple dropdown">
       <i class="vertical ellipsis icon"></i>
       <div class="menu">
@@ -36,7 +34,7 @@
         </div>
       </div>
     </div>
-    {{/unless}}
+    {{/if}}
 
     <div class="header">
       <a href="{{pathFor route='goal' _id=_id}}">
