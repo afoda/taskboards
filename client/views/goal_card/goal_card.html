@@ -3,13 +3,13 @@
   <div class="content">
 
     {{#if complete}}
-    <i class="right floated green check circle outline link icon goal-complete-button"></i>
+    <i class="right floated green checkmark link icon goal-complete-button"></i>
     {{else}}
     <div class="ui right floated simple dropdown">
       <i class="vertical ellipsis icon"></i>
       <div class="menu">
         <div class="item goal-complete-button">
-          <i class="radio icon"></i>
+          <i class="checkmark icon"></i>
           Complete
         </div>
         <div class="item goal-card-active-toggle">
@@ -73,13 +73,13 @@
   <tr class="subgoal-row {{#if complete}}complete{{/if}} {{#if isActive}}active-goal{{/if}}">
     <td class="collapsing">
     {{#if complete}}
-      <i class="right floated check circle link icon goal-complete-button"></i>
+      <i class="small checkmark link icon goal-complete-button"></i>
     {{else}}
       <div class="ui right floated simple right dropdown">
-        <i class="circle thin icon goal-complete-button"></i>
+        <i class="small radio icon goal-complete-button"></i>
         <div class="right menu">
           <div class="item goal-complete-button">
-            <i class="radio icon"></i>
+            <i class="checkmark icon"></i>
             Complete
           </div>
           <div class="item goal-card-active-toggle">
