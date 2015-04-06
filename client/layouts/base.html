@@ -13,14 +13,16 @@
     {{> loginButtons align="right"}}
   </div>
 
-  <div id="active-goal-box" class="{{#if noActiveGoal}}no-active-goal{{/if}} right item">
   {{#if activeGoal}}
-  <i class="wait icon"></i>
-  <a href="{{pathFor route='goal' _id=activeGoal._id}}"> {{activeGoal.title}} </a>
+  <a class="right item" href="{{pathFor route='goal' _id=activeGoal._id}}">
+    <i class="wait icon"></i>
+    {{activeGoal.title}}
+  </a>
   {{else}}
-  No active goal
-  {{/if}}
+  <div id="no-active-goal-box" class="right item">
+    No active goal
   </div>
+  {{/if}}
 </nav>
 
 <main class="ui centered vertically padded page grid">
