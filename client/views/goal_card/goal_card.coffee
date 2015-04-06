@@ -1,6 +1,6 @@
 recursiveRemove = (_id) ->
   subgoals = Goals.find {parent: _id}
-  (recursiveRemove g._id for g in subgoals)
+  subgoals.forEach (g) -> recursiveRemove g._id
   Meteor.call "deleteGoal", _id
 
 Template.goal_card.events
