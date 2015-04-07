@@ -3,7 +3,7 @@
 <nav class="ui purple inverted fixed menu">
   <a class="item" href="/"> <i class="home icon"></i> Home </a>
   {{#if parent}}
-  <a class="item pop-stack-link" href="{{pathFor route='goal' _id=parent._id hash=goal._id}}">
+  <a class="item pop-stack-link" href="{{pathFor route='goal' _id=parent._id hash=goal._id}}" title="{{parent.title}}">
     <i class="ui chevron up icon"></i>
     {{parent.title}}
   </a>
@@ -14,7 +14,7 @@
   </div>
 
   {{#if activeGoal}}
-  <a id="active-goal-box" class="right item" href="{{pathFor route='goal' _id=activeGoal._id}}">
+  <a id="active-goal-box" class="right item" href="{{pathFor route='goal' _id=activeGoal._id}}" title="{{activeGoal.title}}">
     <i class="wait icon"></i>
     {{activeGoal.title}}
   </a>
