@@ -75,31 +75,35 @@
     {{#if complete}}
       <i class="small checkmark link icon goal-complete-button"></i>
     {{else}}
-      <div class="ui right floated simple right dropdown">
-        <i class="small radio icon goal-complete-button"></i>
-        <div class="right menu">
-          <div class="item goal-complete-button">
-            <i class="checkmark icon"></i>
-            Complete
-          </div>
-          <div class="item goal-card-active-toggle">
-            <i class="wait icon"></i>
-            {{#if isActive}}
-            Deactivate
-            {{else}}
-            Activate
-            {{/if}}
-          </div>
-          <div class="item goal-card-edit-title-button">
-            <i class="edit icon"></i>
-            Edit
-          </div>
-          <div class="item goal-remove-button">
-            <i class="remove icon"></i>
-            Delete
+      {{#if ../complete}}
+        <i class="small radio link icon goal-complete-button"></i>
+      {{else}}
+        <div class="ui right floated simple right dropdown">
+          <i class="small radio icon goal-complete-button"></i>
+          <div class="right menu">
+            <div class="item goal-complete-button">
+              <i class="checkmark icon"></i>
+              Complete
+            </div>
+            <div class="item goal-card-active-toggle">
+              <i class="wait icon"></i>
+              {{#if isActive}}
+              Deactivate
+              {{else}}
+              Activate
+              {{/if}}
+            </div>
+            <div class="item goal-card-edit-title-button">
+              <i class="edit icon"></i>
+              Edit
+            </div>
+            <div class="item goal-remove-button">
+              <i class="remove icon"></i>
+              Delete
+            </div>
           </div>
         </div>
-      </div>
+      {{/if}}
     {{/if}}
     </td>
     <td>
