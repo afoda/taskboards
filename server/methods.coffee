@@ -20,24 +20,24 @@ Meteor.methods
       userId: Meteor.userId()
 
   deleteGoal: (id) ->
-    validateGoalAccess id
     check(id, String)
+    validateGoalAccess id
     Goals.remove id
 
   toggleGoalComplete: (id) ->
-    validateGoalAccess id
     check(id, String)
+    validateGoalAccess id
     goal = Goals.findOne(id)
     Goals.update id, $set: complete: !goal.complete
 
   setGoalTitle: (id, title) ->
-    validateGoalAccess id
     check(id, String)
     check(title, String)
+    validateGoalAccess id
     Goals.update id, $set: title: title
 
   toggleHideCompletedSubgoals: (id) ->
-    validateGoalAccess id
     check(id, String)
+    validateGoalAccess id
     goal = Goals.findOne(id)
     Goals.update id, $set: hideCompletedSubgoals: !goal.hideCompletedSubgoals
