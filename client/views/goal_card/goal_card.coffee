@@ -63,3 +63,15 @@ Template.new_subgoal_box.rendered = ->
 
 Template.subgoal_row.helpers
   isActive: -> this._id == share.activeGoalId()
+
+Template.subgoal_row.rendered = ->
+  $(@find '.subgoal-title-cell').draggable
+    opacity: 0.7
+    helper: "original"
+    revert: true
+  $(@find '.subgoal-title-cell').droppable
+    hoverClass: "subgoal-drop-hover"
+    drop: (event, ui) ->
+      dragged = ui.draggable.data().goalId
+      dropped = @dataset.goalId
+      Meteor.call "changeParent", dragged, dropped
