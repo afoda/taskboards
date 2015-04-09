@@ -41,3 +41,16 @@ Meteor.methods
     check(id, String)
     goal = Goals.findOne(id)
     Goals.update id, $set: hideCompletedSubgoals: !goal.hideCompletedSubgoals
+
+  changeParent: (id, newParentId) ->
+    check(id, String)
+    check(newParentId, String)
+    validateGoalAccess id
+    validateGoalAccess newParentId
+    # Check that the move doesn't introduce a cycle
+    ancestor = Goals.findOne newParentId
+    throw new Meteor.Error("cycle") if ancestor._id == id
+    while ancestor.parent?
+      ancestor = Goals.findOne ancestor.parent
+      throw new Meteor.Error("cycle") if ancestor._id == id
+    Goals.update id, $set: parent: newParentId
