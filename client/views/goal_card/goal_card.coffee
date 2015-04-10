@@ -63,3 +63,11 @@ Template.new_subgoal_box.rendered = ->
 
 Template.subgoal_row.helpers
   isActive: -> this._id == share.activeGoalId()
+  completedSubgoalCount: ->
+    Goals
+      .find parent: this._id, complete: true
+      .count()
+  subgoalCount: ->
+    Goals
+      .find parent: this._id
+      .count()
