@@ -101,6 +101,13 @@
               <i class="remove icon"></i>
               Delete
             </div>
+            {{#if subgoalCount}}
+            <div class="divider"></div>
+            <a class="item" href="{{pathFor route='goal' _id=../_id hash=_id}}">
+              <i class="zoom in icon"></i>
+              {{completedSubgoalCount}} / {{subgoalCount}}
+            </a>
+            {{/if}}
           </div>
         </div>
       {{/if}}
