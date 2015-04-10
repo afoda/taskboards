@@ -17,6 +17,7 @@ Template.goal_tree.helpers
   toplevel: -> if this.breadcrumb.length >= 3 then this.breadcrumb[0] else null
   parent: -> if this.breadcrumb.length >= 2 then this.breadcrumb[this.breadcrumb.length - 2] else null
   context: -> this.breadcrumb[this.breadcrumb.length - 1]
+  isActive: -> this.goal._id == share.activeGoalId()
 
 
 Template.goal_tree.rendered = ->

@@ -13,7 +13,7 @@
 
 <div class="fourteen wide column">
   <a href="{{pathFor route='goal' _id=context._id}}">
-    <h1 class="ui center aligned header">
+    <h1 id="tree-header" class="ui center aligned header {{#if goal.complete}}complete{{/if}} {{#if isActive}}active-goal{{/if}}">
       {{context.title}}
     </h1>
   </a>
