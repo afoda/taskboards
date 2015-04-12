@@ -19,19 +19,3 @@ Template.goal_tree.helpers
   context: -> this.breadcrumb[this.breadcrumb.length - 1]
   isActive: -> this.goal._id == share.activeGoalId()
 
-
-Template.goal_tree.rendered = ->
-  if window.location.hash.length > 1
-    goalCard = $(window.location.hash)
-    if goalCard.length > 0
-      h = goalCard.height()
-      w = $(window).height()
-      t = goalCard.offset().top
-      m = $(".fixed.menu").height()
-      scrollDist = if h < w then t - m - (w - m - h) / 2 else t - m - 3
-      pulseFun = ->
-        goalCard.transition('pulse')
-      $('html, body')
-        .animate({scrollTop: scrollDist}, 'slow')
-        .promise()
-        .done(-> goalCard.transition('pulse'))
