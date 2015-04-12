@@ -10,7 +10,6 @@ Router.route '/goal/:_id', ->
       data = goal: goal
       if goal.parent?
         data.parent = Goals.findOne {_id: goal.parent}
-      data.goal.subGoals = Goals.find {parent: @params._id}
       data.breadcrumb = [Goals.findOne {_id: @params._id}]
       while data.breadcrumb[0].parent?
         data.breadcrumb.unshift Goals.findOne {_id: data.breadcrumb[0].parent}

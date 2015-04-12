@@ -18,3 +18,8 @@ Template.goal_tree.helpers
   parent: -> if this.breadcrumb.length >= 2 then this.breadcrumb[this.breadcrumb.length - 2] else null
   isActive: -> this.goal._id == share.activeGoalId()
 
+  filteredSubgoals: ->
+    spec = parent: @goal._id
+    if @goal.hideCompletedSubgoals
+      spec.complete = $ne: true
+    Goals.find spec
