@@ -22,8 +22,8 @@
 
 <div class="twelve wide column">
   <div class="ui large fluid action input">
-    <input type="text" placeholder="Subgoal title" id="new-goal-title">
-    <div id="add-goal-button" class="ui large purple labeled icon button">
+    <input disabled={{#if goal.complete}}disabled{{/if}} type="text" placeholder="Subgoal title" id="new-goal-title">
+    <div id="add-goal-button" class="ui large purple {{#if goal.complete}}disabled{{/if}} labeled icon button">
       <i class="icon plus"></i>
       Add
     </div>
