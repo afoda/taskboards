@@ -52,10 +52,8 @@
     </div>
 
     <table class="ui table goal-card-checklist">
-    {{#each subgoals}}
-      {{#if displayGoal complete}}
-        {{> subgoal_row}}
-      {{/if}}
+    {{#each filteredSubgoals}}
+      {{> subgoal_row}}
     {{/each}}
     </table>
 

@@ -49,12 +49,14 @@ Template.goal_card.events
 
 Template.goal_card.helpers
 
-  subgoals: -> Goals.find {parent: this._id}
   editing: -> this._id == Session.get 'EditingCard'
   isActive: -> this._id == share.activeGoalId()
-  displayGoal: (complete) ->
-    hideCompleted = Template.parentData(1).hideCompletedSubgoals
-    not hideCompleted || not complete
+
+  filteredSubgoals: ->
+    spec = parent: @_id
+    if @hideCompletedSubgoals
+      spec.complete = $ne: true
+    Goals.find spec
 
 
 Template.new_subgoal_box.rendered = ->
