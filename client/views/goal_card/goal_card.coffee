@@ -49,7 +49,7 @@ Template.goal_card.events
 
 Template.goal_card.helpers
 
-  subgoals: -> Goals.find {parent: this._id}
+  subgoals: -> Goals.find {parent: this._id}, {sort: {index: 1}}
   editing: -> this._id == Session.get 'EditingCard'
   isActive: -> this._id == share.activeGoalId()
   displayGoal: (complete) ->
@@ -64,14 +64,13 @@ Template.new_subgoal_box.rendered = ->
 Template.subgoal_row.helpers
   isActive: -> this._id == share.activeGoalId()
 
-Template.subgoal_row.rendered = ->
-  $(@find '.subgoal-title-cell').draggable
-    opacity: 0.7
-    helper: "original"
-    revert: true
-  $(@find '.subgoal-title-cell').droppable
-    hoverClass: "subgoal-drop-hover"
-    drop: (event, ui) ->
-      dragged = ui.draggable.data().goalId
-      dropped = @dataset.goalId
-      Meteor.call "changeParent", dragged, dropped
+Template.goal_card.rendered = ->
+  $(".goal-card-checklist > tbody").sortable
+    connectWith: ".goal-card-checklist > tbody"
+    placeholder: "checklist-placeholder"
+    handle: ".subgoal-title-cell"
+    update: (event, ui) ->
+      dropped = ui.item.closest('.goal-card').attr('id')
+      dragged = ui.item.attr('id')
+      prev = ui.item.prev().attr('id')
+      Meteor.call "changePosition", dragged, dropped, prev
