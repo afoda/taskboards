@@ -65,7 +65,7 @@ Template.subgoal_row.helpers
   isActive: -> this._id == share.activeGoalId()
 
 Template.goal_card.rendered = ->
-  $(".goal-card-checklist > tbody").sortable
+  $(@find '.goal-card-checklist > tbody').sortable
     connectWith: ".goal-card-checklist > tbody"
     placeholder: "checklist-placeholder"
     handle: ".subgoal-title-cell"
