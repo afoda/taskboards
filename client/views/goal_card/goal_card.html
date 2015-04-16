@@ -52,9 +52,11 @@
     </div>
 
     <table class="ui table goal-card-checklist">
-    {{#each filteredSubgoals}}
-      {{> subgoal_row}}
-    {{/each}}
+      <tbody>
+        {{#each filteredSubgoals}}
+          {{> subgoal_row}}
+        {{/each}}
+      </tbody>
     </table>
 
     {{#if editing}}
@@ -68,7 +70,7 @@
 
 
 <template name="subgoal_row">
-  <tr class="subgoal-row {{#if complete}}complete{{/if}} {{#if isActive}}active-goal{{/if}}">
+  <tr id="{{_id}}" class="subgoal-row {{#if complete}}complete{{/if}} {{#if isActive}}active-goal{{/if}}">
     <td class="collapsing">
     {{#if complete}}
       <i class="small checkmark link icon goal-complete-button"></i>
@@ -95,6 +97,10 @@
               <i class="edit icon"></i>
               Edit
             </div>
+            <div class="item subgoal-pop-button">
+              <i class="share icon"></i>
+              Pop out
+            </div>
             <div class="item goal-remove-button">
               <i class="remove icon"></i>
               Delete
@@ -111,7 +117,7 @@
       {{/if}}
     {{/if}}
     </td>
-    <td>
+    <td class="subgoal-title-cell">
       <a href="{{pathFor route='goal' _id=../_id hash=_id}}">
         {{title}}
       </a>

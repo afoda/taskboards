@@ -28,6 +28,10 @@ Template.goal_card.events
     if newTitle?
       Meteor.call "setGoalTitle", this._id, newTitle
 
+  'click .subgoal-pop-button': ->
+    parent = Goals.findOne @parent
+    Meteor.call "changePosition", @_id, parent.parent, parent._id
+
   'click .goal-card-hide-completed-subgoals-toggle': ->
     Meteor.call "toggleHideCompletedSubgoals", this._id
 
@@ -56,7 +60,7 @@ Template.goal_card.helpers
     spec = parent: @_id
     if @hideCompletedSubgoals
       spec.complete = $ne: true
-    Goals.find spec
+    Goals.find spec, {sort: index: 1}
 
 
 Template.new_subgoal_box.rendered = ->
@@ -73,3 +77,35 @@ Template.subgoal_row.helpers
     Goals
       .find parent: this._id
       .count()
+
+Template.goal_card.rendered = ->
+  $(@find '.goal-card-checklist > tbody').sortable
+    connectWith: ".goal-card-checklist > tbody"
+    placeholder: "checklist-placeholder"
+    handle: ".subgoal-title-cell"
+    update: (event, ui) ->
+      dropped = ui.item.closest('.goal-card').attr('id')
+      dragged = ui.item.attr('id')
+      prev = ui.item.prev().attr('id')
+      Meteor.call "changePosition", dragged, dropped, prev
+  $(@find '.goal-card').draggable
+    handle: '.header'
+    helper: ->
+      title = $(this).find('.header').text()
+      "<div class='ui card'><div class='content'><div class='header'>" + title + "</div></div></div>"
+    appendTo: "body"
+    revert: true
+    revertDuration: 0
+  $(@find '.goal-card').droppable
+    over: (event, ui) ->
+      if ui.draggable.hasClass('goal-card')
+        $(this).addClass('nest-goal-hover')
+    out: (event, ui) ->
+      $(this).removeClass('nest-goal-hover')
+    drop: (event, ui) ->
+      $(this).removeClass('nest-goal-hover')
+      # drop is called when subgoal is dragged into subgoal list; filter these out.
+      if ui.draggable.hasClass('goal-card')
+        dropped = $(this).attr('id')
+        dragged = ui.draggable.attr('id')
+        Meteor.call "changePosition", dragged, dropped, null
