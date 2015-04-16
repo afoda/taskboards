@@ -89,6 +89,7 @@ Template.goal_card.rendered = ->
     out: (event, ui) ->
       $(this).removeClass('nest-goal-hover')
     drop: (event, ui) ->
+      $(this).removeClass('nest-goal-hover')
       # drop is called when subgoal is dragged into subgoal list; filter these out.
       if ui.draggable.hasClass('goal-card')
         dropped = $(this).attr('id')
