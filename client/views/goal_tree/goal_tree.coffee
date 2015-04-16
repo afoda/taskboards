@@ -22,4 +22,4 @@ Template.goal_tree.helpers
     spec = parent: @goal._id
     if @goal.hideCompletedSubgoals
       spec.complete = $ne: true
-    Goals.find spec
+    Goals.find spec, sort: index: 1
