@@ -28,6 +28,11 @@ Template.goal_card.events
     if newTitle?
       Meteor.call "setGoalTitle", this._id, newTitle
 
+  'click .subgoal-pop-button': ->
+    parent = Goals.findOne @parent
+    debugger
+    Meteor.call "changePosition", @_id, parent.parent, parent._id
+
   'click .goal-card-hide-completed-subgoals-toggle': ->
     Meteor.call "toggleHideCompletedSubgoals", this._id
 
