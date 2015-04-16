@@ -49,7 +49,7 @@ Template.goal_card.events
 
 Template.goal_card.helpers
 
-  subgoals: -> Goals.find {parent: this._id}
+  subgoals: -> Goals.find {parent: this._id}, {sort: {index: 1}}
   editing: -> this._id == Session.get 'EditingCard'
   isActive: -> this._id == share.activeGoalId()
   displayGoal: (complete) ->
@@ -63,3 +63,34 @@ Template.new_subgoal_box.rendered = ->
 
 Template.subgoal_row.helpers
   isActive: -> this._id == share.activeGoalId()
+
+Template.goal_card.rendered = ->
+  $(@find '.goal-card-checklist > tbody').sortable
+    connectWith: ".goal-card-checklist > tbody"
+    placeholder: "checklist-placeholder"
+    handle: ".subgoal-title-cell"
+    update: (event, ui) ->
+      dropped = ui.item.closest('.goal-card').attr('id')
+      dragged = ui.item.attr('id')
+      prev = ui.item.prev().attr('id')
+      Meteor.call "changePosition", dragged, dropped, prev
+  $(@find '.goal-card').draggable
+    handle: '.header'
+    helper: ->
+      title = $(this).find('.header').text()
+      "<div class='ui card'><div class='content'><div class='header'>" + title + "</div></div></div>"
+    appendTo: "body"
+    revert: true
+    revertDuration: 0
+  $(@find '.goal-card').droppable
+    over: (event, ui) ->
+      if ui.draggable.hasClass('goal-card')
+        $(this).addClass('nest-goal-hover')
+    out: (event, ui) ->
+      $(this).removeClass('nest-goal-hover')
+    drop: (event, ui) ->
+      # drop is called when subgoal is dragged into subgoal list; filter these out.
+      if ui.draggable.hasClass('goal-card')
+        dropped = $(this).attr('id')
+        dragged = ui.draggable.attr('id')
+        Meteor.call "changePosition", dragged, dropped, null
