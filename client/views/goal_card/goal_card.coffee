@@ -74,3 +74,23 @@ Template.goal_card.rendered = ->
       dragged = ui.item.attr('id')
       prev = ui.item.prev().attr('id')
       Meteor.call "changePosition", dragged, dropped, prev
+  $(@find '.goal-card').draggable
+    handle: '.header'
+    helper: ->
+      title = $(this).find('.header').text()
+      "<div class='ui card'><div class='content'><div class='header'>" + title + "</div></div></div>"
+    appendTo: "body"
+    revert: true
+    revertDuration: 0
+  $(@find '.goal-card').droppable
+    over: (event, ui) ->
+      if ui.draggable.hasClass('goal-card')
+        $(this).addClass('nest-goal-hover')
+    out: (event, ui) ->
+      $(this).removeClass('nest-goal-hover')
+    drop: (event, ui) ->
+      # drop is called when subgoal is dragged into subgoal list; filter these out.
+      if ui.draggable.hasClass('goal-card')
+        dropped = $(this).attr('id')
+        dragged = ui.draggable.attr('id')
+        Meteor.call "changePosition", dragged, dropped, null
