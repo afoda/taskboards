@@ -1,39 +1,16 @@
-recursiveRemove = (_id) ->
-  subgoals = Goals.find {parent: _id}
-  subgoals.forEach (g) -> recursiveRemove g._id
-  Meteor.call "deleteGoal", _id
-
 Template.goal_card.events
-
-  'click .goal-remove-button': ->
-    if confirm 'Are you sure you want to delete this goal?'
-      recursiveRemove this._id
 
   'click .subgoal-complete-box': ->
     share.toggleGoalComplete this._id
-
-  'click .goal-complete-button': ->
-    share.toggleGoalComplete this._id
-
-  'click .goal-card-active-toggle': ->
-    share.toggleActiveGoal this._id
 
   'click .goal-card-edit-button': (event, template) ->
     share.setEditingCard this._id
     if template.find('input')
       template.find('input').focus()
 
-  'click .goal-card-edit-title-button': ->
-    newTitle = prompt 'Enter goal title', this.title
-    if newTitle?
-      Meteor.call "setGoalTitle", this._id, newTitle
-
   'click .subgoal-pop-button': ->
     parent = Goals.findOne @parent
     Meteor.call "changePosition", @_id, parent.parent, parent._id
-
-  'click .goal-card-hide-completed-subgoals-toggle': ->
-    Meteor.call "toggleHideCompletedSubgoals", this._id
 
   'dblclick .goal-card': (event, template) ->
     if not this.complete

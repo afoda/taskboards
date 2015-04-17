@@ -6,6 +6,24 @@ Template.goal_tree.events
       Meteor.call "createGoal", titleInput.value, this.goal._id
       titleInput.value = ""
 
+  'click .goal-remove-button': ->
+    if confirm 'Are you sure you want to delete this goal?'
+      Meteor.call "recursiveRemove", this._id
+
+  'click .goal-complete-button': ->
+    share.toggleGoalComplete this._id
+
+  'click .goal-active-toggle': ->
+    share.toggleActiveGoal this._id
+
+  'click .edit-goal-title-button': ->
+    newTitle = prompt 'Enter goal title', this.title
+    if newTitle?
+      Meteor.call "setGoalTitle", this._id, newTitle
+
+  'click .goal-hide-completed-subgoals-toggle': ->
+    Meteor.call "toggleHideCompletedSubgoals", this._id
+
 
 Template.registerHelper "isContext", (parentContext) -> this._id == parentContext.goal._id
 

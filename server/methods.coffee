@@ -22,10 +22,12 @@ Meteor.methods
       userId: Meteor.userId()
       index: newIndex
 
-  deleteGoal: (id) ->
-    check(id, String)
-    validateGoalAccess id
-    Goals.remove id
+  recursiveRemove: (_id) ->
+    check(_id, String)
+    validateGoalAccess _id
+    subgoals = Goals.find {parent: _id}
+    subgoals.forEach (g) -> Meteor.call "recursiveRemove", g._id
+    Goals.remove _id
 
   toggleGoalComplete: (id) ->
     check(id, String)
