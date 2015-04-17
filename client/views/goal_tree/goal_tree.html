@@ -11,12 +11,50 @@
 </div>
 
 
-<div class="twelve wide column">
-  <a href="{{pathFor route='goal' _id=goal._id}}">
-    <h1 id="tree-header" class="ui center aligned header {{#if goal.complete}}complete{{/if}} {{#if isActive}}active-goal{{/if}}">
-      {{goal.title}}
-    </h1>
-  </a>
+<div id="goal-title-column" class="twelve wide column">
+  <div class="goal-tree-menu">
+    {{#if complete}}
+    <i class="large green checkmark link icon goal-complete-button"></i>
+    {{else}}
+    <div class="ui simple dropdown">
+      <i class="large vertical ellipsis icon"></i>
+      <div class="menu">
+        <div class="item goal-complete-button">
+          <i class="checkmark icon"></i>
+          Complete
+        </div>
+        <div class="item goal-active-toggle">
+          <i class="wait icon"></i>
+          {{#if isActive}}
+          Deactivate
+          {{else}}
+          Activate
+          {{/if}}
+        </div>
+        <div class="item goal-hide-completed-subgoals-toggle">
+          {{#if hideCompletedSubgoals}}
+          <i class="hide icon"></i>
+          Show Complete
+          {{else}}
+          <i class="unhide icon"></i>
+          Hide Complete
+          {{/if}}
+        </div>
+        <div class="item edit-goal-title-button">
+          <i class="edit icon"></i>
+          Edit Title
+        </div>
+        <div class="item goal-remove-button">
+          <i class="remove icon"></i>
+          Delete
+        </div>
+      </div>
+    </div>
+    {{/if}}
+  </div>
+  <h1 id="tree-header" class="ui center aligned header {{#if complete}}complete{{/if}} {{#if isActive}}active-goal{{/if}}">
+    {{title}}
+  </h1>
 </div>
 
 
