@@ -8,10 +8,6 @@ Template.goal_card.events
     if template.find('input')
       template.find('input').focus()
 
-  'click .subgoal-pop-button': ->
-    parent = Goals.findOne @parentId
-    Meteor.call "changePosition", @_id, parent.parentId, parent._id
-
   'dblclick .goal-card': (event, template) ->
     if not this.complete
       share.setEditingCard this._id
@@ -42,6 +38,12 @@ Template.goal_card.helpers
 
 Template.new_subgoal_box.rendered = ->
   $(@find 'input').focus()
+
+
+Template.subgoal_row.events
+  'click .subgoal-pop-button': ->
+    parent = Goals.findOne @parentId
+    Meteor.call "changePosition", @_id, parent.parentId, parent._id
 
 
 Template.subgoal_row.helpers
