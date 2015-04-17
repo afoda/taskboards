@@ -9,8 +9,8 @@ Template.goal_card.events
       template.find('input').focus()
 
   'click .subgoal-pop-button': ->
-    parent = Goals.findOne @parent
-    Meteor.call "changePosition", @_id, parent.parent, parent._id
+    parent = Goals.findOne @parentId
+    Meteor.call "changePosition", @_id, parent.parentId, parent._id
 
   'dblclick .goal-card': (event, template) ->
     if not this.complete
@@ -34,7 +34,7 @@ Template.goal_card.helpers
   isActive: -> this._id == share.activeGoalId()
 
   filteredSubgoals: ->
-    spec = parent: @_id
+    spec = parentId: @_id
     if @hideCompletedSubgoals
       spec.complete = $ne: true
     Goals.find spec, {sort: index: 1}
@@ -48,11 +48,11 @@ Template.subgoal_row.helpers
   isActive: -> this._id == share.activeGoalId()
   completedSubgoalCount: ->
     Goals
-      .find parent: this._id, complete: true
+      .find parentId: this._id, complete: true
       .count()
   subgoalCount: ->
     Goals
-      .find parent: this._id
+      .find parentId: this._id
       .count()
 
 Template.goal_card.rendered = ->

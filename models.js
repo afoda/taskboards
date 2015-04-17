@@ -1,7 +1,7 @@
 // goal: {
 //   title: string
 //   complete: bool
-//   parent: id
+//   parentId: id
 //   createdAt: date
 //   userId: string
 //   (archived): bool

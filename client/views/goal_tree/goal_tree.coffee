@@ -33,7 +33,7 @@ Template.goal_tree.helpers
   isActive: -> this.goal._id == share.activeGoalId()
 
   filteredSubgoals: ->
-    spec = parent: @goal._id
+    spec = parentId: @goal._id
     if @goal.hideCompletedSubgoals
       spec.complete = $ne: true
     Goals.find spec, sort: index: 1
