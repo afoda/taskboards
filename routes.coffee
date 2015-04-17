@@ -5,14 +5,13 @@ Router.route '/', ->
 
 
 Router.route '/goal/:_id', ->
-    goal = Goals.findOne {_id: @params._id}
-    if !goal
+    data = Goals.findOne {_id: @params._id}
+    if !data
       this.redirect '/'
       return
 
-    data = goal: goal
-    if goal.parentId?
-      data.parent = Goals.findOne {_id: goal.parentId}
+    if data.parentId?
+      data.parent = Goals.findOne {_id: data.parentId}
     data.breadcrumb = [Goals.findOne {_id: @params._id}]
     while data.breadcrumb[0].parentId?
       data.breadcrumb.unshift Goals.findOne {_id: data.breadcrumb[0].parentId}

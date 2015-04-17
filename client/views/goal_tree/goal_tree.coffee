@@ -3,7 +3,7 @@ Template.goal_tree.events
   'click #add-goal-button, keypress #new-goal-title': (event, template) ->
     if event.type == "click" || event.type == "keypress" && event.which == 13
       titleInput = template.find "#new-goal-title"
-      Meteor.call "createGoal", titleInput.value, this.goal._id
+      Meteor.call "createGoal", titleInput.value, this._id
       titleInput.value = ""
 
   'click .goal-remove-button': ->
@@ -25,15 +25,15 @@ Template.goal_tree.events
     Meteor.call "toggleHideCompletedSubgoals", this._id
 
 
-Template.registerHelper "isContext", (parentContext) -> this._id == parentContext.goal._id
+Template.registerHelper "isContext", (parentContext) -> this._id == parentContext._id
 
 
 Template.goal_tree.helpers
 
-  isActive: -> this.goal._id == share.activeGoalId()
+  isActive: -> this._id == share.activeGoalId()
 
   filteredSubgoals: ->
-    spec = parentId: @goal._id
-    if @goal.hideCompletedSubgoals
+    spec = parentId: @_id
+    if @hideCompletedSubgoals
       spec.complete = $ne: true
     Goals.find spec, sort: index: 1
