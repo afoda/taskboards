@@ -2,33 +2,9 @@
 
 {{> breadcrumb }}
 
-<div id="goal-title-column" class="twelve wide column">
-  <div class="goal-tree-menu">
-    {{#if goal.complete}}
-    <i class="large green checkmark link icon goal-complete-button"></i>
-    {{else}}
-    <div class="ui simple dropdown">
-      <i class="large vertical ellipsis icon"></i>
-      {{> goal_menu goal=goal addSubgoalsAction=true hideCompletedSubgoalsAction=true}}
-    </div>
-    {{/if}}
-  </div>
-  <h1 id="tree-header" class="ui center aligned header {{#if goal.complete}}complete{{/if}} {{#if isActive}}active-goal{{/if}}">
-    {{goal.title}}
-  </h1>
-</div>
+{{> focused_goal_header }}
 
-
-<div class="twelve wide column">
-  <div class="ui large fluid action input">
-    <input disabled={{#if goal.complete}}disabled{{/if}} type="text" placeholder="Subgoal title" id="new-goal-title">
-    <div id="add-goal-button" class="ui large purple {{#if goal.complete}}disabled{{/if}} labeled icon button">
-      <i class="icon plus"></i>
-      Add
-    </div>
-  </div>
-</div>
-
+{{> add_subgoal }}
 
 <div class="twelve wide column">
   <div class="ui two cards">
@@ -54,6 +30,38 @@
         <i class="right chevron icon divider"></i>
       {{/if}}
     {{/each}}
+  </div>
+</div>
+</template>
+
+
+<template name="focused_goal_header">
+<div id="goal-title-column" class="twelve wide column">
+  <div class="goal-tree-menu">
+    {{#if goal.complete}}
+    <i class="large green checkmark link icon goal-complete-button"></i>
+    {{else}}
+    <div class="ui simple dropdown">
+      <i class="large vertical ellipsis icon"></i>
+      {{> goal_menu goal=goal addSubgoalsAction=true hideCompletedSubgoalsAction=true}}
+    </div>
+    {{/if}}
+  </div>
+  <h1 id="tree-header" class="ui center aligned header {{#if goal.complete}}complete{{/if}} {{#if isActive}}active-goal{{/if}}">
+    {{goal.title}}
+  </h1>
+</div>
+</template>
+
+
+<template name="add_subgoal">
+<div class="twelve wide column">
+  <div class="ui large fluid action input">
+    <input disabled={{#if goal.complete}}disabled{{/if}} type="text" placeholder="Subgoal title" id="new-goal-title">
+    <div id="add-goal-button" class="ui large purple {{#if goal.complete}}disabled{{/if}} labeled icon button">
+      <i class="icon plus"></i>
+      Add
+    </div>
   </div>
 </div>
 </template>
