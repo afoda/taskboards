@@ -1,8 +1,9 @@
 <template name="goal_tree">
 
-{{> breadcrumb }}
-
-{{> focused_goal_header }}
+{{#unless atTopLevel}}
+  {{> breadcrumb }}
+  {{> focused_goal_header }}
+{{/unless}}
 
 {{> add_subgoal }}
 
@@ -56,6 +57,15 @@
 
 <template name="add_subgoal">
 <div class="twelve wide column">
+  {{#if atTopLevel}}
+  <div class="ui large fluid action input">
+    <input type="text" placeholder="Goal title" id="new-goal-title">
+    <div id="add-goal-button" class="ui large purple labeled icon button">
+      <i class="icon plus"></i>
+      Add
+    </div>
+  </div>
+  {{else}}
   <div class="ui large fluid action input">
     <input disabled={{#if goal.complete}}disabled{{/if}} type="text" placeholder="Subgoal title" id="new-goal-title">
     <div id="add-goal-button" class="ui large purple {{#if goal.complete}}disabled{{/if}} labeled icon button">
@@ -63,5 +73,6 @@
       Add
     </div>
   </div>
+  {{/if}}
 </div>
 </template>

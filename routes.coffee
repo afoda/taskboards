@@ -1,7 +1,6 @@
 Router.route '/', ->
-  topLevelGoals = Goals.find $or: [{parentId: {$exists: false}}, {parentId: null}]
-  this.layout 'base_layout'
-  this.render 'goal_list', data: {goals: topLevelGoals}
+  this.layout 'base_layout', data: {}
+  this.render 'goal_tree', data: {}
 
 
 Router.route '/goal/:_id', ->
