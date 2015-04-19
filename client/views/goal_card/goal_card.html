@@ -7,41 +7,7 @@
     {{else}}
     <div class="ui right floated simple dropdown">
       <i class="vertical ellipsis icon"></i>
-      <div class="menu">
-        <div class="item goal-complete-button">
-          <i class="checkmark icon"></i>
-          Complete
-        </div>
-        <div class="item goal-active-toggle">
-          <i class="wait icon"></i>
-          {{#if isActive}}
-          Deactivate
-          {{else}}
-          Activate
-          {{/if}}
-        </div>
-        <div class="item goal-card-edit-button">
-          <i class="add icon"></i>
-          Add Subgoals
-        </div>
-        <div class="item goal-hide-completed-subgoals-toggle">
-          {{#if hideCompletedSubgoals}}
-          <i class="hide icon"></i>
-          Show Complete
-          {{else}}
-          <i class="unhide icon"></i>
-          Hide Complete
-          {{/if}}
-        </div>
-        <div class="item edit-goal-title-button">
-          <i class="edit icon"></i>
-          Edit Title
-        </div>
-        <div class="item goal-remove-button">
-          <i class="remove icon"></i>
-          Delete
-        </div>
-      </div>
+      {{> goal_menu goal=goal addSubgoalsAction=true hideCompletedSubgoalsAction=true}}
     </div>
     {{/if}}
 
@@ -80,39 +46,7 @@
       {{else}}
         <div class="ui right floated simple right dropdown">
           <i class="small {{#if subgoalCount}}plus{{else}}radio{{/if}} link icon goal-complete-button"></i>
-          <div class="right menu">
-            <div class="item goal-complete-button">
-              <i class="checkmark icon"></i>
-              Complete
-            </div>
-            <div class="item goal-active-toggle">
-              <i class="wait icon"></i>
-              {{#if isActive}}
-              Deactivate
-              {{else}}
-              Activate
-              {{/if}}
-            </div>
-            <div class="item edit-goal-title-button">
-              <i class="edit icon"></i>
-              Edit
-            </div>
-            <div class="item subgoal-pop-button">
-              <i class="share icon"></i>
-              Pop out
-            </div>
-            <div class="item goal-remove-button">
-              <i class="remove icon"></i>
-              Delete
-            </div>
-            {{#if subgoalCount}}
-            <div class="divider"></div>
-            <a class="item" href="{{pathFor route='goal' _id=../_id hash=_id}}">
-              <i class="zoom in icon"></i>
-              {{completedSubgoalCount}} / {{subgoalCount}}
-            </a>
-            {{/if}}
-          </div>
+          {{> goal_menu goal=goal tiered=true popAction=true subgoalCount=subgoalCount completedSubgoalCount=completedSubgoalCount}}
         </div>
       {{/if}}
     {{/if}}
