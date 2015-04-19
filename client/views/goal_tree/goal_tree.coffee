@@ -25,8 +25,8 @@ Template.goal_tree.events
     Meteor.call "toggleHideCompletedSubgoals", this.goal._id
 
 
-Template.breadcrumb_entry.helpers
-  isContext: (treeContext) -> this.goal._id == treeContext.goal._id
+Template.breadcrumb.helpers
+  isContext: (contextGoalId) -> @_id == contextGoalId
 
 
 Template.goal_tree.helpers

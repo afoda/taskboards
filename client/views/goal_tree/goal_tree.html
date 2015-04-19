@@ -1,15 +1,6 @@
 <template name="goal_tree">
 
-<div class="fourteen wide column">
-  <div class="ui breadcrumb">
-    <a class="section" href="/"><i class="icon home"></i></a>
-    <i class="right chevron icon divider"></i>
-  {{#each breadcrumb}}
-    {{> breadcrumb_entry goal=this}}
-  {{/each}}
-  </div>
-</div>
-
+{{> breadcrumb }}
 
 <div id="goal-title-column" class="twelve wide column">
   <div class="goal-tree-menu">
@@ -50,11 +41,19 @@
 </template>
 
 
-<template name="breadcrumb_entry">
-{{#if isContext ../..}}
-<div class="active section">{{goal.title}}</div>
-{{else}}
-  <a class="section" href="{{pathFor route='goal' _id=goal._id}}">{{goal.title}}</a>
-  <i class="right chevron icon divider"></i>
-{{/if}}
+<template name="breadcrumb">
+<div class="fourteen wide column">
+  <div class="ui breadcrumb">
+    <a class="section" href="/"><i class="icon home"></i></a>
+    <i class="right chevron icon divider"></i>
+    {{#each breadcrumb}}
+      {{#if isContext ../goal._id}}
+      <div class="active section">{{title}}</div>
+      {{else}}
+        <a class="section" href="{{pathFor route='goal' _id=_id}}">{{title}}</a>
+        <i class="right chevron icon divider"></i>
+      {{/if}}
+    {{/each}}
+  </div>
+</div>
 </template>
