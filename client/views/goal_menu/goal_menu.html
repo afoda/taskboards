@@ -10,7 +10,7 @@
   {{> simple_menu_item goal=goal class="goal-complete-button" icon="checkmark" text="Complete"}}
   <div class="item goal-active-toggle">
     <i class="wait icon"></i>
-    {{#if isActive}}
+    {{#if isActive goal._id}}
     Deactivate
     {{else}}
     Activate

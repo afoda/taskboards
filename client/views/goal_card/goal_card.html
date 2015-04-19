@@ -1,5 +1,5 @@
 <template name="goal_card">
-<div id="{{goal._id}}" class="ui card goal-card {{#if goal.complete}}complete{{/if}} {{#if isActive}}active-goal{{/if}}">
+<div id="{{goal._id}}" class="ui card goal-card {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}}">
   <div class="content">
 
     {{#if goal.complete}}
@@ -36,7 +36,7 @@
 
 
 <template name="subgoal_row">
-  <tr id="{{goal._id}}" class="subgoal-row {{#if goal.complete}}complete{{/if}} {{#if isActive}}active-goal{{/if}}">
+  <tr id="{{goal._id}}" class="subgoal-row {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}}">
     <td class="collapsing">
     {{#if goal.complete}}
       <i class="small checkmark link icon goal-complete-button"></i>

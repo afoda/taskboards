@@ -1,3 +1,5 @@
+UI.registerHelper 'isActive', (_id) -> _id == share.activeGoalId()
+
 share.activeGoalId = ->
   Session.get 'ActiveGoal'
 

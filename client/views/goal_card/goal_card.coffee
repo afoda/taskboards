@@ -27,7 +27,6 @@ Template.goal_card.events
 Template.goal_card.helpers
 
   editing: -> this.goal._id == Session.get 'EditingCard'
-  isActive: -> this.goal._id == share.activeGoalId()
 
   filteredSubgoals: ->
     spec = parentId: @goal._id
@@ -47,7 +46,6 @@ Template.subgoal_row.events
 
 
 Template.subgoal_row.helpers
-  isActive: -> this.goal._id == share.activeGoalId()
   completedSubgoalCount: ->
     Goals
       .find parentId: this.goal._id, complete: true

@@ -32,7 +32,6 @@ Template.breadcrumb.helpers
 Template.goal_tree.helpers
 
   atTopLevel: -> !(this.goal?)
-  isActive: -> this.goal._id == share.activeGoalId()
 
   filteredSubgoals: ->
     if this.goal?
