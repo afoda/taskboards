@@ -1,16 +1,16 @@
 Template.goal_card.events
 
   'click .subgoal-complete-box': ->
-    share.toggleGoalComplete this._id
+    share.toggleGoalComplete this.goal._id
 
   'click .goal-card-edit-button': (event, template) ->
-    share.setEditingCard this._id
+    share.setEditingCard this.goal._id
     if template.find('input')
       template.find('input').focus()
 
   'dblclick .goal-card': (event, template) ->
-    if not this.complete
-      share.setEditingCard this._id
+    if not this.goal.complete
+      share.setEditingCard this.goal._id
       if template.find('input')
         template.find('input').focus()
 
@@ -20,18 +20,18 @@ Template.goal_card.events
   'click #add-subgoal-button, keypress #new-subgoal-title': (event, template) ->
     if event.type == "click" || event.type == "keypress" && event.which == 13
       titleInput = template.find "input#new-subgoal-title"
-      Meteor.call "createGoal", titleInput.value, this._id
+      Meteor.call "createGoal", titleInput.value, this.goal._id
       titleInput.value = ""
 
 
 Template.goal_card.helpers
 
-  editing: -> this._id == Session.get 'EditingCard'
-  isActive: -> this._id == share.activeGoalId()
+  editing: -> this.goal._id == Session.get 'EditingCard'
+  isActive: -> this.goal._id == share.activeGoalId()
 
   filteredSubgoals: ->
-    spec = parentId: @_id
-    if @hideCompletedSubgoals
+    spec = parentId: @goal._id
+    if @goal.hideCompletedSubgoals
       spec.complete = $ne: true
     Goals.find spec, {sort: index: 1}
 
@@ -42,19 +42,19 @@ Template.new_subgoal_box.rendered = ->
 
 Template.subgoal_row.events
   'click .subgoal-pop-button': ->
-    parent = Goals.findOne @parentId
-    Meteor.call "changePosition", @_id, parent.parentId, parent._id
+    parent = Goals.findOne @goal.parentId
+    Meteor.call "changePosition", @goal._id, parent.parentId, parent._id
 
 
 Template.subgoal_row.helpers
-  isActive: -> this._id == share.activeGoalId()
+  isActive: -> this.goal._id == share.activeGoalId()
   completedSubgoalCount: ->
     Goals
-      .find parentId: this._id, complete: true
+      .find parentId: this.goal._id, complete: true
       .count()
   subgoalCount: ->
     Goals
-      .find parentId: this._id
+      .find parentId: this.goal._id
       .count()
 
 Template.goal_card.rendered = ->
