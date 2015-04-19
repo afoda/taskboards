@@ -1,0 +1,61 @@
+<template name="goal_menu">
+<div class="menu">
+  {{#if subgoalCount}}
+  <a class="item" href="{{pathFor route='goal' _id=goal.parentId hash=goal._id}}">
+    <i class="zoom in icon"></i>
+    {{completedSubgoalCount}} / {{subgoalCount}}
+  </a>
+  <div class="ui divider"></div>
+  {{/if}}
+  {{> simple_menu_item goal=goal class="goal-complete-button" icon="checkmark" text="Complete"}}
+  <div class="item goal-active-toggle">
+    <i class="wait icon"></i>
+    {{#if isActive}}
+    Deactivate
+    {{else}}
+    Activate
+    {{/if}}
+  </div>
+  {{#if addSubgoalsAction}}
+    {{> simple_menu_item goal=goal class="goal-card-edit-button" icon="add" text="Add Subgoals"}}
+  {{/if}}
+  {{#if tiered}}
+  <div class="ui divider"></div>
+  <div class="ui dropdown item">
+    <i class="dropdown icon"></i>
+    More
+    <div class="menu">
+      {{> tiered_part }}
+    </div>
+  </div>
+  {{else}}
+    {{> tiered_part }}
+  {{/if}}
+</div>
+</template>
+
+<template name="tiered_part">
+{{#if hideCompletedSubgoalsAction}}
+  <div class="item goal-hide-completed-subgoals-toggle">
+    {{#if goal.hideCompletedSubgoals}}
+    <i class="hide icon"></i>
+    Show Complete
+    {{else}}
+    <i class="unhide icon"></i>
+    Hide Complete
+    {{/if}}
+  </div>
+{{/if}}
+{{> simple_menu_item goal=goal class="edit-goal-title-button" icon="edit" text="Edit Title"}}
+{{#if popAction}}
+  {{> simple_menu_item goal=goal class="subgoal-pop-button" icon="share" text="Pop Out"}}
+{{/if}}
+{{> simple_menu_item goal=goal class="goal-remove-button" icon="remove" text="Delete"}}
+</template>
+
+<template name="simple_menu_item">
+<div class="item {{class}}">
+  <i class="{{icon}} icon"></i>
+  {{text}}
+</div>
+</template>

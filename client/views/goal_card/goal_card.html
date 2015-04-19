@@ -1,60 +1,26 @@
 <template name="goal_card">
-<div id="{{_id}}" class="ui card goal-card {{#if complete}}complete{{/if}} {{#if isActive}}active-goal{{/if}}">
+<div id="{{goal._id}}" class="ui card goal-card {{#if goal.complete}}complete{{/if}} {{#if isActive}}active-goal{{/if}}">
   <div class="content">
 
-    {{#if complete}}
+    {{#if goal.complete}}
     <i class="right floated green checkmark link icon goal-complete-button"></i>
     {{else}}
     <div class="ui right floated simple dropdown">
       <i class="vertical ellipsis icon"></i>
-      <div class="menu">
-        <div class="item goal-complete-button">
-          <i class="checkmark icon"></i>
-          Complete
-        </div>
-        <div class="item goal-active-toggle">
-          <i class="wait icon"></i>
-          {{#if isActive}}
-          Deactivate
-          {{else}}
-          Activate
-          {{/if}}
-        </div>
-        <div class="item goal-card-edit-button">
-          <i class="add icon"></i>
-          Add Subgoals
-        </div>
-        <div class="item goal-hide-completed-subgoals-toggle">
-          {{#if hideCompletedSubgoals}}
-          <i class="hide icon"></i>
-          Show Complete
-          {{else}}
-          <i class="unhide icon"></i>
-          Hide Complete
-          {{/if}}
-        </div>
-        <div class="item edit-goal-title-button">
-          <i class="edit icon"></i>
-          Edit Title
-        </div>
-        <div class="item goal-remove-button">
-          <i class="remove icon"></i>
-          Delete
-        </div>
-      </div>
+      {{> goal_menu goal=goal addSubgoalsAction=true hideCompletedSubgoalsAction=true}}
     </div>
     {{/if}}
 
     <div class="header">
-      <a href="{{pathFor route='goal' _id=_id}}">
-        {{title}}
+      <a href="{{pathFor route='goal' _id=goal._id}}">
+        {{goal.title}}
       </a>
     </div>
 
     <table class="ui table goal-card-checklist">
       <tbody>
         {{#each filteredSubgoals}}
-          {{> subgoal_row}}
+          {{> subgoal_row goal=this}}
         {{/each}}
       </tbody>
     </table>
@@ -70,56 +36,24 @@
 
 
 <template name="subgoal_row">
-  <tr id="{{_id}}" class="subgoal-row {{#if complete}}complete{{/if}} {{#if isActive}}active-goal{{/if}}">
+  <tr id="{{goal._id}}" class="subgoal-row {{#if goal.complete}}complete{{/if}} {{#if isActive}}active-goal{{/if}}">
     <td class="collapsing">
-    {{#if complete}}
+    {{#if goal.complete}}
       <i class="small checkmark link icon goal-complete-button"></i>
     {{else}}
-      {{#if ../complete}}
+      {{#if ../../goal.complete}}
         <i class="small {{#if subgoalCount}}plus{{else}}radio{{/if}} link icon goal-complete-button"></i>
       {{else}}
         <div class="ui right floated simple right dropdown">
           <i class="small {{#if subgoalCount}}plus{{else}}radio{{/if}} link icon goal-complete-button"></i>
-          <div class="right menu">
-            <div class="item goal-complete-button">
-              <i class="checkmark icon"></i>
-              Complete
-            </div>
-            <div class="item goal-active-toggle">
-              <i class="wait icon"></i>
-              {{#if isActive}}
-              Deactivate
-              {{else}}
-              Activate
-              {{/if}}
-            </div>
-            <div class="item edit-goal-title-button">
-              <i class="edit icon"></i>
-              Edit
-            </div>
-            <div class="item subgoal-pop-button">
-              <i class="share icon"></i>
-              Pop out
-            </div>
-            <div class="item goal-remove-button">
-              <i class="remove icon"></i>
-              Delete
-            </div>
-            {{#if subgoalCount}}
-            <div class="divider"></div>
-            <a class="item" href="{{pathFor route='goal' _id=../_id hash=_id}}">
-              <i class="zoom in icon"></i>
-              {{completedSubgoalCount}} / {{subgoalCount}}
-            </a>
-            {{/if}}
-          </div>
+          {{> goal_menu goal=goal tiered=true popAction=true subgoalCount=subgoalCount completedSubgoalCount=completedSubgoalCount}}
         </div>
       {{/if}}
     {{/if}}
     </td>
     <td class="subgoal-title-cell">
-      <a href="{{pathFor route='goal' _id=../_id hash=_id}}">
-        {{title}}
+      <a href="{{pathFor route='goal' _id=../../goal._id hash=goal._id}}">
+        {{goal.title}}
       </a>
     </td>
   </tr>
