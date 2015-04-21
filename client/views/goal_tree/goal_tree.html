@@ -1,7 +1,6 @@
 <template name="goal_tree">
 
 {{#unless atTopLevel}}
-  {{> breadcrumb }}
   {{> focused_goal_header }}
 {{/unless}}
 
@@ -15,24 +14,6 @@
   </div>
 </div>
 
-</template>
-
-
-<template name="breadcrumb">
-<div class="fourteen wide column">
-  <div class="ui breadcrumb">
-    <a class="section" href="/"><i class="icon home"></i></a>
-    <i class="right chevron icon divider"></i>
-    {{#each breadcrumb}}
-      {{#if isContext ../goal._id}}
-      <div class="active section">{{title}}</div>
-      {{else}}
-        <a class="section" href="{{pathFor route='goal' _id=_id}}">{{title}}</a>
-        <i class="right chevron icon divider"></i>
-      {{/if}}
-    {{/each}}
-  </div>
-</div>
 </template>
 
 

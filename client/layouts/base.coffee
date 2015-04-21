@@ -7,3 +7,5 @@ Template.base_layout.events =
   'click': (event) ->
     if not $(event.target).closest('#' + share.editingCardId()).length
       share.clearEditingCard()
+
+UI.registerHelper "atTopLevel", -> !(this.goal?)
