@@ -22,6 +22,24 @@
     color: @goal-title-color;
   }
 
+  // Goal state indications
+
+  &.active-goal {
+    border-color: @active-goal-color;
+    .header a {
+      color: @active-goal-color;
+    }
+  }
+
+  &.complete {
+    border-color: @completed-goal-color;
+    opacity: 0.5;
+    .header a {
+      color: @completed-goal-color;
+      text-decoration: line-through;
+    }
+  }
+
   // Hover effects
 
   &.complete .action-box {
@@ -43,20 +61,6 @@
 
 
 // State transitions
-
-.goal-card.active-goal .header a {
-  border-color: @active-goal-color;
-  color: @active-goal-color;
-}
-
-.goal-card.complete {
-  border-color: @completed-goal-color;
-  opacity: 0.5;
-  .header a {
-    color: @completed-goal-color;
-    text-decoration: line-through;
-  }
-}
 
 .ui.table.goal-card-checklist tr.complete td {
   opacity: 0.5;
