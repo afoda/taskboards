@@ -6,8 +6,8 @@
 
 {{> add_subgoal }}
 
-<div class="twelve wide column">
-  <div class="ui two cards">
+<div class="sixteen wide column">
+  <div id="board-container">
     {{#each filteredSubgoals}}
       {{> goal_card goal=this }}
     {{/each}}

@@ -4,9 +4,20 @@
 // Card
 
 .goal-card {
-  transition: all 0.4s !important;
+  transition: all 0.4s;
+  padding: 1em;
+  border: 1px solid #EEE;
+
   a {
     color: rgba(0, 0, 0, 0.8);
+  }
+
+  .action-box {
+    float: right;
+  }
+
+  .header a {
+    color: @goal-title-color;
   }
 }
 
@@ -20,17 +31,14 @@
 
 // State transitions
 
-.ui.card.goal-card.active-goal {
-  box-shadow: 0px 3px 0px 0px @active-goal-color, 0px 0px 0px 1px @active-goal-color;
-  .header a {
-    color: @active-goal-color;
-  }
+.goal-card.active-goal .header a {
+  border-color: @active-goal-color;
+  color: @active-goal-color;
 }
 
-.ui.card.goal-card.complete {
+.goal-card.complete {
+  border-color: @completed-goal-color;
   opacity: 0.5;
-  box-shadow: 0px 3px 0px 0px @completed-goal-color, 0px 0px 0px 1px @completed-goal-color;
-
   .header a {
     color: @completed-goal-color;
     text-decoration: line-through;
@@ -63,6 +71,6 @@
 }
 
 
-div.ui.card.goal-card.nest-goal-hover {
-  box-shadow: 0px 3px 0px 0px @nest-goal-drop-color, 0px 0px 0px 1px @nest-goal-drop-color;
+.goal-card.nest-goal-hover {
+  background: @nest-goal-drop-color;
 }

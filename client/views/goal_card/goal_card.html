@@ -1,35 +1,33 @@
 <template name="goal_card">
-<div id="{{goal._id}}" class="ui card goal-card {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}}">
-  <div class="content">
-
+<div id="{{goal._id}}" class="goal-card {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}}">
+  <div class="action-box">
     {{#if goal.complete}}
     <i class="right floated green checkmark link icon goal-complete-button"></i>
     {{else}}
-    <div class="ui right floated simple dropdown">
+    <div class="ui simple dropdown">
       <i class="vertical ellipsis icon"></i>
       {{> goal_menu goal=goal addSubgoalsAction=true hideCompletedSubgoalsAction=true}}
     </div>
     {{/if}}
-
-    <div class="header">
-      <a href="{{pathFor route='goal' _id=goal._id}}">
-        {{goal.title}}
-      </a>
-    </div>
-
-    <table class="ui table goal-card-checklist">
-      <tbody>
-        {{#each filteredSubgoals}}
-          {{> subgoal_row goal=this}}
-        {{/each}}
-      </tbody>
-    </table>
-
-    {{#if editing}}
-      {{> new_subgoal_box}}
-    {{/if}}
-
   </div>
+
+  <div class="header">
+    <a href="{{pathFor route='goal' _id=goal._id}}">
+      {{goal.title}}
+    </a>
+  </div>
+
+  <table class="ui table goal-card-checklist">
+    <tbody>
+      {{#each filteredSubgoals}}
+        {{> subgoal_row goal=this}}
+      {{/each}}
+    </tbody>
+  </table>
+
+  {{#if editing}}
+    {{> new_subgoal_box}}
+  {{/if}}
 
 </div>
 </template>
