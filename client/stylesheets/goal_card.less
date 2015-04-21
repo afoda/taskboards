@@ -13,12 +13,25 @@
   }
 
   .action-box {
+    transition: all 0.4s;
     float: right;
+    opacity: 0.0;
   }
 
   .header a {
     color: @goal-title-color;
   }
+
+  // Hover effects
+
+  &.complete .action-box {
+    opacity: 1.0;
+  }
+
+  &:hover .action-box {
+    opacity: 1.0;
+  }
+
 }
 
 
