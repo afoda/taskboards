@@ -69,7 +69,7 @@ Template.goal_card.rendered = ->
     handle: '.header'
     helper: ->
       title = $(this).find('.header').text()
-      "<div class='ui card'><div class='content'><div class='header'>" + title + "</div></div></div>"
+      "<span>" + title + "</span>"
     appendTo: "body"
     revert: true
     revertDuration: 0
