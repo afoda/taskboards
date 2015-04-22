@@ -29,6 +29,10 @@ Template.goal_tree.events
   'click .goal-hide-completed-subgoals-toggle': ->
     Meteor.call "toggleHideCompletedSubgoals", this.goal._id
 
+  'click': (event) ->
+    if not $(event.target).closest('#' + share.editingCardId()).length
+      share.clearEditingCard()
+
 
 Template.goal_tree.helpers
 
@@ -40,3 +44,8 @@ Template.goal_tree.helpers
       Goals.find spec, sort: index: 1
     else
       Goals.find $or: [{parentId: {$exists: false}}, {parentId: null}]
+  activeGoal: ->
+    id = share.activeGoalId()
+    Goals.findOne(id)
+  atTopLevel: ->
+    !(this.goal?)

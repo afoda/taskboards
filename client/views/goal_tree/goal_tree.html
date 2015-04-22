@@ -1,40 +1,68 @@
 <template name="goal_tree">
 
-{{#unless atTopLevel}}
-  {{> focused_goal_header }}
-{{/unless}}
+<nav class="ui purple inverted fixed menu">
+  <a class="item" href="/"> <i class="home icon"></i> Home </a>
 
-<div class="sixteen wide column">
-  <div id="board-container">
-    {{#each filteredSubgoals}}
-      {{> goal_card goal=this }}
+  {{#unless atTopLevel}}
+  <div id="pop-stack-link" class="ui simple dropdown item" title="{{parent.title}}">
+    <i class="chevron up icon"></i>
+    {{goal.title}}
+    <div class="menu">
+    {{#each breadcrumb}}
+      <a class="item" href="{{pathFor route='goal' _id=_id}}">{{title}}</a>
     {{/each}}
-    <div class="goal-card new-card-placeholder">
-      <input class="new-card-title" type="text" required="required">
-      <div class="action-box">
-        <i class="plus link icon submit-card-button"></i>
-      </div>
     </div>
   </div>
-</div>
+  {{/unless}}
 
-</template>
+  <div class="right item">
+    {{> loginButtons align="right"}}
+  </div>
 
+  {{#if activeGoal}}
+  <a id="active-goal-box" class="right item" href="{{pathFor route='goal' _id=activeGoal._id}}" title="{{activeGoal.title}}">
+    <i class="wait icon"></i>
+    {{activeGoal.title}}
+  </a>
+  {{else}}
+  <div id="no-active-goal-box" class="right item">
+    No active goal
+  </div>
+  {{/if}}
+</nav>
 
-<template name="focused_goal_header">
-<div id="goal-title-column" class="twelve wide column">
-  <div class="goal-tree-menu">
-    {{#if goal.complete}}
-    <i class="large green checkmark link icon goal-complete-button"></i>
-    {{else}}
-    <div class="ui simple dropdown">
-      <i class="large vertical ellipsis icon"></i>
-      {{> goal_menu goal=goal hideCompletedSubgoalsAction=true}}
+<main class="ui centered vertically padded page grid">
+  {{#unless atTopLevel}}
+    <div id="goal-title-column" class="twelve wide column">
+      <div class="goal-tree-menu">
+        {{#if goal.complete}}
+        <i class="large green checkmark link icon goal-complete-button"></i>
+        {{else}}
+        <div class="ui simple dropdown">
+          <i class="large vertical ellipsis icon"></i>
+          {{> goal_menu goal=goal hideCompletedSubgoalsAction=true}}
+        </div>
+        {{/if}}
+      </div>
     </div>
-    {{/if}}
+  {{/unless}}
+
+  <div class="sixteen wide column">
+    <div id="board-container">
+      {{#each filteredSubgoals}}
+        {{> goal_card goal=this }}
+      {{/each}}
+      <div class="goal-card new-card-placeholder">
+        <input class="new-card-title" type="text" required="required">
+        <div class="action-box">
+          <i class="plus link icon submit-card-button"></i>
+        </div>
+      </div>
+    </div>
   </div>
   <h1 id="tree-header" class="ui center aligned header {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}}">
     {{goal.title}}
   </h1>
-</div>
+</main>
+
 </template>
