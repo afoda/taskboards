@@ -42,7 +42,7 @@
     {{#if ../../goal.complete}}
       <i class="small {{#if subgoalCount}}plus{{else}}radio{{/if}} link icon goal-complete-button"></i>
     {{else}}
-      <div class="ui right floated simple right dropdown">
+      <div class="ui simple dropdown">
         <i class="small {{#if subgoalCount}}plus{{else}}radio{{/if}} link icon goal-complete-button"></i>
         {{> goal_menu goal=goal tiered=true popAction=true subgoalCount=subgoalCount completedSubgoalCount=completedSubgoalCount}}
       </div>
