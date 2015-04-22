@@ -13,6 +13,11 @@
     {{/each}}
     </div>
   </div>
+
+  <div class="ui simple dropdown item">
+    <i class="vertical ellipsis icon"></i>
+    {{> goal_menu goal=goal hideCompletedSubgoalsAction=true}}
+  </div>
   {{/unless}}
 
   <div class="right item">
@@ -32,21 +37,6 @@
 </nav>
 
 <main class="ui centered vertically padded page grid">
-  {{#unless atTopLevel}}
-    <div id="goal-title-column" class="twelve wide column">
-      <div class="goal-tree-menu">
-        {{#if goal.complete}}
-        <i class="large green checkmark link icon goal-complete-button"></i>
-        {{else}}
-        <div class="ui simple dropdown">
-          <i class="large vertical ellipsis icon"></i>
-          {{> goal_menu goal=goal hideCompletedSubgoalsAction=true}}
-        </div>
-        {{/if}}
-      </div>
-    </div>
-  {{/unless}}
-
   <div class="sixteen wide column">
     <div id="board-container">
       {{#each filteredSubgoals}}
@@ -60,9 +50,6 @@
       </div>
     </div>
   </div>
-  <h1 id="tree-header" class="ui center aligned header {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}}">
-    {{goal.title}}
-  </h1>
 </main>
 
 </template>
