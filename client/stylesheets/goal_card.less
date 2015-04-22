@@ -49,7 +49,36 @@
   &:hover .action-box {
     opacity: 1.0;
   }
+}
 
+
+// New Card
+
+
+.goal-card.new-card-placeholder {
+
+  .action-box {
+    opacity: 1.0;
+  }
+
+  .new-card-title {
+    transition: all 0.4s;
+    border: 0;
+    border-bottom: 1px solid #DDD;
+    width: 60%;
+  }
+
+  .new-card-title:invalid {
+    opacity: 0.0;
+  }
+
+  .new-card-title:valid {
+    opacity: 1.0;
+  }
+
+  &:hover .new-card-title:invalid {
+    opacity: 1.0;
+  }
 }
 
 

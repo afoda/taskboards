@@ -4,13 +4,17 @@
   {{> focused_goal_header }}
 {{/unless}}
 
-{{> add_subgoal }}
-
 <div class="sixteen wide column">
   <div id="board-container">
     {{#each filteredSubgoals}}
       {{> goal_card goal=this }}
     {{/each}}
+    <div class="goal-card new-card-placeholder">
+      <input class="new-card-title" type="text" required="required">
+      <div class="action-box">
+        <i class="plus link icon submit-card-button"></i>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -32,28 +36,5 @@
   <h1 id="tree-header" class="ui center aligned header {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}}">
     {{goal.title}}
   </h1>
-</div>
-</template>
-
-
-<template name="add_subgoal">
-<div class="twelve wide column">
-  {{#if atTopLevel}}
-  <div class="ui large fluid action input">
-    <input type="text" placeholder="Goal title" id="new-goal-title">
-    <div id="add-goal-button" class="ui large purple labeled icon button">
-      <i class="icon plus"></i>
-      Add
-    </div>
-  </div>
-  {{else}}
-  <div class="ui large fluid action input">
-    <input disabled={{#if goal.complete}}disabled{{/if}} type="text" placeholder="Subgoal title" id="new-goal-title">
-    <div id="add-goal-button" class="ui large purple {{#if goal.complete}}disabled{{/if}} labeled icon button">
-      <i class="icon plus"></i>
-      Add
-    </div>
-  </div>
-  {{/if}}
 </div>
 </template>

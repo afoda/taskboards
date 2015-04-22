@@ -1,10 +1,15 @@
 Template.goal_tree.events
 
-  'click #add-goal-button, keypress #new-goal-title': (event, template) ->
+  'click .submit-card-button, keypress .new-card-title': (event, template) ->
     if event.type == "click" || event.type == "keypress" && event.which == 13
-      titleInput = template.find "#new-goal-title"
-      Meteor.call "createGoal", titleInput.value, this.goal?._id
-      titleInput.value = ""
+      titleInput = template.find ".new-card-title"
+      goalTitle = $.trim(titleInput.value)
+      if goalTitle != ""
+        Meteor.call "createGoal", goalTitle, this.goal?._id
+        titleInput.value = ""
+
+  'click .submit-card-button': (event, template) ->
+      template.find(".new-card-title").focus()
 
   'click .goal-remove-button': ->
     if confirm 'Are you sure you want to delete this goal?'
