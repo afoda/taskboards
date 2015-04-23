@@ -69,7 +69,7 @@ Template.goal_card.rendered = ->
     handle: '.header'
     helper: ->
       title = $(this).find('.header').text()
-      "<span>" + title + "</span>"
+      "<div class='card-drag-placeholder'>" + title + "</div>"
     appendTo: "body"
     revert: true
     revertDuration: 0
