@@ -22,12 +22,11 @@
       {{#each filteredSubgoals}}
         {{> subgoal_row goal=this}}
       {{/each}}
+      {{#if editing}}
+        {{> new_subgoal_row}}
+      {{/if}}
     </tbody>
   </table>
-
-  {{#if editing}}
-    {{> new_subgoal_box}}
-  {{/if}}
 
 </div>
 </template>
@@ -58,11 +57,13 @@
 </template>
 
 
-<template name="new_subgoal_box">
-<div class="ui fluid action input new-subgoal-box">
-  <input type="text" placeholder="New Subgoal" id="new-subgoal-title">
-  <div id="add-subgoal-button" class="ui purple icon button">
-    <i class="icon plus"></i>
-  </div>
-</div>
+<template name="new_subgoal_row">
+<tr class="subgoal-row new-subgoal-row">
+  <td class="collapsing">
+    <i class="small radio icon"></i>
+  </td>
+  <td class="subgoal-title-cell">
+    <input class="new-subgoal-title" type="text" required="required">
+  </td>
+</tr>
 </template>

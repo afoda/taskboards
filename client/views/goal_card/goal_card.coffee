@@ -17,9 +17,9 @@ Template.goal_card.events
   'dblclick .ui.dropdown': (event) ->
     event.stopPropagation()
 
-  'click #add-subgoal-button, keypress #new-subgoal-title': (event, template) ->
+  'click .add-subgoal-button, keypress .new-subgoal-title': (event, template) ->
     if event.type == "click" || event.type == "keypress" && event.which == 13
-      titleInput = template.find "input#new-subgoal-title"
+      titleInput = template.find "input.new-subgoal-title"
       Meteor.call "createGoal", titleInput.value, this.goal._id
       titleInput.value = ""
 
@@ -35,7 +35,7 @@ Template.goal_card.helpers
     Goals.find spec, {sort: index: 1}
 
 
-Template.new_subgoal_box.rendered = ->
+Template.new_subgoal_row.rendered = ->
   $(@find 'input').focus()
 
 
