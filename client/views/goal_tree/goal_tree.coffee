@@ -11,6 +11,9 @@ Template.goal_tree.events
   'click .submit-card-button': (event, template) ->
       template.find(".new-card-title").focus()
 
+  'click .add-card-button': (event, template) ->
+      template.find(".new-card-title").focus()
+
   'click .goal-remove-button': ->
     if confirm 'Are you sure you want to delete this goal?'
       Meteor.call "recursiveRemove", this.goal._id
