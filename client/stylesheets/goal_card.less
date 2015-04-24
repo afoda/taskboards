@@ -25,15 +25,15 @@
   // Goal state indications
 
   &.active-goal {
-    border-color: @active-goal-color;
+    background: @active-goal-color-bg;
     .header a {
-      color: @active-goal-color;
+      color: grey;
     }
   }
 
   &.complete {
-    border-color: @completed-goal-color;
-    opacity: 0.5;
+    background: @completed-goal-color-bg;
+    opacity: 0.8;
     .header a {
       color: @completed-goal-color;
       text-decoration: line-through;
@@ -42,8 +42,10 @@
 
   // Hover effects
 
-  &.complete .action-box {
-    opacity: 1.0;
+  &.complete, &.active-goal {
+    .action-box {
+      opacity: 1.0;
+    }
   }
 
   &:hover .action-box {
@@ -89,6 +91,7 @@
 
 .ui.table.goal-card-checklist, .ui.table.goal-card-checklist tr, .ui.table.goal-card-checklist td {
   border: 0;
+  background: rgba(0, 0, 0, 0.0);
 }
 
 .goal-card {

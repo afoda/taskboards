@@ -5,7 +5,7 @@
     <i class="right floated green checkmark link icon goal-complete-button"></i>
     {{else}}
     <div class="ui simple dropdown">
-      <i class="vertical ellipsis icon"></i>
+      <i class="{{#if isActive goal._id}}wait{{else}}vertical ellipsis{{/if}} icon"></i>
       {{> goal_menu goal=goal addSubgoalsAction=true hideCompletedSubgoalsAction=true}}
     </div>
     {{/if}}

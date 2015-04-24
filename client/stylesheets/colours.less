@@ -1,11 +1,27 @@
 @red: #D95C5C;
 @green: #5BBD72;
+@green-faded: #DEFFE5;
+
 @light-yellow: #FFE21F;
 @light-blue: #07c;
 
-@active-goal-color: @red;
+@patrina-flowers: #D9B611;
+@patrina-flowers-faded: #FFF7D4;
+
+@active-goal-color: @patrina-flowers;
+@active-goal-color-bg: @patrina-flowers-faded;
+
 @completed-goal-color: @green;
+@completed-goal-color-bg: @green-faded;
 @nest-goal-drop-color: @light-yellow;
 @goal-title-color: @light-blue;
 
 @action-icon-color: #34495e;
+
+.completed-goal {
+  color: @completed-goal-color;
+}
+
+.active-goal {
+  color: @active-goal-color;
+}
