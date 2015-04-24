@@ -7,7 +7,7 @@
   <div id="pop-stack-link" class="ui simple dropdown item" title="{{parent.title}}">
     <i class="chevron up icon"></i>
     {{goal.title}}
-    <div class="menu">
+    <div id="breadcrumb-menu" class="menu">
     {{#each breadcrumb}}
       <a class="item" href="{{pathFor route='goal' _id=_id}}">{{title}}</a>
     {{/each}}

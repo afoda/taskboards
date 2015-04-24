@@ -32,6 +32,13 @@ Template.goal_tree.events
   'click .goal-hide-completed-subgoals-toggle': ->
     Meteor.call "toggleHideCompletedSubgoals", this.goal._id
 
+  'click #pop-stack-link': ->
+    if not $(event.target).closest("#breadcrumb-menu").length
+      if this.goal.parentId
+        Router.go('goal', {_id: this.goal.parentId}, {hash: this.goal._id})
+      else
+        Router.go('/')
+
   'click': (event) ->
     if not $(event.target).closest('#' + share.editingCardId()).length
       share.clearEditingCard()
