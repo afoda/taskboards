@@ -115,24 +115,26 @@
 
 // State transitions
 
-.subgoal-row i {
-  color: @action-icon-color;
-}
-
-.subgoal-row.complete td {
-  opacity: 0.5;
-  a {
-    text-decoration: line-through;
+.subgoal-row {
+  i {
+    color: @action-icon-color;
   }
-  a, i {
-    color: @completed-goal-color;
-  }
-}
 
-.subgoal-row.active-goal {
-  color: @active-goal-color;
-  a {
+  &.complete td {
+    opacity: 0.5;
+    a {
+      text-decoration: line-through;
+    }
+    a, i {
+      color: @completed-goal-color;
+    }
+  }
+
+  &.active-goal {
     color: @active-goal-color;
+    a {
+      color: @active-goal-color;
+    }
   }
 }
 
