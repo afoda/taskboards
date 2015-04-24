@@ -17,6 +17,9 @@ Template.goal_card.events
   'dblclick .ui.dropdown': (event) ->
     event.stopPropagation()
 
+  'blur .new-subgoal-title': ->
+    share.clearEditingCard()
+
   'click .add-subgoal-button, keypress .new-subgoal-title': (event, template) ->
     if event.type == "click" || event.type == "keypress" && event.which == 13
       titleInput = template.find "input.new-subgoal-title"

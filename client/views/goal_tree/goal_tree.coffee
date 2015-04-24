@@ -39,10 +39,6 @@ Template.goal_tree.events
       else
         Router.go('/')
 
-  'click': (event) ->
-    if not $(event.target).closest('#' + share.editingCardId()).length
-      share.clearEditingCard()
-
 
 Template.goal_tree.helpers
 
