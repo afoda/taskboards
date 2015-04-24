@@ -36,13 +36,13 @@
 <tr id="{{goal._id}}" class="subgoal-row {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}}">
   <td class="collapsing">
   {{#if goal.complete}}
-    <i class="small checkmark link icon goal-complete-button"></i>
+    &check;
   {{else}}
     {{#if ../../goal.complete}}
       <i class="small {{#if subgoalCount}}plus{{else}}radio{{/if}} link icon goal-complete-button"></i>
     {{else}}
       <div class="ui simple dropdown">
-        <i class="small {{#if subgoalCount}}plus{{else}}radio{{/if}} link icon goal-complete-button"></i>
+        {{#if subgoalCount}}&plus;{{else}}&Omicron;{{/if}}
         {{> goal_menu goal=goal tiered=true popAction=true subgoalCount=subgoalCount completedSubgoalCount=completedSubgoalCount}}
       </div>
     {{/if}}
