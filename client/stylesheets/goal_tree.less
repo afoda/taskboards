@@ -4,14 +4,37 @@
   display: flex;
   flex-wrap: wrap;
 
+  position: absolute;
+  top: 36px;
+  width: 100%;
+
   .goal-card {
-    margin-right: -1px;
-    margin-bottom: -1px;
     border: 1px solid #EEE;
-    width: 49%;
+    min-height: 10em;
   }
 }
 
 #board-container .action-box i {
   color: @action-icon-color;
+}
+
+.goal-card {
+  width: 100%;
+
+  @media screen and (min-width: 768px) {
+    width: 50%;
+  }
+
+  @media screen and (min-width: 992px) {
+    width: 33.33333%;
+  }
+
+  @media screen and (min-width: 1400px) {
+    width: 25%;
+  }
+
+  @media screen and (min-width: 1920px) {
+    min-width: 20em;
+    max-width: 25em;
+  }
 }

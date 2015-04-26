@@ -40,20 +40,16 @@
   {{/if}}
 </nav>
 
-<main class="ui centered vertically padded page grid">
-  <div class="sixteen wide column">
-    <div id="board-container">
-      {{#each filteredSubgoals}}
-        {{> goal_card goal=this }}
-      {{/each}}
-      <div class="goal-card new-card-placeholder">
-        <input class="new-card-title" type="text" required="required" placeholder="Title">
-        <div class="action-box">
-          <i class="plus link icon submit-card-button"></i>
-        </div>
-      </div>
-    </div>
+<main id="board-container">
+{{#each filteredSubgoals}}
+  {{> goal_card goal=this }}
+{{/each}}
+<div class="goal-card new-card-placeholder">
+  <input class="new-card-title" type="text" required="required" placeholder="Title">
+  <div class="action-box">
+    <i class="plus link icon submit-card-button"></i>
   </div>
+</div>
 </main>
 
 </template>
