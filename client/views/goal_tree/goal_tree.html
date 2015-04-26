@@ -18,8 +18,14 @@
     <i class="checkmark icon"></i>
   </div>
 
-  <div class="link item">
-    <i class="plus icon add-card-button"></i>
+  {{#unless goal.complete}}
+  <div class="link item goal-active-toggle">
+    <i class="wait icon {{#if isActive goal._id}}active-goal{{/if}}"></i>
+  </div>
+  {{/unless}}
+
+  <div class="link item add-card-button">
+    <i class="plus icon"></i>
   </div>
 
   <div class="ui simple dropdown item">
