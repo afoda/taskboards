@@ -1,6 +1,6 @@
 <template name="goal_tree">
 
-<nav class="ui purple inverted fixed menu">
+<nav id="top-menu" class="ui purple inverted fixed menu">
   <a class="item" href="/"> <i class="home icon"></i> Home </a>
 
   {{#unless atTopLevel}}
@@ -12,6 +12,10 @@
       <a class="item" href="{{pathFor route='goal' _id=_id}}">{{title}}</a>
     {{/each}}
     </div>
+  </div>
+
+  <div class="link item goal-complete-button {{#if goal.complete}}completed-goal{{/if}}">
+    <i class="checkmark icon"></i>
   </div>
 
   <div class="link item">
