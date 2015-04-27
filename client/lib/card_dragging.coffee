@@ -22,7 +22,6 @@ share.setCardDragging = (_id) ->
   card.find('.subgoal-row').droppable
     accept: "#" + _id + " .subgoal-row"
     hoverClass: 'nest-goal-hover'
-    greedy: true
     drop: (event, ui) ->
       dropped = $(this).attr('id')
       dragged = ui.draggable.attr('id')
