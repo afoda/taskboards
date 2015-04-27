@@ -58,33 +58,6 @@ Template.subgoal_row.helpers
       .find parentId: this.goal._id
       .count()
 
+
 Template.goal_card.rendered = ->
-
-  goalId = this.data.goal._id
-
-  $(@findAll '.subgoal-row').draggable
-    helper: 'clone'
-  $(@findAll '.subgoal-row').droppable
-    accept: "#" + this.data.goal._id + " .subgoal-row"
-    hoverClass: 'nest-goal-hover'
-    greedy: true
-    drop: (event, ui) ->
-      dropped = $(this).attr('id')
-      dragged = ui.draggable.attr('id')
-      Meteor.call "changePosition", dragged, dropped, null
-
-  $(@find '.goal-card').draggable
-    handle: '.header'
-    helper: ->
-      title = $(this).find('.header').text()
-      "<div class='card-drag-placeholder'>" + title + "</div>"
-    revert: true
-    revertDuration: 0
-  $(@find '.goal-card').droppable
-    hoverClass: 'nest-goal-hover'
-    accept: (draggable) ->
-      not draggable.closest("#" + goalId).length
-    drop: (event, ui) ->
-      dropped = $(this).attr('id')
-      dragged = ui.draggable.attr('id')
-      Meteor.call "changePosition", dragged, dropped, null
+  share.setCardDragging this.data.goal._id
