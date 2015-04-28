@@ -51,6 +51,7 @@
 
   @media screen and (min-width: 1400px) and (max-width: 1920px) {
     .goal-card {
+      min-height: 33vh;
       width: 25%;
       &:nth-of-type(4n) {
         border-right: 0;
@@ -60,8 +61,11 @@
 
   @media screen and (min-width: 1920px) {
     .goal-card {
-      min-width: 20em;
-      max-width: 25em;
+      min-height: 33vh;
+      width: 20%;
+      &:nth-of-type(5n) {
+        border-right: 0;
+      }
     }
   }
 }
