@@ -9,7 +9,7 @@
     {{goal.title}}
     <div id="breadcrumb-menu" class="menu">
     {{#each breadcrumb}}
-      <a class="item" href="{{pathFor route='goal' _id=_id}}">{{title}}</a>
+      <a class="item {{#if complete}}completed-goal{{/if}} {{#if isActive _id}}active-goal{{/if}}" href="{{pathFor route='goal' _id=_id}}">{{title}}</a>
     {{/each}}
     </div>
   </div>
