@@ -1,6 +1,5 @@
 share.setCardDragging = (_id) ->
   card = $("#" + _id)
-
   card.draggable
     handle: '.header'
     helper: ->
@@ -17,9 +16,12 @@ share.setCardDragging = (_id) ->
       dragged = ui.draggable.attr('id')
       Meteor.call "changePosition", dragged, dropped, null
 
-  card.find('.subgoal-row').draggable
+
+share.setRowDragging = (_id) ->
+  row = $("#" + _id)
+  row.draggable
     helper: 'clone'
-  card.find('.subgoal-row').droppable
+  row.droppable
     accept: "#" + _id + " .subgoal-row"
     hoverClass: 'nest-goal-hover'
     drop: (event, ui) ->

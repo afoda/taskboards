@@ -59,5 +59,9 @@ Template.subgoal_row.helpers
       .count()
 
 
+Template.subgoal_row.rendered = ->
+  share.setRowDragging this.data.goal._id
+
+
 Template.goal_card.rendered = ->
   share.setCardDragging this.data.goal._id
