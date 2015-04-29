@@ -64,5 +64,6 @@ Meteor.methods
       Goals.update {parentId: newParentId, index: {$gt: prev.index}}, {$inc: {index: 1}}, {multi: true}
       Goals.update id, $set: {parentId: newParentId, index: prev.index + 1}
     else
-      Goals.update {parentId: newParentId}, {$inc: {index: 1}}, {multi: true}
-      Goals.update id, $set: {parentId: newParentId, index: 0}
+      lastInNewParent = Goals.findOne {parentId: newParentId}, {sort: {index: -1}}
+      newIndex = if lastInNewParent? then lastInNewParent.index + 1 else 0
+      Goals.update id, $set: {parentId: newParentId, index: newIndex}
