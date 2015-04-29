@@ -1,13 +1,17 @@
 <template name="goal_card">
-<div id="{{goal._id}}" class="goal-card {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}}">
+  <div id="{{goal._id}}" class="goal-card {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}} {{#if inSortingMode}}sorting-card{{/if}}">
   <div class="action-box">
     {{#if goal.complete}}
     <i class="right floated green checkmark link icon goal-complete-button"></i>
     {{else}}
-    <div class="ui simple dropdown">
-      <i class="{{#if isActive goal._id}}wait{{else}}vertical ellipsis{{/if}} icon"></i>
-      {{> goal_menu goal=goal addSubgoalsAction=true hideCompletedSubgoalsAction=true}}
-    </div>
+      {{#if inSortingMode}}
+        <i class="right floated list link icon sorting-mode-toggle" title="Stop sorting"></i>
+      {{else}}
+        <div class="ui simple dropdown">
+          <i class="{{#if isActive goal._id}}wait{{else}}vertical ellipsis{{/if}} icon"></i>
+          {{> goal_menu goal=goal addSubgoalsAction=true sortSubgoalsAction=true hideCompletedSubgoalsAction=true}}
+        </div>
+      {{/if}}
     {{/if}}
   </div>
 

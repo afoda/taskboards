@@ -26,6 +26,9 @@ Template.goal_card.events
       Meteor.call "createGoal", titleInput.value, this.goal._id
       titleInput.value = ""
 
+  'click .sorting-mode-toggle': (event, template) ->
+    share.toggleSortingMode()
+
 
 Template.goal_card.helpers
 
@@ -60,8 +63,11 @@ Template.subgoal_row.helpers
 
 
 Template.subgoal_row.rendered = ->
-  share.setRowDragging this.data.goal._id
-
+  if not share.inSortingMode()
+    share.setRowDragging 0, this.firstNode
 
 Template.goal_card.rendered = ->
-  share.setCardDragging this.data.goal._id
+  if share.inSortingMode()
+    share.setCardSorting 0, this.firstNode
+  else
+    share.setCardDragging 0, this.firstNode

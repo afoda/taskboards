@@ -24,6 +24,9 @@
   {{#if addSubgoalsAction}}
     {{> simple_menu_item goal=goal class="goal-card-edit-button" icon="add" text="Add Subgoals"}}
   {{/if}}
+  {{#if sortSubgoalsAction}}
+    {{> simple_menu_item goal=goal class="sorting-mode-toggle" icon="list" text="Sort Subgoals"}}
+  {{/if}}
   {{#if tiered}}
   <div class="ui divider"></div>
   <div class="ui dropdown item">
