@@ -93,9 +93,11 @@
 
 // Subgoal table
 
-.ui.table.goal-card-checklist, .ui.table.goal-card-checklist tr, .ui.table.goal-card-checklist td {
-  border: 0;
-  background: rgba(0, 0, 0, 0.0);
+.goal-card-checklist {
+  margin-top: 0.8em;
+  td {
+    padding: 0.6em;
+  }
 }
 
 .goal-card {
@@ -150,7 +152,7 @@
 
 // Drag and drop
 
-.ui.table.goal-card-checklist tr.checklist-placeholder {
+.goal-card-checklist tr.checklist-placeholder {
   background: @nest-goal-drop-color;
 }
 
@@ -160,6 +162,6 @@
 }
 
 
-.ui.table.goal-card-checklist tr.subgoal-row.nest-goal-hover {
+.goal-card-checklist tr.subgoal-row.nest-goal-hover {
   background: @nest-goal-drop-color;
 }
