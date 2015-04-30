@@ -1,4 +1,5 @@
 .ui.message.message-box {
+
   width: 40em;
   position: fixed;
 
@@ -7,14 +8,14 @@
   top: 18px;
   left: calc(~'50% - 20em');
 
-  z-index: 9999;
-
   transition: all 0.4s;
   opacity: 0.0;
+  z-index: -1;
 }
 
 .ui.message.message-box.shown {
   opacity: 1.0;
+  z-index: 1000;
 }
 
 
