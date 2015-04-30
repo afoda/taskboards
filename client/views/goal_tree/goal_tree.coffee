@@ -39,6 +39,11 @@ Template.goal_tree.events
       else
         Router.go('/')
 
+  'click': (event) ->
+    # Hide all message boxes when clicking out of them
+    if not $(event).closest(".message-box").length
+      share.hideNestingUndo()
+
 
 Template.goal_tree.helpers
 

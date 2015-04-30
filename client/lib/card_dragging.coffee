@@ -68,6 +68,9 @@ share.setRowDragging = (index, row) ->
     drop: (event, ui) ->
       dropped = $(this).attr('id')
       dragged = ui.draggable.attr('id')
+      draggedGoal = Goals.findOne dragged
+      share.saveLastNesting dragged, dropped, draggedGoal.parentId, draggedGoal.index
+      share.showNestingUndo()
       Meteor.call "changePosition", dragged, dropped, null
 
 
