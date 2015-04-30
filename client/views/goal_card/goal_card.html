@@ -8,7 +8,7 @@
         <i class="right floated list link icon sorting-mode-toggle action-box-icon" title="Stop sorting"></i>
       {{else}}
         <div class="ui simple dropdown">
-          <i class="{{#if isActive goal._id}}wait{{else}}vertical ellipsis{{/if}} icon action-box-icon"></i>
+          <i class="{{#if isActive goal._id}}goal-active-toggle wait{{else}}vertical ellipsis{{/if}} icon action-box-icon"></i>
           {{> goal_menu goal=goal addSubgoalsAction=true sortSubgoalsAction=true hideCompletedSubgoalsAction=true}}
         </div>
       {{/if}}
