@@ -105,9 +105,20 @@
 // Subgoal table
 
 .goal-card-checklist {
+  width: 100%;
   margin-top: 0.8em;
   td {
     padding: 0.6em;
+  }
+}
+
+table.goal-card-checklist {
+  table-layout: fixed;
+  td {
+    &.menu-cell {
+      width: calc(~'1.2em + 1.2em');
+    }
+    word-wrap: break-word;
   }
 }
 
