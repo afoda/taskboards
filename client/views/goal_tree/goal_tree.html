@@ -14,9 +14,13 @@
     </div>
   </div>
 
-  <div class="link item goal-complete-button {{#if goal.complete}}completed-goal{{/if}}"
-       title="{{#if goal.complete}}Mark incomplete{{else}}Mark as complete{{/if}}">
-    <i class="checkmark icon"></i>
+  <div class="ui simple dropdown item">
+    <i class="vertical ellipsis icon"></i>
+    {{> goal_menu goal=goal hideCompletedSubgoalsAction=true}}
+  </div>
+
+  <div class="link item add-card-button" title="Add subgoal">
+    <i class="plus icon"></i>
   </div>
 
   {{#unless goal.complete}}
@@ -26,13 +30,9 @@
   </div>
   {{/unless}}
 
-  <div class="link item add-card-button" title="Add subgoal">
-    <i class="plus icon"></i>
-  </div>
-
-  <div class="ui simple dropdown item">
-    <i class="vertical ellipsis icon"></i>
-    {{> goal_menu goal=goal hideCompletedSubgoalsAction=true}}
+  <div class="link item goal-complete-button {{#if goal.complete}}completed-goal{{/if}}"
+       title="{{#if goal.complete}}Mark incomplete{{else}}Mark as complete{{/if}}">
+    <i class="checkmark icon"></i>
   </div>
   {{/unless}}
 
