@@ -12,7 +12,7 @@ Meteor.methods
   createGoal: (title, parentId) ->
     validateHasUserId()
     check(title, String)
-    check(parentId, Match.Optional(String))
+    check(parentId, Match.OneOf(String, undefined, null))
     lastInParent = Goals.findOne {parentId: parentId}, {sort: {index: -1}}
     newIndex = if lastInParent? then lastInParent.index + 1 else 0
     Goals.insert
@@ -64,5 +64,6 @@ Meteor.methods
       Goals.update {parentId: newParentId, index: {$gt: prev.index}}, {$inc: {index: 1}}, {multi: true}
       Goals.update id, $set: {parentId: newParentId, index: prev.index + 1}
     else
-      Goals.update {parentId: newParentId}, {$inc: {index: 1}}, {multi: true}
-      Goals.update id, $set: {parentId: newParentId, index: 0}
+      lastInNewParent = Goals.findOne {parentId: newParentId}, {sort: {index: -1}}
+      newIndex = if lastInNewParent? then lastInNewParent.index + 1 else 0
+      Goals.update id, $set: {parentId: newParentId, index: newIndex}

@@ -1,0 +1,26 @@
+.ui.message.message-box {
+
+  width: 40em;
+  position: fixed;
+
+  margin-top: 0;
+
+  top: 18px;
+  left: calc(~'50% - 20em');
+
+  transition: all 0.4s;
+  opacity: 0.0;
+  z-index: -1;
+}
+
+.ui.message.message-box.shown {
+  opacity: 1.0;
+  z-index: 1000;
+}
+
+
+.nesting-undo-button {
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}

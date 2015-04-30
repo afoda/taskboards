@@ -1,57 +1,192 @@
 @import "colours.less";
 
-.subgoal-row.active-goal {
-  color: @active-goal-color;
-  a {
-    color: @active-goal-color;
+
+// Card
+
+.goal-card {
+
+  transition: all 0.4s;
+  padding: 1em;
+
+  .header a {
+    color: @goal-title-color;
+  }
+
+  .action-box {
+    float: right;
+
+    .ui.simple.dropdown:hover .menu {
+      left: -9em;
+    }
+  }
+
+  .action-box-icon {
+    transition: all 0.2s;
+    opacity: 0.0;
+  }
+
+  // Subgoal rows
+
+  .subgoal-row a {
+    color: @subgoal-title-color;
+  }
+
+  // Goal state indications
+
+  &.active-goal {
+    background: @active-goal-color-bg;
+    .header a {
+      color: @subgoal-title-color;
+    }
+  }
+
+  &.complete {
+    background: @completed-goal-color-bg;
+    opacity: 0.7;
+    .header a {
+      color: @completed-goal-color;
+    }
+  }
+
+  // Hover effects
+
+  &.active-goal, &.sorting-card {
+    .action-box-icon {
+      opacity: 0.8;
+    }
+  }
+
+  &.complete {
+    .action-box-icon {
+      opacity: 1.0;
+    }
+  }
+
+  &:hover .action-box-icon {
+    opacity: 0.8;
   }
 }
 
-.ui.card.goal-card.active-goal {
-  box-shadow: 0px 3px 0px 0px @active-goal-color, 0px 0px 0px 1px @active-goal-color;
-  .header a {
-    color: @active-goal-color;
+
+.card-drag-placeholder {
+  background: #FFF;
+  border: 1px solid #EEE;
+  padding: 0.75em 1.5em;
+  color: @goal-title-color;
+}
+
+
+// New Card
+
+
+.goal-card.new-card-placeholder {
+
+  .action-box {
+    opacity: 1.0;
+  }
+
+  .new-card-title {
+    transition: all 0.4s;
+    border: 0;
+    border-bottom: 1px solid #DDD;
+    width: 60%;
+  }
+
+  .new-card-title:invalid {
+    opacity: 0.0;
+  }
+
+  .new-card-title:valid, .new-card-title:focus, &:hover .new-card-title:invalid {
+    opacity: 1.0;
+  }
+}
+
+
+// Subgoal table
+
+.goal-card-checklist {
+  width: 100%;
+  margin-top: 0.8em;
+  td {
+    padding: 0.6em;
+  }
+}
+
+table.goal-card-checklist {
+  table-layout: fixed;
+  td {
+    &.menu-cell {
+      width: calc(~'1.2em + 1.2em');
+    }
+    word-wrap: break-word;
   }
 }
 
 .goal-card {
-  transition: all 0.4s !important;
-  a {
-    color: rgba(0, 0, 0, 0.8);
+
+  .new-subgoal-row {
+    transition: all 0.2s;
+    opacity: 1.0;
+
+    input {
+      border: 0;
+      border-bottom: 1px solid #DDD;
+      width: 80%;
+    }
+  }
+
+  &:hover .new-subgoal-row {
+    opacity: 1.0;
   }
 }
 
-.ui.card.goal-card.complete {
-  opacity: 0.5;
-  box-shadow: 0px 3px 0px 0px @completed-goal-color, 0px 0px 0px 1px @completed-goal-color;
 
-  .header a {
+// State transitions
+
+.subgoal-row {
+  i {
+    color: @action-icon-color;
+  }
+
+  &.complete td {
+    opacity: 0.5;
+    a {
+      text-decoration: line-through;
+    }
+    a, i {
+      color: @completed-goal-color;
+    }
+  }
+
+  &.active-goal {
+    color: @active-goal-color;
+    a {
+      color: @active-goal-color;
+    }
+    .subgoal-entry-icon {
+      color: @active-goal-color;
+    }
+  }
+
+  .ui.dropdown .menu a.completed-goal {
     color: @completed-goal-color;
     text-decoration: line-through;
   }
 }
 
-.ui.table.goal-card-checklist, .ui.table.goal-card-checklist tr, .ui.table.goal-card-checklist td {
-  border: 0;
+
+// Drag and drop
+
+.goal-card-checklist tr.checklist-placeholder {
+  background: @nest-goal-drop-color;
 }
 
-.ui.table.goal-card-checklist tr.complete td {
-  opacity: 0.5;
-  a {
-    text-decoration: line-through;
-  }
-  a, i {
-    color: @completed-goal-color;
-  }
+
+.goal-card.nest-goal-hover {
+  background: @nest-goal-drop-color;
 }
 
-.checklist-placeholder {
-  border: 1px solid #CCC;
-  background: #F8F8F8;
-}
 
-@nest-goal-drop-color: @light-yellow;
-
-div.ui.card.goal-card.nest-goal-hover {
-  box-shadow: 0px 3px 0px 0px @nest-goal-drop-color, 0px 0px 0px 1px @nest-goal-drop-color;
+.goal-card-checklist tr.subgoal-row.nest-goal-hover {
+  background: @nest-goal-drop-color;
 }

@@ -1,0 +1,7 @@
+<template name="nesting_message">
+<div class="ui info message message-box {{#if messageShown}}shown{{/if}}">
+  <i class="close icon hide-message-button"></i>
+  '<span class="nestee">{{lastDraggedTitle}}</span>' nested under '<span class="nester">{{lastDroppedTitle}}</span>'
+  (<a class="nesting-undo-button">Undo</a>)
+</div>
+</template>

@@ -1,19 +1,54 @@
-.pop-stack-link {
-  max-width: 10em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+@import "colours.less";
+
+#top-menu {
+  background-color: @color-secondary-1-0;
+  height: 36px;
+}
+
+#pop-stack-link, #active-goal-box {
+  max-width: 30%;
+  height: 36px;
+
+  .menu-title {
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    i.icon {
+      opacity: 0.75;
+    }
+  }
 }
 
 #no-active-goal-box {
   color: #AAA;
-  font-style: italic;
   cursor: default;
 }
 
-#active-goal-box {
-  max-width: 33%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+#top-menu .completed-goal {
+  color: @completed-goal-color;
+}
+
+#top-menu .dropdown .item.completed-goal {
+  background: @completed-goal-color-bg;
+}
+
+#top-menu .active-goal {
+  color: @active-goal-color;
+}
+
+#top-menu .dropdown .item.active-goal {
+  background: @active-goal-color-bg;
+}
+
+#top-menu #login-buttons {
+  max-width: 250px;
+}
+
+@media screen and (max-width: 699px) {
+  #top-menu .disappearing.item {
+    display: none;
+  }
 }

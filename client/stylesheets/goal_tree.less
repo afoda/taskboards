@@ -1,22 +1,79 @@
 @import "colours.less";
 
-#goal-title-column {
-  text-align: center;
+html, body {
+  overflow-x: hidden;
 }
 
-.goal-tree-menu {
-  float: right;
+
+#board-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  position: absolute;
+  top: 36px;
+  width: 100%;
+
+  overflow-x: hidden;
+
+  .goal-card {
+    border-bottom: 1px solid #EEE;
+    border-right: 1px solid #EEE;
+    min-height: 20vh;
+  }
+
+  .new-card-placeholder {
+    height: 40vh;
+  }
 }
 
-#tree-header {
-  display: inline;
+#board-container .action-box i {
+  color: @action-icon-color;
 }
 
-#tree-header.active-goal {
-  color: @active-goal-color;
-}
 
-#tree-header.complete {
-  opacity: 0.5;
-  color: @completed-goal-color;
+#board-container {
+  @media screen and (max-width: 699px) {
+    .goal-card {
+      width: 100%;
+      border-right: 0;
+    }
+  }
+
+  @media screen and (min-width: 700px) and (max-width: 991px) {
+    .goal-card {
+      width: 50%;
+      &:nth-of-type(2n) {
+        border-right: 0;
+      }
+    }
+  }
+
+  @media screen and (min-width: 992px) and (max-width: 1399px) {
+    .goal-card {
+      width: 33.33333%;
+      &:nth-of-type(3n) {
+        border-right: 0;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1400px) and (max-width: 1920px) {
+    .goal-card {
+      min-height: 33vh;
+      width: 25%;
+      &:nth-of-type(4n) {
+        border-right: 0;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1920px) {
+    .goal-card {
+      min-height: 33vh;
+      width: 20%;
+      &:nth-of-type(5n) {
+        border-right: 0;
+      }
+    }
+  }
 }

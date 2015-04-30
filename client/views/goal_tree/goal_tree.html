@@ -1,78 +1,71 @@
 <template name="goal_tree">
 
-{{#unless atTopLevel}}
-  {{> breadcrumb }}
-  {{> focused_goal_header }}
-{{/unless}}
+<nav id="top-menu" class="ui inverted fixed menu">
+  <a class="item" href="/"> <i class="home icon"></i> Home </a>
 
-{{> add_subgoal }}
-
-<div class="twelve wide column">
-  <div class="ui two cards">
-    {{#each filteredSubgoals}}
-      {{> goal_card goal=this }}
-    {{/each}}
-  </div>
-</div>
-
-</template>
-
-
-<template name="breadcrumb">
-<div class="fourteen wide column">
-  <div class="ui breadcrumb">
-    <a class="section" href="/"><i class="icon home"></i></a>
-    <i class="right chevron icon divider"></i>
+  {{#unless atTopLevel}}
+  <div id="pop-stack-link" class="ui simple dropdown item" title="{{goal.title}}">
+    <span class="menu-title">
+      <i class="chevron up icon"></i>
+      {{goal.title}}
+    </span>
+    <div id="breadcrumb-menu" class="menu">
     {{#each breadcrumb}}
-      {{#if isContext ../goal._id}}
-      <div class="active section">{{title}}</div>
-      {{else}}
-        <a class="section" href="{{pathFor route='goal' _id=_id}}">{{title}}</a>
-        <i class="right chevron icon divider"></i>
-      {{/if}}
+      <a class="item {{#if complete}}completed-goal{{/if}} {{#if isActive _id}}active-goal{{/if}}" href="{{pathFor route='goal' _id=_id}}">{{title}}</a>
     {{/each}}
-  </div>
-</div>
-</template>
-
-
-<template name="focused_goal_header">
-<div id="goal-title-column" class="twelve wide column">
-  <div class="goal-tree-menu">
-    {{#if goal.complete}}
-    <i class="large green checkmark link icon goal-complete-button"></i>
-    {{else}}
-    <div class="ui simple dropdown">
-      <i class="large vertical ellipsis icon"></i>
-      {{> goal_menu goal=goal hideCompletedSubgoalsAction=true}}
-    </div>
-    {{/if}}
-  </div>
-  <h1 id="tree-header" class="ui center aligned header {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}}">
-    {{goal.title}}
-  </h1>
-</div>
-</template>
-
-
-<template name="add_subgoal">
-<div class="twelve wide column">
-  {{#if atTopLevel}}
-  <div class="ui large fluid action input">
-    <input type="text" placeholder="Goal title" id="new-goal-title">
-    <div id="add-goal-button" class="ui large purple labeled icon button">
-      <i class="icon plus"></i>
-      Add
     </div>
   </div>
+
+  <div class="ui simple dropdown item">
+    <i class="vertical ellipsis icon"></i>
+    {{> goal_menu goal=goal hideCompletedSubgoalsAction=true}}
+  </div>
+
+  <div class="link item add-card-button" title="Add subgoal">
+    <i class="plus icon"></i>
+  </div>
+
+  {{#unless goal.complete}}
+  <div class="link item goal-active-toggle disappearing"
+       title="{{#if isActive goal._id}}Deactivate{{else}}Activate{{/if}}">
+    <i class="wait icon {{#if isActive goal._id}}active-goal{{/if}}"></i>
+  </div>
+  {{/unless}}
+
+  <div class="link item goal-complete-button {{#if goal.complete}}completed-goal{{/if}} disappearing"
+       title="{{#if goal.complete}}Mark incomplete{{else}}Mark as complete{{/if}}">
+    <i class="checkmark icon"></i>
+  </div>
+  {{/unless}}
+
+  <div class="right item">
+    {{> loginButtons align="right"}}
+  </div>
+
+  {{#if activeGoal}}
+  <a id="active-goal-box" class="right item" href="{{pathFor route='goal' _id=activeGoal._id}}" title="{{activeGoal.title}}">
+    <i class="wait icon"></i>
+    {{activeGoal.title}}
+  </a>
   {{else}}
-  <div class="ui large fluid action input">
-    <input disabled={{#if goal.complete}}disabled{{/if}} type="text" placeholder="Subgoal title" id="new-goal-title">
-    <div id="add-goal-button" class="ui large purple {{#if goal.complete}}disabled{{/if}} labeled icon button">
-      <i class="icon plus"></i>
-      Add
-    </div>
+  <div id="no-active-goal-box" class="right item">
+    No active goal
   </div>
   {{/if}}
+</nav>
+
+<main id="board-container">
+{{#each filteredSubgoals}}
+  {{> goal_card goal=this }}
+{{/each}}
+<div class="goal-card new-card-placeholder">
+  <input class="new-card-title" type="text" required="required" placeholder="Task title">
+  <div class="action-box">
+    <i class="plus link icon submit-card-button"></i>
+  </div>
 </div>
+</main>
+
+{{> nesting_message }}
+
 </template>

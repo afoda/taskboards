@@ -1,35 +1,36 @@
 <template name="goal_card">
-<div id="{{goal._id}}" class="ui card goal-card {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}}">
-  <div class="content">
-
+  <div id="{{goal._id}}" class="goal-card {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}} {{#if inSortingMode}}sorting-card{{/if}}">
+  <div class="action-box">
     {{#if goal.complete}}
-    <i class="right floated green checkmark link icon goal-complete-button"></i>
+    <i class="right floated green checkmark link icon goal-complete-button action-box-icon"></i>
     {{else}}
-    <div class="ui right floated simple dropdown">
-      <i class="vertical ellipsis icon"></i>
-      {{> goal_menu goal=goal addSubgoalsAction=true hideCompletedSubgoalsAction=true}}
-    </div>
+      {{#if inSortingMode}}
+        <i class="right floated list link icon sorting-mode-toggle action-box-icon" title="Stop sorting"></i>
+      {{else}}
+        <div class="ui simple dropdown">
+          <i class="{{#if isActive goal._id}}goal-active-toggle wait{{else}}vertical ellipsis{{/if}} icon action-box-icon"></i>
+          {{> goal_menu goal=goal addSubgoalsAction=true sortSubgoalsAction=true hideCompletedSubgoalsAction=true}}
+        </div>
+      {{/if}}
     {{/if}}
-
-    <div class="header">
-      <a href="{{pathFor route='goal' _id=goal._id}}">
-        {{goal.title}}
-      </a>
-    </div>
-
-    <table class="ui table goal-card-checklist">
-      <tbody>
-        {{#each filteredSubgoals}}
-          {{> subgoal_row goal=this}}
-        {{/each}}
-      </tbody>
-    </table>
-
-    {{#if editing}}
-      {{> new_subgoal_box}}
-    {{/if}}
-
   </div>
+
+  <div class="header">
+    <a href="{{pathFor route='goal' _id=goal._id}}">
+      {{goal.title}}
+    </a>
+  </div>
+
+  <table class="goal-card-checklist">
+    <tbody>
+      {{#each filteredSubgoals}}
+        {{> subgoal_row goal=this}}
+      {{/each}}
+      {{#if editing}}
+        {{> new_subgoal_row}}
+      {{/if}}
+    </tbody>
+  </table>
 
 </div>
 </template>
@@ -37,15 +38,15 @@
 
 <template name="subgoal_row">
 <tr id="{{goal._id}}" class="subgoal-row {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}}">
-  <td class="collapsing">
+  <td class="menu-cell">
   {{#if goal.complete}}
-    <i class="small checkmark link icon goal-complete-button"></i>
+    <i class="small checkmark link icon goal-complete-button subgoal-entry-icon"></i>
   {{else}}
     {{#if ../../goal.complete}}
-      <i class="small {{#if subgoalCount}}plus{{else}}radio{{/if}} link icon goal-complete-button"></i>
+      <i class="small {{#if isActive goal._id}}wait{{else}}{{#if subgoalCount}}plus{{else}}radio{{/if}}{{/if}} link icon goal-complete-button subgoal-entry-icon"></i>
     {{else}}
-      <div class="ui right floated simple right dropdown">
-        <i class="small {{#if subgoalCount}}plus{{else}}radio{{/if}} link icon goal-complete-button"></i>
+      <div class="ui simple dropdown">
+        <i class="small {{#if isActive goal._id}}wait{{else}}{{#if subgoalCount}}plus{{else}}radio{{/if}}{{/if}} link icon goal-complete-button subgoal-entry-icon"></i>
         {{> goal_menu goal=goal tiered=true popAction=true subgoalCount=subgoalCount completedSubgoalCount=completedSubgoalCount}}
       </div>
     {{/if}}
@@ -60,11 +61,13 @@
 </template>
 
 
-<template name="new_subgoal_box">
-<div class="ui fluid action input new-subgoal-box">
-  <input type="text" placeholder="New Subgoal" id="new-subgoal-title">
-  <div id="add-subgoal-button" class="ui purple icon button">
-    <i class="icon plus"></i>
-  </div>
-</div>
+<template name="new_subgoal_row">
+<tr class="subgoal-row new-subgoal-row">
+  <td class="menu-cell">
+    <i class="small radio icon"></i>
+  </td>
+  <td class="subgoal-title-cell">
+    <input class="new-subgoal-title" type="text" required="required">
+  </td>
+</tr>
 </template>
