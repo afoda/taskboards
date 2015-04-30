@@ -45,6 +45,14 @@ Template.goal_tree.events
       share.hideNestingUndo()
 
 
+getSliceSize = (text) ->
+  baseSliceSize = 25
+  if text.length <= baseSliceSize + 2
+    text.length
+  else
+    baseSliceSize
+
+
 Template.goal_tree.helpers
 
   filteredSubgoals: ->
@@ -60,3 +68,10 @@ Template.goal_tree.helpers
     Goals.findOne(id)
   atTopLevel: ->
     !(this.goal?)
+  truncatedGoalTitle: ->
+    title = this.goal.title
+    sliceSize = getSliceSize title
+    title.slice(0, sliceSize)
+  insertEllipsis: ->
+    title = this.goal.title
+    title.length > getSliceSize title
