@@ -7,8 +7,19 @@
 
 #pop-stack-link, #active-goal-box {
   max-width: 30%;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  height: 36px;
+
+  .menu-title {
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    i.icon {
+      opacity: 0.75;
+    }
+  }
 }
 
 #no-active-goal-box {

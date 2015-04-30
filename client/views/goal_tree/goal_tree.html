@@ -4,9 +4,11 @@
   <a class="item" href="/"> <i class="home icon"></i> Home </a>
 
   {{#unless atTopLevel}}
-  <div id="pop-stack-link" class="ui simple dropdown item" title="{{parent.title}}">
-    <i class="chevron up icon"></i>
-    {{goal.title}}
+  <div id="pop-stack-link" class="ui simple dropdown item" title="{{goal.title}}">
+    <span class="menu-title">
+      <i class="chevron up icon"></i>
+      {{goal.title}}
+    </span>
     <div id="breadcrumb-menu" class="menu">
     {{#each breadcrumb}}
       <a class="item {{#if complete}}completed-goal{{/if}} {{#if isActive _id}}active-goal{{/if}}" href="{{pathFor route='goal' _id=_id}}">{{title}}</a>
