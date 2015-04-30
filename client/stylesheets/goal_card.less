@@ -4,6 +4,7 @@
 // Card
 
 .goal-card {
+
   transition: all 0.4s;
   padding: 1em;
 
@@ -12,13 +13,16 @@
   }
 
   .action-box {
-    transition: all 0.2s;
     float: right;
-    opacity: 0.0;
 
     .ui.simple.dropdown:hover .menu {
       left: -9em;
     }
+  }
+
+  .action-box-icon {
+    transition: all 0.2;
+    opacity: 0.0;
   }
 
   // Subgoal rows
@@ -46,14 +50,20 @@
 
   // Hover effects
 
-  &.complete, &.active-goal, &.sorting-card {
-    .action-box {
+  &.active-goal, &.sorting-card {
+    .action-box-icon {
+      opacity: 0.8;
+    }
+  }
+
+  &.complete {
+    .action-box-icon {
       opacity: 1.0;
     }
   }
 
-  &:hover .action-box {
-    opacity: 1.0;
+  &:hover .action-box-icon {
+    opacity: 0.8;
   }
 }
 
