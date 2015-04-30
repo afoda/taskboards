@@ -2,6 +2,7 @@
 
 #top-menu {
   background-color: @color-secondary-1-0;
+  height: 36px;
 }
 
 #pop-stack-link, #active-goal-box {
@@ -29,4 +30,14 @@
 
 #top-menu .dropdown .item.active-goal {
   background: @active-goal-color-bg;
+}
+
+#top-menu #login-buttons {
+  max-width: 250px;
+}
+
+@media screen and (max-width: 699px) {
+  #top-menu .disappearing.item {
+    display: none;
+  }
 }
