@@ -1,5 +1,10 @@
 @import "colours.less";
 
+html, body {
+  overflow-x: hidden;
+}
+
+
 #board-container {
   display: flex;
   flex-wrap: wrap;
@@ -7,6 +12,8 @@
   position: absolute;
   top: 36px;
   width: 100%;
+
+  overflow-x: hidden;
 
   .goal-card {
     border-bottom: 1px solid #EEE;
