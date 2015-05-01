@@ -1,10 +1,5 @@
 @import "colours.less";
 
-#top-menu {
-  background-color: @color-secondary-1-0;
-  height: 36px;
-}
-
 #pop-stack-link, #active-goal-box {
   max-width: 30%;
   height: 36px;
@@ -22,33 +17,39 @@
   }
 }
 
-#no-active-goal-box {
-  color: #AAA;
-  cursor: default;
-}
+#top-menu {
+  background-color: @color-secondary-1-0;
+  height: 36px;
 
-#top-menu .completed-goal {
-  color: @completed-goal-color;
-}
+  #login-buttons {
+    max-width: 250px;
+  }
 
-#top-menu .dropdown .item.completed-goal {
-  background: @completed-goal-color-bg;
-}
+  .no-active-goal-box {
+    color: #AAA;
+    cursor: default;
+  }
 
-#top-menu .active-goal {
-  color: @active-goal-color;
-}
+  .completed-goal {
+    color: @completed-goal-color;
+  }
 
-#top-menu .dropdown .item.active-goal {
-  background: @active-goal-color-bg;
-}
+  .active-goal {
+    color: @active-goal-color;
+  }
 
-#top-menu #login-buttons {
-  max-width: 250px;
-}
+  .dropdown .item {
+    &.completed-goal {
+      background: @completed-goal-color-bg;
+    }
+    &.active-goal {
+      background: @active-goal-color-bg;
+    }
+  }
 
-@media screen and (max-width: 699px) {
-  #top-menu .disappearing.item {
-    display: none;
+  @media screen and (max-width: 699px) {
+    .disappearing.item {
+      display: none;
+    }
   }
 }

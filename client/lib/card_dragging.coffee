@@ -86,7 +86,7 @@ share.setCardSorting = (index, card) ->
   card = $(card)
   card.find('tbody').sortable
     placeholder: "checklist-placeholder"
-    handle: ".subgoal-title-cell"
+    handle: ".subgoal-title"
     update: (event, ui) ->
       dropped = ui.item.closest('.goal-card').attr('id')
       dragged = ui.item.attr('id')

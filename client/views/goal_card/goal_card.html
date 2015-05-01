@@ -52,8 +52,8 @@
     {{/if}}
   {{/if}}
   </td>
-  <td class="subgoal-title-cell">
-    <a href="{{pathFor route='goal' _id=../../goal._id hash=goal._id}}">
+  <td>
+    <a class="subgoal-title" href="{{pathFor route='goal' _id=../../goal._id hash=goal._id}}">
       {{goal.title}}
     </a>
   </td>
@@ -66,7 +66,7 @@
   <td class="menu-cell">
     <i class="small radio icon"></i>
   </td>
-  <td class="subgoal-title-cell">
+  <td>
     <input class="new-subgoal-title" type="text" required="required">
   </td>
 </tr>

@@ -8,13 +8,13 @@
   transition: all 0.4s;
   padding: 1em;
 
-  .header a {
-    color: @goal-title-color;
-  }
+  // Main card action menu
 
   .action-box {
     float: right;
 
+    // Menu falls to the right by default. This doesn't work on the
+    // right-most cards because the menu falls off the screen.
     .ui.simple.dropdown:hover .menu {
       left: -9em;
     }
@@ -23,34 +23,10 @@
   .action-box-icon {
     transition: all 0.2s;
     opacity: 0.0;
+    color: @action-icon-color;
   }
 
-  // Subgoal rows
-
-  .subgoal-row a {
-    color: @subgoal-title-color;
-  }
-
-  // Goal state indications
-
-  &.active-goal {
-    background: @active-goal-color-bg;
-    .header a {
-      color: @subgoal-title-color;
-    }
-  }
-
-  &.complete {
-    background: @completed-goal-color-bg;
-    opacity: 0.7;
-    .header a {
-      color: @completed-goal-color;
-    }
-  }
-
-  // Hover effects
-
-  &.active-goal, &.sorting-card {
+  &.active-goal, &.sorting-card, &:hover {
     .action-box-icon {
       opacity: 0.8;
     }
@@ -62,22 +38,40 @@
     }
   }
 
-  &:hover .action-box-icon {
-    opacity: 0.8;
+  // Card Heading
+
+  .header a {
+    color: @goal-title-color;
+  }
+
+
+  // Subgoal rows
+
+  .subgoal-row a {
+    color: @subgoal-title-color;
+  }
+
+
+  // Goal state indications
+
+  &.active-goal {
+    background: @active-goal-color-bg;
+    .header a {
+      color: @subgoal-title-color;
+    }
+  }
+
+  &.complete {
+    opacity: 0.7;
+    background: @completed-goal-color-bg;
+    .header a {
+      color: @completed-goal-color;
+    }
   }
 }
 
 
-.card-drag-placeholder {
-  background: #FFF;
-  border: 1px solid #EEE;
-  padding: 0.75em 1.5em;
-  color: @goal-title-color;
-}
-
-
 // New Card
-
 
 .goal-card.new-card-placeholder {
 
@@ -107,86 +101,38 @@
 .goal-card-checklist {
   width: 100%;
   margin-top: 0.8em;
-  td {
-    padding: 0.6em;
-  }
 }
 
 table.goal-card-checklist {
   table-layout: fixed;
   td {
+    padding: 0.6em;
+    word-wrap: break-word;
     &.menu-cell {
       width: calc(~'1.2em + 1.2em');
     }
-    word-wrap: break-word;
-  }
-}
-
-.goal-card {
-
-  .new-subgoal-row {
-    transition: all 0.2s;
-    opacity: 1.0;
-
-    input {
-      border: 0;
-      border-bottom: 1px solid #DDD;
-      width: 80%;
-    }
-  }
-
-  &:hover .new-subgoal-row {
-    opacity: 1.0;
-  }
-}
-
-
-// State transitions
-
-.subgoal-row {
-  i {
-    color: @action-icon-color;
-  }
-
-  &.complete td {
-    opacity: 0.5;
-    a {
-      text-decoration: line-through;
-    }
-    a, i {
-      color: @completed-goal-color;
-    }
-  }
-
-  &.active-goal {
-    color: @active-goal-color;
-    a {
-      color: @active-goal-color;
-    }
-    .subgoal-entry-icon {
-      color: @active-goal-color;
-    }
-  }
-
-  .ui.dropdown .menu a.completed-goal {
-    color: @completed-goal-color;
-    text-decoration: line-through;
   }
 }
 
 
 // Drag and drop
 
-.goal-card-checklist tr.checklist-placeholder {
+.goal-card-checklist .checklist-placeholder {
   background: @nest-goal-drop-color;
 }
-
 
 .goal-card.nest-goal-hover {
   background: @nest-goal-drop-color;
 }
 
-
 .goal-card-checklist tr.subgoal-row.nest-goal-hover {
   background: @nest-goal-drop-color;
+}
+
+.card-drag-placeholder {
+  background: #FFF;
+  border: 1px solid #EEE;
+  padding: 0.75em 1.5em;
+  color: @goal-title-color;
+  max-width: 20em;
 }
