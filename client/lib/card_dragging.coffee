@@ -51,6 +51,7 @@ share.setCardDragging = (index, card) ->
     revertDuration: 0
   card.droppable
     hoverClass: 'nest-goal-hover'
+    tolerance: 'pointer'
     accept: (draggable) ->
       (not draggable.closest("#" + card.attr('id')).length)
     drop: (event, ui) ->
@@ -65,6 +66,7 @@ share.setRowDragging = (index, row) ->
   row.droppable
     accept: "#" + row.closest('.goal-card').attr('id') + " .subgoal-row"
     hoverClass: 'nest-goal-hover'
+    tolerance: 'pointer'
     drop: (event, ui) ->
       dropped = $(this).attr('id')
       dragged = ui.draggable.attr('id')
