@@ -5,7 +5,8 @@ Template.goal_tree.events
       titleInput = template.find ".new-card-title"
       goalTitle = $.trim(titleInput.value)
       if goalTitle != ""
-        Meteor.call "createGoal", goalTitle, this.goal?._id
+        titleInput.blur()
+        Meteor.call "createGoal", goalTitle, this.goal?._id, share.setCreatedCardEditing
         titleInput.value = ""
 
   'click .submit-card-button': (event, template) ->

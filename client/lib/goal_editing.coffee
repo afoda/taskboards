@@ -6,3 +6,7 @@ share.setEditingCard = (_id) ->
 
 share.editingCardId = ->
   Session.get 'EditingCard'
+
+share.setCreatedCardEditing = (err, _id) ->
+  if not err
+    share.setEditingCard _id
