@@ -63,6 +63,7 @@ share.setRowDragging = (index, row) ->
   row = $(row)
   row.draggable
     helper: 'clone'
+    handle: ".subgoal-title"
   row.droppable
     accept: "#" + row.closest('.goal-card').attr('id') + " .subgoal-row"
     hoverClass: 'nest-goal-hover'
