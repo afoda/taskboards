@@ -31,14 +31,7 @@ Template.goal_card.events
 
 
 Template.goal_card.helpers
-
   editing: -> this.goal._id == Session.get 'EditingCard'
-
-  filteredSubgoals: ->
-    spec = parentId: @goal._id
-    if @goal.hideCompletedSubgoals
-      spec.complete = $ne: true
-    Goals.find spec, {sort: index: 1}
 
 
 Template.new_subgoal_row.rendered = ->

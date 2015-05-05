@@ -31,7 +31,10 @@ Template.goal_tree.events
       Meteor.call "setGoalTitle", this.goal._id, newTitle
 
   'click .goal-hide-completed-subgoals-toggle': ->
-    Meteor.call "toggleHideCompletedSubgoals", this.goal._id
+    if @goal?
+      Meteor.call "toggleHideCompletedSubgoals", this.goal._id
+    else
+      share.toggleHomeHideComplete()
 
   'click #pop-stack-link': (event) ->
     if not $(event.target).closest("#breadcrumb-menu").length
@@ -48,16 +51,21 @@ Template.goal_tree.events
 
 Template.goal_tree.helpers
 
-  filteredSubgoals: ->
-    if this.goal?
-      spec = parentId: @goal._id
-      if @goal.hideCompletedSubgoals
-        spec.complete = $ne: true
-      Goals.find spec, sort: index: 1
-    else
-      Goals.find $or: [{parentId: {$exists: false}}, {parentId: null}]
   activeGoal: ->
     id = share.activeGoalId()
     Goals.findOne(id)
   atTopLevel: ->
     !(this.goal?)
+
+  hidingCompleted: ->
+    if @goal?
+      @goal.hideCompletedSubgoals
+    else
+      share.homeHideComplete()
+
+
+UI.registerHelper "filteredSubgoals", ->
+  spec = parentId: if @goal? then @goal._id else null
+  if @goal? && @goal.hideCompletedSubgoals || !@goal? && share.homeHideComplete()
+    spec.complete = $ne: true
+  Goals.find spec, sort: index: 1

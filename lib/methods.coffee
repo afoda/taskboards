@@ -13,6 +13,8 @@ Meteor.methods
     validateHasUserId()
     check(title, String)
     check(parentId, Match.OneOf(String, undefined, null))
+    if !parentId?
+      parentId = null
     lastInParent = Goals.findOne {parentId: parentId}, {sort: {index: -1}}
     newIndex = if lastInParent? then lastInParent.index + 1 else 0
     Goals.insert
