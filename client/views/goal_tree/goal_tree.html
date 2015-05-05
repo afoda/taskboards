@@ -1,7 +1,20 @@
 <template name="goal_tree">
 
 <nav id="top-menu" class="ui inverted fixed menu">
-  <a class="item" href="/"> <i class="home icon"></i> Home </a>
+  <div class="ui simple dropdown item">
+    Menu
+    <div class="menu">
+      <a class="item" href="/"> <i class="home icon"></i> Home </a>
+      <a class="item goal-hide-completed-subgoals-toggle">
+        {{#if hidingCompleted}}
+          <i class="unhide icon"></i> Show Complete
+        {{else}}
+          <i class="hide icon"></i> Hide Complete
+        {{/if}}
+      </a>
+      <a class="item about-page-button"> <i class="help icon"></i> Help / About </a>
+    </div>
+  </div>
 
   {{#unless atTopLevel}}
   <div id="pop-stack-link" class="ui simple dropdown item" title="{{goal.title}}">
@@ -14,11 +27,6 @@
       <a class="item {{#if complete}}completed-goal{{/if}} {{#if isActive _id}}active-goal{{/if}}" href="{{pathFor route='goal' _id=_id}}">{{title}}</a>
     {{/each}}
     </div>
-  </div>
-
-  <div class="ui simple dropdown item">
-    <i class="vertical ellipsis icon"></i>
-    {{> goal_menu goal=goal hideCompletedSubgoalsAction=true}}
   </div>
 
   <div class="link item add-card-button" title="Add subgoal">
