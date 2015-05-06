@@ -20,8 +20,8 @@ Template.goal_card.events
   'blur .new-subgoal-title': ->
     share.clearEditingCard()
 
-  'click .add-subgoal-button, keypress .new-subgoal-title': (event, template) ->
-    if event.type == "click" || event.type == "keypress" && event.which == 13
+  'keypress .new-subgoal-title': (event, template) ->
+    if event.which == 13
       titleInput = template.find "input.new-subgoal-title"
       goalTitle = $.trim(titleInput.value)
       if goalTitle != ""
