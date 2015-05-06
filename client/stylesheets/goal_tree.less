@@ -1,8 +1,9 @@
 @import "colours.less";
 
-// Basic board layout
-
 #board-container {
+
+  // Basic board layout
+
   display: flex;
   flex-wrap: wrap;
 
@@ -15,12 +16,9 @@
     border-right: 1px solid #EEE;
     min-height: 25vh;
   }
-}
 
+  // Adjustments for different screen sizes
 
-// Adjustments for different screen sizes
-
-#board-container {
   @media screen and (max-width: 699px) {
     .goal-card {
       width: 100%;
