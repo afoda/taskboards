@@ -51,6 +51,10 @@
   </div>
 
   {{#if activeGoal}}
+  <div class="right item">
+    {{activeGoalTime}}
+  </div>
+
   <a id="active-goal-box" class="right item" href="{{pathFor route='goal' _id=activeGoal._id}}" title="{{activeGoal.title}}">
     <i class="wait icon"></i>
     {{activeGoal.title}}
