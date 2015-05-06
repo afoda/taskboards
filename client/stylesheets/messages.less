@@ -6,14 +6,17 @@
   width: 40em;
   left: calc(~'50% - 20em');
 
-  transition: all 0.4s;
+  z-index: 201;
+
+  transition: visibility 0s linear 0.4s, opacity 0.4s linear;
+  visibility: hidden;
   opacity: 0.0;
-  z-index: -1;
 }
 
 .ui.message.message-box.shown {
+  visibility: visible;
   opacity: 1.0;
-  z-index: 1000;
+  transition-delay: 0s;
 }
 
 
