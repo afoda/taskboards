@@ -23,8 +23,10 @@ Template.goal_card.events
   'click .add-subgoal-button, keypress .new-subgoal-title': (event, template) ->
     if event.type == "click" || event.type == "keypress" && event.which == 13
       titleInput = template.find "input.new-subgoal-title"
-      Meteor.call "createGoal", titleInput.value, this.goal._id
-      titleInput.value = ""
+      goalTitle = $.trim(titleInput.value)
+      if goalTitle != ""
+        Meteor.call "createGoal", goalTitle, this.goal._id
+        titleInput.value = ""
 
   'click .sorting-mode-toggle': (event, template) ->
     share.toggleSortingMode()
