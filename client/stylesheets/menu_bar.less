@@ -1,7 +1,8 @@
 @import "colours.less";
 
 #pop-stack-link, #active-goal-box {
-  max-width: 30%;
+  max-width: calc(~'50% - 135px - 7.5em');
+  min-width: 10em;
 }
 
 #active-goal-box {
@@ -31,7 +32,9 @@
   height: 36px;
 
   #login-buttons {
-    max-width: 250px;
+    max-width: 15em;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .no-active-goal-box {
@@ -53,12 +56,6 @@
     }
     &.active-goal {
       background: @active-goal-color-bg;
-    }
-  }
-
-  @media screen and (max-width: 699px) {
-    .disappearing.item {
-      display: none;
     }
   }
 }

@@ -28,22 +28,24 @@
     {{/each}}
     </div>
   </div>
+  {{/unless}}
 
   <div class="link item add-card-button" title="Add subgoal">
     <i class="plus icon"></i>
   </div>
 
-  {{#unless goal.complete}}
-  <div class="link item goal-active-toggle disappearing"
-       title="{{#if isActive goal._id}}Deactivate{{else}}Activate{{/if}}">
-    <i class="wait icon {{#if isActive goal._id}}active-goal{{/if}}"></i>
-  </div>
-  {{/unless}}
+  {{#unless atTopLevel}}
+    {{#unless goal.complete}}
+    <div class="link item goal-active-toggle"
+         title="{{#if isActive goal._id}}Deactivate{{else}}Activate{{/if}}">
+      <i class="wait icon {{#if isActive goal._id}}active-goal{{/if}}"></i>
+    </div>
+    {{/unless}}
 
-  <div class="link item goal-complete-button {{#if goal.complete}}completed-goal{{/if}} disappearing"
-       title="{{#if goal.complete}}Mark incomplete{{else}}Mark as complete{{/if}}">
-    <i class="checkmark icon"></i>
-  </div>
+    <div class="link item goal-complete-button {{#if goal.complete}}completed-goal{{/if}}"
+         title="{{#if goal.complete}}Mark incomplete{{else}}Mark as complete{{/if}}">
+      <i class="checkmark icon"></i>
+    </div>
   {{/unless}}
 
   <div class="right item">
