@@ -9,8 +9,8 @@ coffeescript
 iron:router
 u2622:persistent-session
 accounts-password
-accounts-ui
 semantic:ui-css
 linto:jquery-ui
 lauricio:less-autoprefixer
 mike:mocha
+useraccounts:semantic-ui

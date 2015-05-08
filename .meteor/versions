@@ -1,7 +1,5 @@
 accounts-base@1.2.0
 accounts-password@1.1.1
-accounts-ui@1.1.5
-accounts-ui-unstyled@1.1.7
 amplify@1.0.0
 autoupdate@1.2.1
 base64@1.0.3
@@ -65,6 +63,7 @@ semantic:ui-css@1.11.6
 service-configuration@1.0.4
 session@1.1.0
 sha@1.0.3
+softwarerero:accounts-t9n@1.0.9
 spacebars@1.0.6
 spacebars-compiler@1.0.6
 srp@1.0.3
@@ -74,6 +73,8 @@ u2622:persistent-session@0.3.1
 ui@1.0.6
 underscore@1.0.3
 url@1.0.4
+useraccounts:core@1.9.1
+useraccounts:semantic-ui@1.9.1
 velocity:chokidar@0.12.6_1
 velocity:core@0.6.1
 velocity:html-reporter@0.5.3
