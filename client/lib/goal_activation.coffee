@@ -23,6 +23,8 @@ share.deactivateGoal = (_id) ->
 share.activateGoal = (_id) ->
   Session.setPersistent 'ActiveGoal', _id
   Session.setPersistent 'ActiveGoalStartTime', new Date()
+  sweepDuration = 30 * 60 * 3600
+  sweep document.querySelector('#goal-timer'), 'color', '#3AC433', '#FD7478', {direction: -1, duration: sweepDuration}
 
 share.toggleActiveGoal = (_id) ->
   if Session.equals 'ActiveGoal', _id
