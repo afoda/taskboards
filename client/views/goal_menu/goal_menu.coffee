@@ -1,6 +1,6 @@
 Template.goal_menu.helpers
   subgoals: ->
-    Goals.find parentId: this.goal._id
+    Goals.find {parentId: this.goal._id}, {sort: index: 1}
 
 Template.goal_menu.events
   'click .zoom-menu-item': ->
