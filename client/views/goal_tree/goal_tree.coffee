@@ -55,9 +55,11 @@ Template.goal_tree.helpers
     id = share.activeGoalId()
     Goals.findOne(id)
   activeGoalTime: ->
-    seconds = Math.round share.secondsSinceActiveGoalStart()
-    if seconds < 0
+    seconds = share.secondsSinceActiveGoalStart()
+    if !seconds? || isNaN(seconds) || seconds < 0
       seconds = 0
+    else
+      seconds = Math.round seconds
     days    = Math.floor (seconds / (60 * 60 * 24))
     hours   = Math.floor (seconds / (60 * 60))
     minutes = Math.floor (seconds / (60))
