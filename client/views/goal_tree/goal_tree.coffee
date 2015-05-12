@@ -67,6 +67,15 @@ Template.goal_tree.helpers
     if !days
       return hours + "h " + (twoDigits (minutes % 60)) + "m"
     return days + "d " + (twoDigits (hours % 24)) + "h"
+  goalTimerColor: ->
+    seconds = Math.round share.secondsSinceActiveGoalStart()
+    transitionTime = 30 * 60
+    hueStart = 117
+    hueEnd = -2
+    hue = (hueStart * (transitionTime - seconds) + hueEnd * seconds) / transitionTime
+    if hue < hueEnd
+      hue = hueEnd
+    "hsl(" + hue + ", 59%, 63%)"
   atTopLevel: ->
     !(this.goal?)
 
