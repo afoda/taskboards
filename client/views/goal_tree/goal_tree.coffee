@@ -74,7 +74,10 @@ Template.goal_tree.helpers
     transitionTime = 30 * 60
     hueStart = 117
     hueEnd = -2
-    hue = (hueStart * (transitionTime - seconds) + hueEnd * seconds) / transitionTime
+    # A function from [0, 1] to [0, 1] that modulates the hue change
+    easing = (x) -> Math.pow x, 3
+    t = seconds / transitionTime
+    hue = (1 - easing(t)) * hueStart + easing(t) * hueEnd
     if hue < hueEnd
       hue = hueEnd
     "hsl(" + hue + ", 59%, 63%)"
