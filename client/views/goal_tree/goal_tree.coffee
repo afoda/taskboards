@@ -43,6 +43,9 @@ Template.goal_tree.events
       else
         Router.go('/')
 
+  'click .about-page-button': ->
+    $('#about-page-modal').modal('show')
+
   'click': (event) ->
     # Hide all message boxes when clicking out of them
     if not $(event).closest(".message-box").length
