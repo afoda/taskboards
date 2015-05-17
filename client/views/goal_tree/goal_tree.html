@@ -13,6 +13,7 @@
         {{/if}}
       </a>
       <a class="item about-page-button"> <i class="help icon"></i> Help / About </a>
+      <a class="item tour-start-button"> <i class="help icon"></i> Tour </a>
     </div>
   </div>
 
@@ -48,24 +49,22 @@
     </div>
   {{/unless}}
 
-  <div class="right item">
+  <div id="login-buttons-item" class="right item">
     {{> loginButtons align="right"}}
   </div>
 
-  {{#if activeGoal}}
-  <div class="right item" style="color: {{goalTimerColor}}">
+  <div id="goal-timer" class="right item" style="color: {{goalTimerColor}}; display: {{#if activeGoal}}block{{else}}none{{/if}}">
     {{activeGoalTime}}
   </div>
 
-  <a id="active-goal-box" class="right item" href="{{pathFor route='goal' _id=activeGoal._id}}" title="{{activeGoal.title}}">
+  <a id="active-goal-box" class="right item" href="{{pathFor route='goal' _id=activeGoal._id}}" title="{{activeGoal.title}}" style="display: {{#if activeGoal}}block{{else}}none{{/if}}">
     <i class="wait icon"></i>
     {{activeGoal.title}}
   </a>
-  {{else}}
-  <div class="right item no-active-goal-box">
+
+  <div class="right item no-active-goal-box" style="display: {{#if activeGoal}}none{{else}}block{{/if}}">
     No active task
   </div>
-  {{/if}}
 </nav>
 
 <main id="board-container">
