@@ -36,6 +36,9 @@ Template.goal_tree.events
     else
       share.toggleHomeHideComplete()
 
+  'click .tour-start-button': ->
+    share.startTour()
+
   'click #pop-stack-link': (event) ->
     if not $(event.target).closest("#breadcrumb-menu").length
       if this.goal.parentId
