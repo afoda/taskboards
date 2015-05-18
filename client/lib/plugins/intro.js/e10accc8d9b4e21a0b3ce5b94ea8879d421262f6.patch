@@ -1,0 +1,48 @@
+From e10accc8d9b4e21a0b3ce5b94ea8879d421262f6 Mon Sep 17 00:00:00 2001
+From: yuvale <yuvale@users.noreply.github.com>
+Date: Sat, 8 Nov 2014 14:52:49 +0200
+Subject: [PATCH] Fix issue 356 - no interaction with the target element.
+
+Up until now (since it was added in pull request 273), the reference
+layer had a higher z-index than the target element, which caused it to
+block interaction with target element, as if disableInteraction is
+enabled.
+
+To solve this, the reference layer is now hidden, but its children are
+made visible. This restores the ability to interact with the underlying
+element.
+
+Changing the visibility attribute doesn't affect positioning, so no
+other changes were required.
+---
+ introjs.css | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/introjs.css b/introjs.css
+index 914cd8a..a33457f 100644
+--- a/introjs.css
++++ b/introjs.css
+@@ -65,6 +65,7 @@ tr.introjs-showElement > th {
+ 
+ .introjs-tooltipReferenceLayer {
+   position: absolute;
++  visibility: hidden;
+   z-index: 10000000;
+   background-color: transparent;
+   -webkit-transition: all 0.3s ease-out;
+@@ -86,6 +87,7 @@ tr.introjs-showElement > th {
+ 
+ .introjs-helperNumberLayer {
+   position: absolute;
++  visibility: visible;
+   top: -16px;
+   left: -16px;
+   z-index: 9999999999 !important;
+@@ -184,6 +186,7 @@ tr.introjs-showElement > th {
+ 
+ .introjs-tooltip {
+   position: absolute;
++  visibility: visible;
+   padding: 10px;
+   background-color: white;
+   min-width: 200px;
