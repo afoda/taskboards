@@ -42,6 +42,7 @@ share.startTour = ->
     tooltipPosition: 'auto'
     showStepNumbers: false
     disableInteraction: false
+    keyboardNavigation: false
 
   # Save the task id where the tour was started (or null at the top level).
   templateGoal = Template.currentData().goal
