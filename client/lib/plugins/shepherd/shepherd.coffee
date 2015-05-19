@@ -240,8 +240,6 @@ class Step extends Evented
 
     document.body.appendChild @el
 
-    @setupTether()
-
     if @options.advanceOn
       @bindAdvance()
 
