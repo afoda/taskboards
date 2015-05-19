@@ -25,6 +25,7 @@ share.activateGoal = (_id) ->
   Session.setPersistent 'ActiveGoal', _id
   Session.setPersistent 'ActiveGoalStartTime', new Date()
   Session.setPersistent 'SecondsSinceActiveGoalStart', 0.0
+  share.signalGoalActivated()
 
 share.toggleActiveGoal = (_id) ->
   if Session.equals 'ActiveGoal', _id

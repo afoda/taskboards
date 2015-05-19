@@ -28,7 +28,6 @@ addAllSteps = (tour) ->
 
   tour.addStep 'activateTask',
     attachTo: '.goal-card left'
-    advanceOn: '.goal-active-toggle click'
     text: 'When you want to work on a task, activate it by selecting <em>Activate</em> from its context menu. You can bring up the context menu by hovering over the list bullet for subtasks, or the top right corner for a tile. <br /><br /> Activate a task to continue.'
     buttons: [ ]
 
@@ -108,6 +107,12 @@ Template.goal_card.helpers
 Template.goal_card.events
   'blur .new-subgoal-title': ->
     if share.onStep 'stopCreatingSubtasks'
+      Tracker.afterFlush -> share.tour.next()
+
+# activateTask: goal activation triggers a call to this function
+share.signalGoalActivated = ->
+  if share.onStep 'activateTask'
+    if share.activeGoalId()?
       Tracker.afterFlush -> share.tour.next()
 
 

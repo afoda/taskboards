@@ -53,18 +53,19 @@
     {{> loginButtons align="right"}}
   </div>
 
-  <div id="goal-timer" class="right item" style="color: {{goalTimerColor}}; display: {{#if activeGoal}}block{{else}}none{{/if}}">
+  {{#if activeGoal}}
+  <div id="goal-timer" class="right item" style="color: {{goalTimerColor}}">
     {{activeGoalTime}}
   </div>
-
-  <a id="active-goal-box" class="right item" href="{{pathFor route='goal' _id=activeGoal._id}}" title="{{activeGoal.title}}" style="display: {{#if activeGoal}}block{{else}}none{{/if}}">
+  <a id="active-goal-box" class="right item" href="{{pathFor route='goal' _id=activeGoal._id}}" title="{{activeGoal.title}}">
     <i class="wait icon"></i>
     {{activeGoal.title}}
   </a>
-
-  <div class="right item no-active-goal-box" style="display: {{#if activeGoal}}none{{else}}block{{/if}}">
+  {{else}}
+  <div class="right item no-active-goal-box">
     No active task
   </div>
+  {{/if}}
 </nav>
 
 <main id="board-container">
