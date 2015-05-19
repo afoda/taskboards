@@ -42,14 +42,14 @@ addAllSteps = (tour) ->
 
   tour.addStep 'goalTimer2',
     attachTo: '#goal-timer bottom'
-    text: 'The goal timer gives a sense of how efficiently you are moving through tasks. <br /><br /> It starts off green, and gradually transitions to red over a 30 minute period. <br /><br /> When the goal timer starts showing red, you should consider breaking your task down into smaller pieces.'
+    text: 'The goal timer gives a sense of how efficiently you are moving through tasks. It starts off green, and gradually transitions to red over a 30 minute period. <br /><br /> When the goal timer starts showing red, you should consider breaking your task down into smaller pieces.'
 
   tour.addStep 'accounts',
     attachTo: '#login-buttons-item bottom'
     text: 'You can create a user account at any time, and your work in progress will be saved to your new account.'
 
   tour.addStep 'moreFeatures',
-    text: 'There are many other features for you to explore as you go. <br /><br /> The ability to re-organise tasks is provided by drag-and-drop. Look around the context menus of the <br /><br /> Explore these abilities by dragging tiles and subtasks by their headings, and look around their context menus to see what\'s possible.'
+    text: 'There are more features for you to explore as you go. <br /><br /> Try drag-and-drop to reorganise tasks, and look around the context menus to see what else is possible.'
 
   tour.addStep 'done',
     text: 'You\'re done with the tour! We hope you enjoy using TaskBoards.'
