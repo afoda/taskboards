@@ -48,7 +48,7 @@ addAllSteps = (tour) ->
     text: 'You can create a user account at any time, and your work in progress will be saved to your new account.'
 
   tour.addStep 'moreFeatures',
-    text: 'There are more features for you to explore as you go. <br /><br /> Try drag-and-drop to reorganise tasks, and look around the context menus to see what else is possible.'
+    text: 'There are more features to explore as you go. <br /><br /> Try using drag-and-drop to rearrange tasks, and look around the context menus to see what else is possible.'
 
   tour.addStep 'done',
     text: 'You\'re done with the tour! We hope you enjoy using TaskBoards.'
