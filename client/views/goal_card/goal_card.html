@@ -1,5 +1,5 @@
 <template name="goal_card">
-  <div id="{{goal._id}}" class="goal-card {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}} {{#if inSortingMode}}sorting-card{{/if}}">
+  <div id="{{goal._id}}" class="goal-card {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}} {{#if inSortingMode}}sorting-card{{/if}} {{#if isTourNewTile}}tour-new-tile{{/if}}">
   <div class="action-box">
     {{#if goal.complete}}
     <i class="right floated green checkmark link icon goal-complete-button action-box-icon"></i>

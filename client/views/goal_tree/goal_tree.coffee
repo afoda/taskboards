@@ -30,6 +30,9 @@ Template.goal_tree.events
     if newTitle?
       Meteor.call "setGoalTitle", this.goal._id, newTitle
 
+  'click .tour-start-button': ->
+    share.startTour()
+
   'click .goal-hide-completed-subgoals-toggle': ->
     if @goal?
       Meteor.call "toggleHideCompletedSubgoals", this.goal._id
