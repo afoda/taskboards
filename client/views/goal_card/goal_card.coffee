@@ -33,7 +33,7 @@ Template.goal_card.events
 
 
 Template.goal_card.helpers
-  editing: -> this.goal._id == Session.get 'EditingCard'
+  editing: -> Session.equals 'EditingCard', @goal._id
 
 
 Template.new_subgoal_row.rendered = ->
