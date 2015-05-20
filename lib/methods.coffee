@@ -69,3 +69,6 @@ Meteor.methods
       lastInNewParent = Goals.findOne {parentId: newParentId}, {sort: {index: -1}}
       newIndex = if lastInNewParent? then lastInNewParent.index + 1 else 0
       Goals.update id, $set: {parentId: newParentId, index: newIndex}
+
+  setSeenIntroModal: ->
+    Meteor.users.update {_id: Meteor.userId()}, {$set: {'profile.seenIntroModal': true}}

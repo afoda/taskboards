@@ -5,8 +5,23 @@ Template.about_modal.rendered = ->
 Template.about_modal.events
 
   'click .close-modal-button': ->
-    $('#about-page-modal').modal('hide')
+    share.hideIntroModal()
 
   'click .start-tour-button': ->
-    $('#about-page-modal').modal('hide')
     # share.startTour()
+    share.hideIntroModal()
+
+
+share.showIntroModal = ->
+  $('#about-page-modal').modal('show')
+  Meteor.call('setSeenIntroModal')
+
+share.hideIntroModal = ->
+  $('#about-page-modal').modal('hide')
+
+share.seenIntroModal = -> Meteor.user().profile?.seenIntroModal
+
+
+Accounts.onLogin ->
+  Tracker.afterFlush ->
+    share.showIntroModal() if not share.seenIntroModal()
