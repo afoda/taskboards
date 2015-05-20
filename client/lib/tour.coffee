@@ -58,10 +58,11 @@ addAllSteps = (tour) ->
 share.currentStep = -> Shepherd.activeTour?.getCurrentStep()
 share.currentStepId = -> share.currentStep()?.id
 share.onStep = (id) -> id == share.currentStepId()
-share.stopTour = -> share.tour?.cancel()
+share.stopTour = -> Shepherd.activeTour?.cancel()
 
 
 share.startTour = ->
+  share.stopTour()
 
   tour = new Shepherd.Tour
     defaults:
