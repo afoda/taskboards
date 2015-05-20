@@ -117,11 +117,15 @@ share.signalGoalActivated = ->
       Tracker.afterFlush -> share.tour.next()
 
 
-Router.onAfterAction ->
-  step = share.currentStep()
-  if step?
-    switch step.id
-      when "zoomingIn"
+Router.onRun ->
+  switch share.currentStepId()
+    when "zoomingIn"
+      # When landing on a board without tiles, close tour gracefully
+      landingOnId = Router.current().params._id
+      if Goals.findOne {"parentId": landingOnId}
         Tracker.afterFlush -> share.tour.next()
       else
         share.stopTour()
+    else
+      share.stopTour()
+  this.next()
