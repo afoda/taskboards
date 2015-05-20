@@ -15,13 +15,19 @@ Template.about_modal.events
 share.showIntroModal = ->
   $('#about-page-modal').modal('show')
   Meteor.call('setSeenIntroModal')
+  Session.setPersistent "SeenIntroModal", true
 
 share.hideIntroModal = ->
   $('#about-page-modal').modal('hide')
 
-share.seenIntroModal = -> Meteor.user().profile?.seenIntroModal
+share.seenIntroModal = ->
+  Meteor.user().profile?.seenIntroModal || Session.get "SeenIntroModal"
+
+share.accountIsGuest = ->
+  Meteor.user().profile?.guest
 
 
 Accounts.onLogin ->
   Tracker.afterFlush ->
-    share.showIntroModal() if not share.seenIntroModal()
+    if share.accountIsGuest() and not share.seenIntroModal()
+      share.showIntroModal()
