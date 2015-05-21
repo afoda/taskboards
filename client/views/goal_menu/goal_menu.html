@@ -1,15 +1,10 @@
 <template name="goal_menu">
 <div class="menu">
   {{#if subgoalCount}}
-  <div class="ui dropdown item zoom-menu-item">
+  <a class="ui item" href="{{pathFor route='goal' _id=goal.parentId hash=goal._id}}">
     <i class="zoom in icon"></i>
     {{completedSubgoalCount}} / {{subgoalCount}}
-    <div id="zoom-menu-item-submenu" class="menu">
-      {{#each subgoals}}
-        {{> subsubgoal_menu_item goal=this}}
-      {{/each}}
-    </div>
-  </div>
+  </a>
   <div class="ui divider"></div>
   {{/if}}
   {{> simple_menu_item goal=goal class="goal-complete-button" icon="checkmark" text="Complete"}}
