@@ -1,5 +1,5 @@
 Template.about_modal.rendered = ->
-  $('#about-page-modal').modal()
+  $('#about-modal').modal()
 
 
 Template.about_modal.events
@@ -13,12 +13,12 @@ Template.about_modal.events
 
 
 share.showIntroModal = ->
-  $('#about-page-modal').modal('show')
+  $('#about-modal').modal('show')
   Meteor.call('setSeenIntroModal')
   Session.setPersistent "SeenIntroModal", true
 
 share.hideIntroModal = ->
-  $('#about-page-modal').modal('hide')
+  $('#about-modal').modal('hide')
 
 share.seenIntroModal = ->
   Meteor.user().profile?.seenIntroModal || Session.get "SeenIntroModal"
