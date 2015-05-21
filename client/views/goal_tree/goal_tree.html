@@ -54,7 +54,7 @@
   </div>
 
   {{#if activeGoal}}
-  <div id="goal-timer" class="right item" style="color: {{goalTimerColor}}">
+  <div id="goal-timer" class="right item" style="background: {{goalTimerColor}}">
     {{activeGoalTime}}
   </div>
   <a id="active-goal-box" class="right item" href="{{pathFor route='goal' _id=activeGoal._id}}" title="{{activeGoal.title}}">
