@@ -1,6 +1,20 @@
 @import "colours.less";
 
 
+.complete .subgoal-row {
+  opacity: 0.7;
+  &.complete {
+    opacity: 0.4;
+    .subgoal-title {
+      text-decoration: line-through;
+    }
+    .subgoal-title, .subgoal-entry-icon {
+      color: @subgoal-title-color;
+    }
+  }
+}
+
+
 .subgoal-row {
   i {
     color: @action-icon-color;

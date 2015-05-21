@@ -26,15 +26,9 @@
     color: @action-icon-color;
   }
 
-  &.active-goal, &.sorting-card, &:hover {
+  &.complete, &.active-goal, &.sorting-card, &:hover {
     .action-box-icon {
       opacity: 0.8;
-    }
-  }
-
-  &.complete {
-    .action-box-icon {
-      opacity: 1.0;
     }
   }
 
@@ -63,10 +57,14 @@
   }
 
   &.complete {
-    opacity: 0.7;
     background: @completed-goal-color-bg;
     .header a {
-      color: @completed-goal-color;
+      opacity: 0.8;
+      color: @subgoal-title-color;
+    }
+
+    .action-box-icon {
+      color: rgba(0, 0, 0, 0.45);
     }
   }
 }

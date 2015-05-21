@@ -2,7 +2,7 @@
   <div id="{{goal._id}}" class="goal-card {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}} {{#if inSortingMode}}sorting-card{{/if}} {{#if isTourNewTile}}tour-new-tile{{/if}}">
   <div class="action-box">
     {{#if goal.complete}}
-    <i class="right floated green checkmark link icon goal-complete-button action-box-icon"></i>
+    <i class="right floated checkmark link icon goal-complete-button action-box-icon"></i>
     {{else}}
       {{#if inSortingMode}}
         <i class="right floated list link icon sorting-mode-toggle action-box-icon" title="Stop sorting"></i>
