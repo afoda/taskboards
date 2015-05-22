@@ -57,12 +57,4 @@ Template.subgoal_row.helpers
       .count()
 
 
-Template.subgoal_row.rendered = ->
-  if not share.inSortingMode()
-    share.setRowDragging 0, this.firstNode
-
-Template.goal_card.rendered = ->
-  if share.inSortingMode()
-    share.setCardSorting 0, this.firstNode
-  else
-    share.setCardDragging 0, this.firstNode
+Template.goal_card.rendered = -> share.setCardDragging this.firstNode
