@@ -33,6 +33,10 @@ Template.goal_card.helpers
   editing: -> Session.equals 'EditingCard', @goal._id
 
 
+Template.goal_card.rendered = ->
+  share.setCardDragging @firstNode
+
+
 Template.new_subgoal_row.rendered = ->
   $(@find 'input').focus()
 
