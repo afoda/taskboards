@@ -47,11 +47,13 @@ positionAtPlaceholder = ->
   nextSubgoalId = placeholder.next('.subgoal-row').attr('id')
   draggedId = draggingElement.id
   Meteor.call "changePosition", draggedId, newParentId, nextSubgoalId
+  (tearDownCardDragging.bind $(@).closest '.goal-card')()
 
 positionInSubgoal = ->
   newParentId = $(this).attr('id')
   draggedId = draggingElement.id
   Meteor.call "changePosition", draggedId, newParentId, null
+  (tearDownCardDragging.bind $(@).closest '.goal-card')()
 
 
 setupCardDragging = ->
