@@ -90,7 +90,7 @@ share.setCardDragging = (card) ->
 
   title.on 'mousedown', ->
     draggingElement =
-      id: title.attr('id')
+      id: card.attr('id')
       title: title.text()
       isTile: true
       priorIndex: null
