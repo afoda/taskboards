@@ -5,6 +5,7 @@ draggingElement = null # id, title, isTile, priorIndex
 enableDragging = ->
   if !draggingActive
     console.log("dragging enabled")
+    $(window).one 'mouseup', finishDragging
     $(window).on 'mousemove', updateDragHelper
 
     helper = $('#drag-helper')
@@ -19,16 +20,14 @@ enableDragging = ->
 
 finishDragging = ->
   console.log("finish dragging called")
-  if draggingActive
-    $(window).off 'mousemove', updateDragHelper
-    $(window).off 'mousemove', enableDragging
+  $(window).off 'mousemove', updateDragHelper
 
-    $('.goal-card').each (index, card) ->
-      $(card).off "mouseenter", setupCardDragging
-      $(card).off "mouseleave", tearDownCardDragging
+  $('.goal-card').each (index, card) ->
+    $(card).off "mouseenter", setupCardDragging
+    $(card).off "mouseleave", tearDownCardDragging
 
-    draggingActive = false
-    $("#drag-helper").hide()
+  draggingActive = false
+  $("#drag-helper").hide()
 
 
 updateDragHelper = (event) ->
@@ -36,8 +35,6 @@ updateDragHelper = (event) ->
    left:  event.pageX
    top:   event.pageY
   return false
-
-$(window).on 'mouseup', finishDragging
 
 
 addDraggingHover = -> $(this).addClass 'dragging-hover'
@@ -50,13 +47,11 @@ positionAtPlaceholder = ->
   nextSubgoalId = placeholder.next('.subgoal-row').attr('id')
   draggedId = draggingElement.id
   Meteor.call "changePosition", draggedId, newParentId, nextSubgoalId
-  finishDragging()
 
 positionInSubgoal = ->
   newParentId = $(this).attr('id')
   draggedId = draggingElement.id
   Meteor.call "changePosition", draggedId, newParentId, null
-  finishDragging()
 
 
 setupCardDragging = ->
@@ -97,7 +92,7 @@ share.setCardDragging = (card) ->
       title: title.text()
       isTile: true
       priorIndex: null
-    $(window).on 'mousemove', enableDragging
+    $(window).one 'mousemove', enableDragging
 
   subgoalRows.each (index, subgoalRow) ->
     subgoalRow = $(subgoalRow)
@@ -108,4 +103,4 @@ share.setCardDragging = (card) ->
         title: subgoalTitle.text()
         isTile: false
         priorIndex: null
-      $(window).on 'mousemove', enableDragging
+      $(window).one 'mousemove', enableDragging
