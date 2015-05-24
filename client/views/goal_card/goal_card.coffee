@@ -34,7 +34,10 @@ Template.goal_card.helpers
 
 
 Template.goal_card.rendered = ->
-  share.setCardDragging @firstNode
+  share.setCardDragging $(@firstNode)
+
+Template.subgoal_row.rendered = ->
+  share.setSubgoalRowDragging $(@firstNode)
 
 
 Template.new_subgoal_row.rendered = ->

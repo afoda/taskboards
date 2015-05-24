@@ -83,11 +83,7 @@ tearDownCardDragging = ->
 
 
 share.setCardDragging = (card) ->
-  card = $(card)
-
   title = card.find('.header a')
-  subgoalRows = card.find('.subgoal-row')
-
   title.on 'mousedown', ->
     draggingElement =
       id: card.attr('id')
@@ -96,16 +92,15 @@ share.setCardDragging = (card) ->
       priorIndex: null
     $(window).one 'mousemove', enableDragging
 
-  subgoalRows.each (index, subgoalRow) ->
-    subgoalRow = $(subgoalRow)
-    subgoalTitle = subgoalRow.find('.subgoal-title')
-    subgoalTitle.on 'mousedown', ->
-      draggingElement =
-        id: subgoalRow.attr('id')
-        title: subgoalTitle.text()
-        isTile: false
-        priorIndex: null
-      $(window).one 'mousemove', enableDragging
+share.setSubgoalRowDragging = (subgoalRow) ->
+  title = subgoalRow.find('.subgoal-title')
+  title.on 'mousedown', ->
+    draggingElement =
+      id: subgoalRow.attr('id')
+      title: title.text()
+      isTile: false
+      priorIndex: null
+    $(window).one 'mousemove', enableDragging
 
 
 Router.onBeforeAction ->
