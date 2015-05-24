@@ -1,6 +1,5 @@
 draggingActive = false
 draggingElement = null # id, title, isTile, priorIndex
-draggingPosition = null # over, index
 
 
 enableDragging = ->
@@ -22,15 +21,15 @@ finishDragging = ->
   console.log("finish dragging called")
   if draggingActive
     $(window).off 'mousemove', updateDragHelper
+    $(window).off 'mousemove', enableDragging
 
     $('.goal-card').each (index, card) ->
       $(card).off "mouseenter", setupCardDragging
       $(card).off "mouseleave", tearDownCardDragging
 
-    draggingElement = null
-    draggingPosition = null
     draggingActive = false
     $("#drag-helper").hide()
+
 
 updateDragHelper = (event) ->
   $('#drag-helper').css
@@ -44,20 +43,37 @@ $(window).on 'mouseup', finishDragging
 addDraggingHover = -> $(this).addClass 'dragging-hover'
 removeDraggingHover = -> $(this).removeClass 'dragging-hover'
 
+
+positionAtPlaceholder = ->
+  placeholder = $(this)
+  newParentId = placeholder.closest('.goal-card').attr('id')
+  nextSubgoalId = placeholder.next('.subgoal-row').attr('id')
+  draggedId = draggingElement.id
+  Meteor.call "changePosition", draggedId, newParentId, nextSubgoalId
+  finishDragging()
+
+positionInSubgoal = ->
+  newParentId = $(this).attr('id')
+  draggedId = draggingElement.id
+  Meteor.call "changePosition", draggedId, newParentId, null
+  finishDragging()
+
+
 setupCardDragging = ->
   card = $(this)
   console.log("setupCardDragging called")
   subgoalRows = card.find('.subgoal-row')
   card.find('tbody').addClass 'dragging'
 
-  subgoalRows.before (index) ->
-    '<tr class="drag-placeholder" data-index=#{index}><td class="menu-cell"></td><td></td></tr>'
-  card.find('tbody').append ->
-    '<tr class="drag-placeholder" data-index=#{subgoalRows.length}><td class="menu-cell"></td><td></td></tr>'
+  placeholderHtml = '<tr class="drag-placeholder"><td class="menu-cell"></td><td></td></tr>'
+  subgoalRows.before (index) -> placeholderHtml
+  card.find('tbody').append placeholderHtml
 
   card.find('.drag-placeholder, .subgoal-row').on 'mouseenter', addDraggingHover
   card.find('.drag-placeholder, .subgoal-row').on 'mouseleave', removeDraggingHover
 
+  card.find('.drag-placeholder').on 'mouseup', positionAtPlaceholder
+  card.find('.subgoal-row').on 'mouseup', positionInSubgoal
 
 
 tearDownCardDragging = ->
