@@ -4,10 +4,47 @@
 #drag-helper {
   display: none;
   position: absolute;
+  pointer-events: none;
   cursor: default;
   white-space: no-wrap;
   padding: 0.65em 1.25em;
   background: #FFF;
   border: 1px solid #CCC;
   color: @semi-opaque-black;
+}
+
+table.goal-card-checklist tbody.dragging {
+  td {
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+  }
+
+  tr.drag-placeholder td {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+
+  tr.dragging-hover {
+    background: @color-secondary-2-1;
+  }
+}
+
+table.goal-card-checklist tbody.dragging {
+  td {
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+  }
+
+  tr.drag-placeholder td {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+
+  tr.dragging-hover {
+    background: @color-secondary-2-1;
+  }
+}
+
+.goal-card.active-goal table.goal-card-checklist tbody.dragging tr.dragging-hover {
+  background: white;
 }
