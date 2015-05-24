@@ -104,3 +104,9 @@ share.setCardDragging = (card) ->
         isTile: false
         priorIndex: null
       $(window).one 'mousemove', enableDragging
+
+
+Router.onBeforeAction ->
+  $(window).off 'mousemove', enableDragging
+  draggingElement = null
+  this.next()
