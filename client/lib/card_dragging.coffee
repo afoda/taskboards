@@ -2,15 +2,15 @@ draggingActive = false
 draggingElement = null # id, title, isTile, priorIndex
 
 
-enableDragging = ->
+enableDragging = (event) ->
   if !draggingActive
     console.log("dragging enabled")
     $(window).one 'mouseup', finishDragging
     $(window).on 'mousemove', updateDragHelper
 
-    helper = $('#drag-helper')
-    helper.text(draggingElement.title)
-    helper.show()
+    helperHtml = "<div id='drag-helper'>#{draggingElement.title}</div>"
+    $('body').append(helperHtml)
+    updateDragHelper(event)
 
     $('.goal-card').each (index, card) ->
       $card = $ card
@@ -29,7 +29,7 @@ finishDragging = ->
     $(card).off "mouseleave", tearDownCardDragging
 
   draggingActive = false
-  $("#drag-helper").hide()
+  $("#drag-helper").remove()
 
 
 updateDragHelper = (event) ->
