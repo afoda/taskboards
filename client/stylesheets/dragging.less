@@ -25,11 +25,20 @@ table.goal-card-checklist.dragging {
     padding-bottom: 0.5em;
   }
 
+  tr.drag-placeholder.dragging-hover td {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+  }
+
   tr.dragging-hover {
     background: @color-secondary-2-1;
   }
 
   tr:only-child td {
+    padding-bottom: 3.0em;
+  }
+
+  tr.drag-placeholder.dragging-hover:only-child td {
     padding-bottom: 3.0em;
   }
 }
