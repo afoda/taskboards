@@ -18,6 +18,10 @@ enableDragging = (event) ->
         $card.on "mouseenter", setupCardDragging
         $card.on "mouseleave", tearDownCardDragging
 
+    if not draggingElement.isTile
+      card = $('#' + draggingElement.id).closest('.goal-card')
+      setupCardDragging.bind(card)()
+
     draggingActive = true
 
 finishDragging = ->
