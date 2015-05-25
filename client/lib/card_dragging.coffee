@@ -79,6 +79,7 @@ tearDownCardDragging = ->
   card.find('.drag-placeholder').remove()
   card.find('.subgoal-row').off 'mouseenter', addDraggingHover
   card.find('.subgoal-row').off 'mouseleave', removeDraggingHover
+  card.find('.subgoal-row').off 'mouseup', positionInSubgoal
   card.find('tbody').removeClass 'dragging'
 
 
