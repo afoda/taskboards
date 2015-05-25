@@ -62,7 +62,7 @@ setupCardDragging = ->
   card = $(this)
   console.log("setupCardDragging called")
   subgoalRows = card.find('.subgoal-row')
-  card.find('tbody').addClass 'dragging'
+  card.find('table.goal-card-checklist').addClass 'dragging'
 
   placeholderHtml = '<tr class="drag-placeholder"><td class="menu-cell"></td><td></td></tr>'
   subgoalRows.before (index) -> placeholderHtml
@@ -93,7 +93,7 @@ tearDownCardDragging = ->
   card.find('.subgoal-row').off 'mouseenter', addDraggingHover
   card.find('.subgoal-row').off 'mouseleave', removeDraggingHover
   card.find('.subgoal-row').off 'mouseup', positionInSubgoal
-  card.find('tbody').removeClass 'dragging'
+  card.find('table.goal-card-checklist').removeClass 'dragging'
 
 
 share.setCardDragging = (card) ->
