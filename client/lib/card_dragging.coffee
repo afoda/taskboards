@@ -13,8 +13,10 @@ enableDragging = ->
     helper.show()
 
     $('.goal-card').each (index, card) ->
-      $(card).on "mouseenter", setupCardDragging
-      $(card).on "mouseleave", tearDownCardDragging
+      $card = $ card
+      if $card.attr('id') != draggingElement.id
+        $card.on "mouseenter", setupCardDragging
+        $card.on "mouseleave", tearDownCardDragging
 
     draggingActive = true
 
@@ -71,6 +73,17 @@ setupCardDragging = ->
 
   card.find('.drag-placeholder').on 'mouseup', positionAtPlaceholder
   card.find('.subgoal-row').on 'mouseup', positionInSubgoal
+
+  # Disable drag interactions around the dragged element
+
+  disableDragging = (el) ->
+    $(el).off 'mouseenter', addDraggingHover
+    $(el).off 'mouseup', positionInSubgoal
+    $(el).off 'mouseup', positionAtPlaceholder
+
+  disableDragging card.find('#' + draggingElement.id)
+  disableDragging card.find('#' + draggingElement.id).next()
+  disableDragging card.find('#' + draggingElement.id).prev()
 
 
 tearDownCardDragging = ->
