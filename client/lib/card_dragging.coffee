@@ -2,6 +2,8 @@ draggingActive = false
 draggingElement = null # id, title, isTile, priorIndex
 
 
+preventDefault = (event) -> event.preventDefault()
+
 enableDragging = (event) ->
   if !draggingActive
     console.log("dragging enabled")
@@ -22,11 +24,14 @@ enableDragging = (event) ->
       card = $('#' + draggingElement.id).closest('.goal-card')
       setupCardDragging.bind(card)()
 
+    $(window).on 'mousemove', preventDefault
     draggingActive = true
+
 
 finishDragging = ->
   console.log("finish dragging called")
   $(window).off 'mousemove', updateDragHelper
+  $(window).off 'mousemove', preventDefault
 
   $('.goal-card').each (index, card) ->
     $(card).off "mouseenter", setupCardDragging
