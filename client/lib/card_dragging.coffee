@@ -1,5 +1,5 @@
 draggingActive = false
-draggingElement = null # id, title, isTile, priorIndex
+draggingElement = null # id, title, isTile
 
 
 preventDefault = (event) -> event.preventDefault()
@@ -116,7 +116,6 @@ share.setCardDragging = (card) ->
       id: card.attr('id')
       title: title.text()
       isTile: true
-      priorIndex: null
     $(window).one 'mousemove', enableDragging
 
 share.setSubgoalRowDragging = (subgoalRow) ->
@@ -126,7 +125,6 @@ share.setSubgoalRowDragging = (subgoalRow) ->
       id: subgoalRow.attr('id')
       title: title.text()
       isTile: false
-      priorIndex: null
     $(window).one 'mousemove', enableDragging
 
 
