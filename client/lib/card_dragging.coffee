@@ -37,6 +37,8 @@ finishDragging = ->
     $(card).off "mouseenter", setupCardDragging
     $(card).off "mouseleave", tearDownCardDragging
 
+  $('.goal-card').each tearDownCardDragging
+
   draggingActive = false
   $("#drag-helper").remove()
 
