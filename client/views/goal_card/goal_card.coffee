@@ -47,7 +47,7 @@ Template.new_subgoal_row.rendered = ->
 Template.subgoal_row.events
   'click .subgoal-pop-button': ->
     parent = Goals.findOne @goal.parentId
-    Meteor.call "changePosition", @goal._id, parent.parentId, parent._id
+    Meteor.call "changePosition", @goal._id, parent.parentId, parent.index + 1
 
 
 Template.subgoal_row.helpers

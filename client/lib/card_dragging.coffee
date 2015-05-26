@@ -57,9 +57,11 @@ removeDraggingHover = -> $(this).removeClass 'dragging-hover'
 positionAtPlaceholder = ->
   placeholder = $(this)
   newParentId = placeholder.closest('.goal-card').attr('id')
-  nextSubgoalId = placeholder.next('.subgoal-row').attr('id')
   draggedId = draggingElement.id
-  Meteor.call "changePosition", draggedId, newParentId, nextSubgoalId
+  nextSubgoalId = placeholder.next('.subgoal-row').attr('id')
+  nextSubgoal = Goals.findOne nextSubgoalId
+  newIndex = if nextSubgoal? then nextSubgoal.index else null
+  Meteor.call "changePosition", draggedId, newParentId, newIndex
   (tearDownCardDragging.bind $(@).closest '.goal-card')()
 
 positionInSubgoal = ->

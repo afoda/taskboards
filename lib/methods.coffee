@@ -49,10 +49,10 @@ Meteor.methods
     goal = Goals.findOne(id)
     Goals.update id, $set: hideCompletedSubgoals: !goal.hideCompletedSubgoals
 
-  changePosition: (id, newParentId, nextId) ->
+  changePosition: (id, newParentId, index) ->
     check(id, String)
     check(newParentId, String)
-    check(nextId, Match.OneOf(String, undefined, null))
+    check(index, Match.OneOf(Number, undefined, null))
     validateGoalAccess id
     validateGoalAccess newParentId
     # Check that the move doesn't introduce a cycle
@@ -61,11 +61,10 @@ Meteor.methods
     while ancestor.parentId?
       ancestor = Goals.findOne ancestor.parentId
       throw new Meteor.Error("cycle") if ancestor._id == id
-    if nextId?
-      next = Goals.findOne nextId
-      Goals.update {parentId: newParentId, index: {$gte: next.index}}, {$inc: {index: 1}}, {multi: true}
-      Goals.update id, $set: {parentId: newParentId, index: next.index}
+    if index?
+      Goals.update {parentId: newParentId, index: {$gte: index}}, {$inc: {index: 1}}, {multi: true}
+      Goals.update id, $set: {parentId: newParentId, index: index}
     else
       lastInNewParent = Goals.findOne {parentId: newParentId}, {sort: {index: -1}}
-      newIndex = if lastInNewParent? then lastInNewParent.index + 1 else 0
-      Goals.update id, $set: {parentId: newParentId, index: newIndex}
+      index = if lastInNewParent? then lastInNewParent.index + 1 else 0
+      Goals.update id, $set: {parentId: newParentId, index: index}
