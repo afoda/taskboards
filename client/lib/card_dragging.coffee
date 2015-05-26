@@ -108,6 +108,7 @@ tearDownCardDragging = ->
   console.log("tearDownCardDragging called")
   card = $(this)
   card.find('.drag-placeholder').remove()
+  card.find('.dragging-hover').removeClass 'dragging-hover'
   card.find('.subgoal-row').off 'mouseenter', addDraggingHover
   card.find('.subgoal-row').off 'mouseleave', removeDraggingHover
   card.find('.subgoal-row').off 'mouseup', positionInSubgoal
