@@ -67,8 +67,13 @@ positionAtPlaceholder = ->
 positionInSubgoal = ->
   newParentId = $(this).attr('id')
   draggedId = draggingElement.id
+  dragged = Goals.findOne draggedId
+  priorParent = dragged.parentId
+  priorIndex = dragged.index
   Meteor.call "changePosition", draggedId, newParentId, null
   (tearDownCardDragging.bind $(@).closest '.goal-card')()
+  share.saveLastNesting draggedId, newParentId, priorParent, priorIndex
+  share.showNestingUndo()
 
 
 setupCardDragging = ->
