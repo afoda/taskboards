@@ -77,7 +77,7 @@ share.startTour = ->
   # Save the task id where the tour was started (or null at the top level).
   templateGoal = Template.currentData().goal
   tourStartTaskId = if templateGoal? then templateGoal._id else null
-  Session.setPersistent "TourStartTaskId", tourStartTaskId
+  Session.setAuth "TourStartTaskId", tourStartTaskId
 
 
 Meteor.startup ->
@@ -86,7 +86,7 @@ Meteor.startup ->
   Goals.after.insert (userId, doc) ->
     if share.onStep 'createTask'
       if Session.equals "TourStartTaskId", doc.parentId
-        Session.setPersistent "TourNewTaskId", doc._id
+        Session.setAuth "TourNewTaskId", doc._id
         Tracker.afterFlush -> share.tour.next()
 
   # createSubtask: advance on creating a subtask of the newly-created task
