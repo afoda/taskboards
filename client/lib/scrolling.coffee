@@ -1,4 +1,4 @@
-Router.onAfterAction ->
+Router.onRun ->
   $(window).scrollTop 0
   hash = @params.hash
   if hash
@@ -13,3 +13,4 @@ Router.onAfterAction ->
         .animate scrollTop: scrollTop, 'slow'
         .promise()
         .done(-> element.transition 'pulse')
+  this.next()
