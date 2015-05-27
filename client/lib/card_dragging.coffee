@@ -119,6 +119,10 @@ share.setCardDragging = (card) ->
       title: title.text()
       isTile: true
     $(window).one 'mousemove', enableDragging
+    disableTitleClick = -> title.one 'click', preventDefault
+    $(window).one 'mousemove', disableTitleClick
+    $(window).one 'mouseup', -> $(window).off 'mousemove', enableDragging
+    $(window).one 'mouseup', -> $(window).off 'mousemove', disableTitleClick
 
 share.setSubgoalRowDragging = (subgoalRow) ->
   title = subgoalRow.find('.subgoal-title')
@@ -128,9 +132,7 @@ share.setSubgoalRowDragging = (subgoalRow) ->
       title: title.text()
       isTile: false
     $(window).one 'mousemove', enableDragging
-
-
-Router.onBeforeAction ->
-  $(window).off 'mousemove', enableDragging
-  draggingElement = null
-  this.next()
+    disableTitleClick = -> title.one 'click', preventDefault
+    $(window).one 'mousemove', disableTitleClick
+    $(window).one 'mouseup', -> $(window).off 'mousemove', enableDragging
+    $(window).one 'mouseup', -> $(window).off 'mousemove', disableTitleClick
