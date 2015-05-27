@@ -51,6 +51,9 @@ Template.goal_tree.events
     if not $(event).closest(".message-box").length
       share.hideNestingUndo()
 
+  'dblclick .new-card-placeholder': (event, template) ->
+    template.find('.new-card-title').focus()
+
 
 Template.goal_tree.helpers
 
