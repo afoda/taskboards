@@ -25,5 +25,4 @@ share.undoLastNesting = ->
   lastDragged = share.lastDragged()
   previousParent = share.lastDraggedPreviousParent()
   previousIndex = share.lastDraggedPreviousIndex()
-  # previousIndex cannot straightforwardly be used to restore element to its original position
-  Meteor.call "changePosition", lastDragged, previousParent, null
+  Meteor.call "changePosition", lastDragged, previousParent, previousIndex

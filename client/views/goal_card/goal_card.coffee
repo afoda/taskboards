@@ -28,12 +28,16 @@ Template.goal_card.events
         Meteor.call "createGoal", goalTitle, this.goal._id
         titleInput.value = ""
 
-  'click .sorting-mode-toggle': (event, template) ->
-    share.toggleSortingMode()
-
 
 Template.goal_card.helpers
   editing: -> Session.equals 'EditingCard', @goal._id
+
+
+Template.goal_card.rendered = ->
+  share.setCardDragging $(@firstNode)
+
+Template.subgoal_row.rendered = ->
+  share.setSubgoalRowDragging $(@firstNode)
 
 
 Template.new_subgoal_row.rendered = ->
@@ -43,7 +47,7 @@ Template.new_subgoal_row.rendered = ->
 Template.subgoal_row.events
   'click .subgoal-pop-button': ->
     parent = Goals.findOne @goal.parentId
-    Meteor.call "changePosition", @goal._id, parent.parentId, parent._id
+    Meteor.call "changePosition", @goal._id, parent.parentId, parent.index + 1
 
 
 Template.subgoal_row.helpers
@@ -55,14 +59,3 @@ Template.subgoal_row.helpers
     Goals
       .find parentId: this.goal._id
       .count()
-
-
-Template.subgoal_row.rendered = ->
-  if not share.inSortingMode()
-    share.setRowDragging 0, this.firstNode
-
-Template.goal_card.rendered = ->
-  if share.inSortingMode()
-    share.setCardSorting 0, this.firstNode
-  else
-    share.setCardDragging 0, this.firstNode

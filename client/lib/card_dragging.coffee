@@ -1,97 +1,138 @@
-# Sorting mode state
-
-Session.setDefault "SortingMode", false
-
-share.inSortingMode = -> Session.get "SortingMode"
-
-UI.registerHelper "inSortingMode", -> share.inSortingMode()
+draggingActive = false
+draggingElement = null # id, title, isTile
 
 
-# Switching in and out of sorting mode
+preventDefault = (event) -> event.preventDefault()
 
-share.toggleSortingMode = ->
-  if share.inSortingMode()
-    share.stopSortingMode()
-  else
-    share.startSortingMode()
+enableDragging = (event) ->
+  if !draggingActive
+    $(window).one 'mouseup', finishDragging
+    $(window).on 'mousemove', updateDragHelper
 
-share.startSortingMode = ->
-  Session.set "SortingMode", true
-  share.removeAllDragging()
-  share.setAllSorting()
+    helperHtml = "<div id='drag-helper'>#{draggingElement.title}</div>"
+    $('body').append(helperHtml)
+    updateDragHelper(event)
 
-share.stopSortingMode = ->
-  Session.set "SortingMode", false
-  share.removeAllSorting()
-  share.setAllDragging()
+    $('.goal-card').each (index, card) ->
+      $card = $ card
+      if $card.attr('id') != draggingElement.id
+        $card.on "mouseenter", setupCardDragging
+        $card.on "mouseleave", tearDownCardDragging
 
+    if not draggingElement.isTile
+      card = $('#' + draggingElement.id).closest('.goal-card')
+      setupCardDragging.bind(card)()
 
-# Setting and removing dragging constructs
-
-share.setAllDragging = ->
-  $('.goal-card').not('.new-card-placeholder').each share.setCardDragging
-  $('.subgoal-row').each share.setRowDragging
-
-share.removeAllDragging = ->
-  cards = $('.goal-card').not('.new-card-placeholder')
-  cards.draggable "destroy"
-  cards.droppable "destroy"
-  subgoals = $('.subgoal-row')
-  subgoals.draggable "destroy"
-  subgoals.droppable "destroy"
-
-share.setCardDragging = (index, card) ->
-  card = $(card)
-  card.draggable
-    handle: '.header'
-    helper: ->
-      title = $(this).find('.header').text()
-      "<div class='card-drag-placeholder'>" + title + "</div>"
-    revert: true
-    revertDuration: 0
-  card.droppable
-    hoverClass: 'nest-goal-hover'
-    tolerance: 'pointer'
-    accept: (draggable) ->
-      (not draggable.closest("#" + card.attr('id')).length)
-    drop: (event, ui) ->
-      dropped = $(this).attr('id')
-      dragged = ui.draggable.attr('id')
-      Meteor.call "changePosition", dragged, dropped, null
-
-share.setRowDragging = (index, row) ->
-  row = $(row)
-  row.draggable
-    helper: 'clone'
-    handle: ".subgoal-title"
-  row.droppable
-    accept: "#" + row.closest('.goal-card').attr('id') + " .subgoal-row"
-    hoverClass: 'nest-goal-hover'
-    tolerance: 'pointer'
-    drop: (event, ui) ->
-      dropped = $(this).attr('id')
-      dragged = ui.draggable.attr('id')
-      draggedGoal = Goals.findOne dragged
-      share.saveLastNesting dragged, dropped, draggedGoal.parentId, draggedGoal.index
-      share.showNestingUndo()
-      Meteor.call "changePosition", dragged, dropped, null
+    $(window).on 'mousemove', preventDefault
+    draggingActive = true
 
 
-# Setting and removing sorting constructs
+finishDragging = ->
+  $(window).off 'mousemove', updateDragHelper
+  $(window).off 'mousemove', preventDefault
 
-share.setAllSorting = ->
-  $('.goal-card').each share.setCardSorting
+  $('.goal-card').each (index, card) ->
+    $(card).off "mouseenter", setupCardDragging
+    $(card).off "mouseleave", tearDownCardDragging
 
-share.removeAllSorting = ->
-  $('.goal-card tbody').sortable "destroy"
+  $('.goal-card').each tearDownCardDragging
 
-share.setCardSorting = (index, card) ->
-  card = $(card)
-  card.find('tbody').sortable
-    placeholder: "checklist-placeholder"
-    handle: ".subgoal-title"
-    update: (event, ui) ->
-      dropped = ui.item.closest('.goal-card').attr('id')
-      dragged = ui.item.attr('id')
-      prev = ui.item.prev().attr('id')
-      Meteor.call "changePosition", dragged, dropped, prev
+  draggingActive = false
+  $("#drag-helper").remove()
+
+
+updateDragHelper = (event) ->
+  $('#drag-helper').css
+   left:  event.pageX
+   top:   event.pageY
+  return false
+
+
+addDraggingHover = -> $(this).addClass 'dragging-hover'
+removeDraggingHover = -> $(this).removeClass 'dragging-hover'
+
+
+positionAtPlaceholder = ->
+  placeholder = $(this)
+  newParentId = placeholder.closest('.goal-card').attr('id')
+  draggedId = draggingElement.id
+  nextSubgoalId = placeholder.next('.subgoal-row').attr('id')
+  nextSubgoal = Goals.findOne nextSubgoalId
+  newIndex = if nextSubgoal? then nextSubgoal.index else null
+  Meteor.call "changePosition", draggedId, newParentId, newIndex
+  (tearDownCardDragging.bind $(@).closest '.goal-card')()
+
+positionInSubgoal = ->
+  newParentId = $(this).attr('id')
+  draggedId = draggingElement.id
+  dragged = Goals.findOne draggedId
+  priorParent = dragged.parentId
+  priorIndex = dragged.index
+  Meteor.call "changePosition", draggedId, newParentId, null
+  (tearDownCardDragging.bind $(@).closest '.goal-card')()
+  share.saveLastNesting draggedId, newParentId, priorParent, priorIndex
+  share.showNestingUndo()
+
+
+setupCardDragging = ->
+  card = $(this)
+  subgoalRows = card.find('.subgoal-row')
+  card.find('table.goal-card-checklist').addClass 'dragging'
+
+  placeholderHtml = '<tr class="drag-placeholder"><td class="menu-cell"></td><td></td></tr>'
+  subgoalRows.before (index) -> placeholderHtml
+  card.find('tbody').append placeholderHtml
+
+  card.find('.drag-placeholder, .subgoal-row').on 'mouseenter', addDraggingHover
+  card.find('.drag-placeholder, .subgoal-row').on 'mouseleave', removeDraggingHover
+
+  card.find('.drag-placeholder').on 'mouseup', positionAtPlaceholder
+  card.find('.subgoal-row').on 'mouseup', positionInSubgoal
+
+  # Disable drag interactions around the dragged element
+
+  disableDragging = (el) ->
+    $(el).off 'mouseenter', addDraggingHover
+    $(el).off 'mouseup', positionInSubgoal
+    $(el).off 'mouseup', positionAtPlaceholder
+
+  disableDragging card.find('#' + draggingElement.id)
+  disableDragging card.find('#' + draggingElement.id).next()
+  disableDragging card.find('#' + draggingElement.id).prev()
+
+
+tearDownCardDragging = ->
+  card = $(this)
+  card.find('.drag-placeholder').remove()
+  card.find('.dragging-hover').removeClass 'dragging-hover'
+  card.find('.subgoal-row').off 'mouseenter', addDraggingHover
+  card.find('.subgoal-row').off 'mouseleave', removeDraggingHover
+  card.find('.subgoal-row').off 'mouseup', positionInSubgoal
+  card.find('table.goal-card-checklist').removeClass 'dragging'
+
+
+share.setCardDragging = (card) ->
+  title = card.find('.header a')
+  title.on 'mousedown', ->
+    draggingElement =
+      id: card.attr('id')
+      title: title.text()
+      isTile: true
+    $(window).one 'mousemove', enableDragging
+    disableTitleClick = -> title.one 'click', preventDefault
+    $(window).one 'mousemove', disableTitleClick
+    $(window).one 'mouseup', -> $(window).off 'mousemove', enableDragging
+    $(window).one 'mouseup', -> $(window).off 'mousemove', disableTitleClick
+
+share.setSubgoalRowDragging = (subgoalRow) ->
+  title = subgoalRow.find('.subgoal-title')
+  title.on 'mousedown', ->
+    draggingElement =
+      id: subgoalRow.attr('id')
+      title: title.text()
+      isTile: false
+    $(window).one 'mousemove', enableDragging
+    disableTitleClick = -> title.one 'click', preventDefault
+    $(window).one 'mousemove', disableTitleClick
+    $(window).one 'mouseup', -> $(window).off 'mousemove', enableDragging
+    $(window).one 'mouseup', -> $(window).off 'mousemove', disableTitleClick
