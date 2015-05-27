@@ -6,7 +6,6 @@ preventDefault = (event) -> event.preventDefault()
 
 enableDragging = (event) ->
   if !draggingActive
-    console.log("dragging enabled")
     $(window).one 'mouseup', finishDragging
     $(window).on 'mousemove', updateDragHelper
 
@@ -29,7 +28,6 @@ enableDragging = (event) ->
 
 
 finishDragging = ->
-  console.log("finish dragging called")
   $(window).off 'mousemove', updateDragHelper
   $(window).off 'mousemove', preventDefault
 
@@ -78,7 +76,6 @@ positionInSubgoal = ->
 
 setupCardDragging = ->
   card = $(this)
-  console.log("setupCardDragging called")
   subgoalRows = card.find('.subgoal-row')
   card.find('table.goal-card-checklist').addClass 'dragging'
 
@@ -105,7 +102,6 @@ setupCardDragging = ->
 
 
 tearDownCardDragging = ->
-  console.log("tearDownCardDragging called")
   card = $(this)
   card.find('.drag-placeholder').remove()
   card.find('.dragging-hover').removeClass 'dragging-hover'
