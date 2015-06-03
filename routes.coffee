@@ -1,6 +1,6 @@
 Router.route '/', ->
   this.render 'goal_tree', data: {}
-  document.title = "TaskBoards: Home"
+  document.title = "#{share.siteName}: Home"
 
 
 Router.route '/goal/:_id', ->
@@ -18,6 +18,6 @@ Router.route '/goal/:_id', ->
         data.breadcrumb.push Goals.findOne {_id: last(data.breadcrumb).parentId}
 
     this.render 'goal_tree', data: data
-    document.title = "TaskBoards: #{goal.title}"
+    document.title = "#{share.siteName}: #{goal.title}"
   ,
   name: 'goal'

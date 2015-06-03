@@ -55,7 +55,7 @@ tour.addStep 'moreFeatures',
   text: 'There are more features for you to explore as you go. <br /><br /> Try using drag-and-drop to rearrange tasks, and look around the context menus to see what else is possible.'
 
 tour.addStep 'done',
-  text: 'You\'re done with the tour! We hope you enjoy using TaskBoards.'
+  text: "You\'re done with the tour! We hope you enjoy using #{share.siteName}."
   buttons: [ exitButton ]
 
 destroyAllSteps = ->

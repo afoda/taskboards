@@ -8,7 +8,7 @@ Template.about_modal.events
     share.hideIntroModal()
 
   'click .start-tour-button': ->
-    # share.startTour()
+    share.startTour()
     share.hideIntroModal()
 
 
