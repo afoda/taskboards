@@ -1,0 +1,60 @@
+@import "colours.less";
+
+
+.complete .subgoal-row {
+  opacity: 0.65;
+
+  &.complete {
+    opacity: 0.4;
+    .subgoal-title {
+      text-decoration: line-through;
+    }
+    .subgoal-title, .subgoal-entry-icon {
+      color: @semi-opaque-black;
+    }
+  }
+}
+
+
+.subgoal-row {
+  i {
+    color: @action-icon-color;
+  }
+
+  &.complete {
+    opacity: 0.55;
+    .subgoal-title {
+      text-decoration: line-through;
+    }
+    .subgoal-title, .subgoal-entry-icon {
+      color: @completed-goal-color;
+    }
+  }
+
+  &.active-goal {
+    .subgoal-title, .subgoal-entry-icon {
+      color: @active-goal-color;
+    }
+  }
+
+  .ui.dropdown .menu a.completed-goal {
+    color: @completed-goal-color;
+    text-decoration: line-through;
+  }
+}
+
+.new-subgoal-row {
+  transition: all 0.2s;
+  opacity: 1.0;
+
+  input {
+    border: 0;
+    border-bottom: 1px solid #DDD;
+    width: 80%;
+    background: transparent;
+  }
+}
+
+.goal-card:hover .new-subgoal-row {
+  opacity: 1.0;
+}

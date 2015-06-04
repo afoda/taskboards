@@ -1,6 +1,9 @@
 // goal: {
+//   title: string
 //   complete: bool
-//   subgoals: [{goal object}]
+//   parentId: id
+//   createdAt: date
+//   userId: string
 //   (archived): bool
 //   (active): bool
 //   (time_intervals): [[date, date]]

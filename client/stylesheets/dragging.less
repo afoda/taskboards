@@ -1,0 +1,57 @@
+@import "colours.less";
+
+
+#drag-helper {
+  position: absolute;
+  pointer-events: none;
+  cursor: default;
+  white-space: no-wrap;
+  max-width: 20em;
+  padding: 0.65em 1.25em;
+  background: #FFF;
+  border: 1px solid #CCC;
+  color: @semi-opaque-black;
+}
+
+table.goal-card-checklist.dragging {
+  margin-top: 0.3em;
+
+  td {
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+  }
+
+  tr.drag-placeholder td {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+
+  tr.dragging-hover td {
+    a {
+      color: black;
+    }
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+  }
+
+  tr.drag-placeholder.dragging-hover td {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+  }
+
+  tr.dragging-hover {
+    background: @color-secondary-2-1;
+  }
+
+  tr:only-child td {
+    padding-bottom: 3.0em;
+  }
+
+  tr.drag-placeholder.dragging-hover:only-child td {
+    padding-bottom: 3.0em;
+  }
+}
+
+.goal-card.active-goal table.goal-card-checklist.dragging tr.dragging-hover {
+  background: white;
+}

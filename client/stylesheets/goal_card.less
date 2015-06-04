@@ -1,0 +1,150 @@
+@import "colours.less";
+
+
+// Card
+
+.goal-card {
+
+  transition: all 0.4s;
+  transition: background 0.7s ease-out;
+  padding: 1em;
+
+  // Main card action menu
+
+  .action-box {
+    float: right;
+
+    // Menu falls to the right by default. This doesn't work on the
+    // right-most cards because the menu falls off the screen.
+    .ui.simple.dropdown:hover .menu {
+      left: -9em;
+
+      i.icon {
+        color: @action-icon-color;
+      }
+    }
+  }
+
+  .action-box-icon {
+    transition: all 0.2s;
+    opacity: 0.0;
+    color: @action-icon-color;
+  }
+
+  &.complete, &.active-goal, &:hover {
+    .action-box-icon {
+      opacity: 0.8;
+    }
+  }
+
+  // Card Heading
+
+  .header a {
+    color: @goal-title-color;
+    word-wrap: break-word;
+  }
+
+
+  // Subgoal rows
+
+  .subgoal-row a {
+    color: @semi-opaque-black;
+  }
+
+
+  // Goal state indications
+
+  &.active-goal {
+    background: @active-goal-color-bg;
+    .header a {
+      color: @semi-opaque-black;
+    }
+  }
+
+  &.complete {
+    background: @completed-goal-color-bg;
+    .header a {
+      opacity: 0.7;
+      color: @semi-opaque-black;
+    }
+
+    .action-box-icon {
+      color: rgba(0, 0, 0, 0.45);
+    }
+  }
+
+
+  // Highlighting animation
+
+  &.highlight {
+      background: @active-goal-color-bg !important;
+      transition: all 0.3s ease-out;
+  }
+}
+
+
+// New Card
+
+.goal-card.new-card-placeholder {
+
+  .action-box {
+    opacity: 1.0;
+  }
+
+  .new-card-title {
+    transition: all 0.4s;
+    border: 0;
+    border-bottom: 1px solid #DDD;
+    width: 70%;
+  }
+
+  .new-card-title:invalid {
+    opacity: 0.0;
+  }
+
+  .new-card-title:valid, .new-card-title:focus, &:hover .new-card-title:invalid {
+    opacity: 1.0;
+  }
+}
+
+
+// Subgoal table
+
+.goal-card-checklist {
+  width: 100%;
+  margin-top: 0.8em;
+}
+
+table.goal-card-checklist {
+  table-layout: fixed;
+  td {
+    padding: 0.6em;
+    word-wrap: break-word;
+    &.menu-cell {
+      width: calc(~'1.2em + 1.2em');
+    }
+  }
+}
+
+
+// Drag and drop
+
+.goal-card-checklist .checklist-placeholder {
+  background: @nest-goal-drop-color;
+}
+
+.goal-card.nest-goal-hover {
+  background: @nest-goal-drop-color;
+}
+
+.goal-card-checklist tr.subgoal-row.nest-goal-hover {
+  background: @nest-goal-drop-color;
+}
+
+.card-drag-placeholder {
+  background: #FFF;
+  border: 1px solid #EEE;
+  padding: 0.75em 1.5em;
+  color: @goal-title-color;
+  max-width: 20em;
+}

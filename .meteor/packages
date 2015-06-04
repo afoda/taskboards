@@ -5,9 +5,14 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
 coffeescript
 iron:router
-manuel:viewmodel
-nooitaf:semantic-ui
+accounts-password
+accounts-ui
+u2622:persistent-session
+semantic:ui-css
+lauricio:less-autoprefixer
+mike:mocha
+artwells:accounts-guest
+matb33:collection-hooks
+meteorhacks:kadira

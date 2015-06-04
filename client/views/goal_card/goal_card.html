@@ -1,0 +1,69 @@
+<template name="goal_card">
+  <div id="{{goal._id}}" class="goal-card {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}} {{#if isTourNewTile}}tour-new-tile{{/if}}">
+  <div class="action-box">
+    {{#if goal.complete}}
+    <i class="right floated checkmark link icon goal-complete-button action-box-icon"></i>
+    {{else}}
+      <div class="ui simple dropdown">
+        <i class="{{#if isActive goal._id}}goal-active-toggle wait{{else}}vertical ellipsis{{/if}} icon action-box-icon"></i>
+        {{> goal_menu goal=goal addSubgoalsAction=true sortSubgoalsAction=true hideCompletedSubgoalsAction=true}}
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="header">
+    <a href="{{pathFor route='goal' _id=goal._id}}">
+      {{goal.title}}
+    </a>
+  </div>
+
+  <table class="goal-card-checklist">
+    <tbody>
+      {{#each filteredSubgoals}}
+        {{> subgoal_row goal=this}}
+      {{/each}}
+      {{#if editing}}
+        {{> new_subgoal_row}}
+      {{/if}}
+    </tbody>
+  </table>
+
+</div>
+</template>
+
+
+<template name="subgoal_row">
+<tr id="{{goal._id}}" class="subgoal-row {{#if goal.complete}}complete{{/if}} {{#if isActive goal._id}}active-goal{{/if}}">
+  <td class="menu-cell">
+  {{#if goal.complete}}
+    <i class="small checkmark link icon goal-complete-button subgoal-entry-icon"></i>
+  {{else}}
+    {{#if ../../goal.complete}}
+      <i class="small {{#if isActive goal._id}}wait{{else}}{{#if subgoalCount}}plus{{else}}radio{{/if}}{{/if}} link icon goal-complete-button subgoal-entry-icon"></i>
+    {{else}}
+      <div class="ui simple dropdown">
+        <i class="small {{#if isActive goal._id}} goal-active-toggle wait {{else}} goal-complete-button {{#if subgoalCount}} plus {{else}} radio {{/if}} {{/if}} link icon subgoal-entry-icon"></i>
+        {{> goal_menu goal=goal tiered=true popAction=true subgoalCount=subgoalCount completedSubgoalCount=completedSubgoalCount}}
+      </div>
+    {{/if}}
+  {{/if}}
+  </td>
+  <td>
+    <a class="subgoal-title" href="{{pathFor route='goal' _id=../../goal._id hash=goal._id}}">
+      {{goal.title}}
+    </a>
+  </td>
+</tr>
+</template>
+
+
+<template name="new_subgoal_row">
+<tr class="subgoal-row new-subgoal-row">
+  <td class="menu-cell">
+    <i class="small radio icon"></i>
+  </td>
+  <td>
+    <input class="new-subgoal-title" type="text" required="required">
+  </td>
+</tr>
+</template>

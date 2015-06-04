@@ -1,0 +1,87 @@
+<template name="goal_tree">
+
+<nav id="top-menu" class="ui inverted fixed menu">
+  <div class="ui simple dropdown item">
+    Menu
+    <div class="menu">
+      <a class="item" href="/"> <i class="home icon"></i> Home </a>
+      <a class="item goal-hide-completed-subgoals-toggle">
+        {{#if hidingCompleted}}
+          <i class="unhide icon"></i> Show Complete
+        {{else}}
+          <i class="hide icon"></i> Hide Complete
+        {{/if}}
+      </a>
+      <a class="item about-modal-button"> <i class="help icon"></i> Help / About </a>
+    </div>
+  </div>
+
+  {{#unless atTopLevel}}
+  <div id="pop-stack-link" class="ui simple dropdown item" title="{{goal.title}}">
+    <span class="menu-title">
+      <i class="chevron up icon"></i>
+      {{goal.title}}
+    </span>
+    <div id="breadcrumb-menu" class="menu">
+    {{#each breadcrumb}}
+      <a class="item {{#if complete}}completed-goal{{/if}} {{#if isActive _id}}active-goal{{/if}}" href="{{pathFor route='goal' _id=_id}}">{{title}}</a>
+    {{/each}}
+    </div>
+  </div>
+  {{/unless}}
+
+  <div class="link item add-card-button" title="Add subgoal">
+    <i class="plus icon"></i>
+  </div>
+
+  {{#unless atTopLevel}}
+    {{#unless goal.complete}}
+    <div class="link item goal-active-toggle"
+         title="{{#if isActive goal._id}}Deactivate{{else}}Activate{{/if}}">
+      <i class="wait icon {{#if isActive goal._id}}active-goal{{/if}}"></i>
+    </div>
+    {{/unless}}
+
+    <div class="link item goal-complete-button {{#if goal.complete}}completed-goal{{/if}}"
+         title="{{#if goal.complete}}Mark incomplete{{else}}Mark as complete{{/if}}">
+      <i class="checkmark icon"></i>
+    </div>
+  {{/unless}}
+
+  <div id="login-buttons-item" class="right item">
+    {{> loginButtons align="right"}}
+  </div>
+
+  {{#if activeGoal}}
+  <div id="goal-timer" class="right item" style="color: {{goalTimerColor}}">
+    {{activeGoalTime}}
+  </div>
+  <a id="active-goal-box" class="right item" href="{{pathFor route='goal' _id=activeGoal._id}}" title="{{activeGoal.title}}">
+    <i class="wait icon"></i>
+    {{activeGoal.title}}
+  </a>
+  {{else}}
+  <div class="right item no-active-goal-box">
+    No active task
+  </div>
+  {{/if}}
+</nav>
+
+<main id="board-container">
+{{#each filteredSubgoals}}
+  {{> goal_card goal=this }}
+{{/each}}
+<div class="goal-card new-card-placeholder">
+  <input class="new-card-title" type="text" required="required" placeholder="Task title">
+  <div class="action-box">
+    <i class="plus link icon submit-card-button"></i>
+  </div>
+</div>
+</main>
+
+{{> nesting_message }}
+<div id="about-modal" class="ui small modal">
+  {{> about_modal }}
+</div>
+
+</template>
