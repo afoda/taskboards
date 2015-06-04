@@ -12,5 +12,7 @@ Router.onRun ->
       $("html, body")
         .animate scrollTop: scrollTop, 'slow'
         .promise()
-        .done(-> element.transition 'pulse')
+        .done ->
+          element.addClass 'highlight'
+          window.setTimeout (-> element.removeClass 'highlight'), 500
   this.next()

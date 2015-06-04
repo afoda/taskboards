@@ -6,6 +6,7 @@
 .goal-card {
 
   transition: all 0.4s;
+  transition: background 0.7s ease-out;
   padding: 1em;
 
   // Main card action menu
@@ -70,6 +71,14 @@
     .action-box-icon {
       color: rgba(0, 0, 0, 0.45);
     }
+  }
+
+
+  // Highlighting animation
+
+  &.highlight {
+      background: @active-goal-color-bg !important;
+      transition: all 0.3s ease-out;
   }
 }
 
