@@ -136,3 +136,7 @@ share.setSubgoalRowDragging = (subgoalRow) ->
     $(window).one 'mousemove', disableTitleClick
     $(window).one 'mouseup', -> $(window).off 'mousemove', enableDragging
     $(window).one 'mouseup', -> $(window).off 'mousemove', disableTitleClick
+
+
+# Disable default drag and drop in firefox
+$(document).on "dragstart", -> false
