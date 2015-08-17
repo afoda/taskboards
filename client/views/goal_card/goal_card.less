@@ -42,6 +42,12 @@
   .header a {
     color: @goal-title-color;
     word-wrap: break-word;
+    transition: color 0.8s ease-in;
+
+    &.highlight {
+      color: @active-goal-color;
+      transition: color 0.2s ease;
+    }
   }
 
 
@@ -64,14 +70,6 @@
     .action-box-icon {
       color: rgba(0, 0, 0, 0.45);
     }
-  }
-
-
-  // Highlighting animation
-
-  &.highlight {
-      background: @active-goal-color-bg !important;
-      transition: all 0.3s ease-out;
   }
 }
 
