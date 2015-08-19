@@ -15,7 +15,9 @@ enableDragging = (event) ->
 
     $('.goal-card').each (index, card) ->
       $card = $ card
-      if $card.attr('id') != draggingElement.id
+      isNewCard = $card.hasClass('new-card-placeholder')
+      isDraggingElement = $card.attr('id') == draggingElement.id
+      if !isNewCard && !isDraggingElement
         $card.on "mouseenter", setupCardDragging
         $card.on "mouseleave", tearDownCardDragging
 
