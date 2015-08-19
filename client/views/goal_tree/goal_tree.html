@@ -26,6 +26,7 @@
     {{#each breadcrumb}}
       <a class="item {{#if complete}}completed-goal{{/if}} {{#if isActive _id}}active-goal{{/if}}" href="{{pathFor route='goal' _id=_id}}">{{title}}</a>
     {{/each}}
+      <a class="item" href="/"> Home </a>
     </div>
   </div>
   {{/unless}}
