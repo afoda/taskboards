@@ -76,6 +76,18 @@ positionInSubgoal = ->
   share.showNestingUndo()
 
 
+setPlaceholderPadding = (card) ->
+  lastPlaceholder = card.find('.drag-placeholder').last()
+  positionInCard = lastPlaceholder.offset().top - card.offset().top
+  cardBottomPadding = (card.innerHeight() - card.height()) / 2
+  placeholderTopPadding = lastPlaceholder.innerHeight()
+  remainingSpace = card.outerHeight() - positionInCard - cardBottomPadding - placeholderTopPadding
+  placeholderBottomPadding = Math.max(remainingSpace, 0)
+  lastPlaceholder.find 'td'
+      .css
+        "padding-bottom": placeholderBottomPadding + "px"
+
+
 setupCardDragging = ->
   card = $(this)
   subgoalRows = card.find('.subgoal-row')
@@ -84,6 +96,7 @@ setupCardDragging = ->
   placeholderHtml = '<tr class="drag-placeholder"><td class="menu-cell"></td><td></td></tr>'
   subgoalRows.before (index) -> placeholderHtml
   card.find('tbody').append placeholderHtml
+  setPlaceholderPadding card
 
   card.find('.drag-placeholder, .subgoal-row').on 'mouseenter', addDraggingHover
   card.find('.drag-placeholder, .subgoal-row').on 'mouseleave', removeDraggingHover
