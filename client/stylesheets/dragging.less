@@ -16,39 +16,34 @@
 table.goal-card-checklist.dragging {
   margin-top: 0.3em;
 
-  td {
-    padding-top: 0.1em;
-    padding-bottom: 0.1em;
-  }
-
-  tr.drag-placeholder td {
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-  }
-
-  tr.dragging-hover td {
-    a {
-      font-weight: bold;
+  tr {
+    td {
+      padding-top: 0.1em;
+      padding-bottom: 0.1em;
     }
-    padding-top: 0.4em;
-    padding-bottom: 0.4em;
+    &.dragging-hover td {
+      padding-top: 0.4em;
+      padding-bottom: 0.4em;
+    }
   }
 
-  tr.drag-placeholder.dragging-hover td {
-    padding-top: 0.8em;
-    padding-bottom: 0.8em;
+  tr.drag-placeholder {
+    td {
+      padding-top: 1.0em;
+      padding-bottom: 0.0em;
+    }
+    &.dragging-hover td {
+      padding-top: 1.6em;
+      padding-bottom: 0.0em;
+    }
   }
 
   tr.dragging-hover {
     background: @color-secondary-2-1;
-  }
-
-  tr:only-child td {
-    padding-bottom: 3.0em;
-  }
-
-  tr.drag-placeholder.dragging-hover:only-child td {
-    padding-bottom: 3.0em;
+    opacity: 1.0;
+    a {
+      font-weight: bold;
+    }
   }
 }
 
