@@ -50,79 +50,114 @@ updateDragHelper = (event) ->
   return false
 
 
-addDraggingHover = -> $(this).addClass 'dragging-hover'
-removeDraggingHover = -> $(this).removeClass 'dragging-hover'
-
-
-positionAtPlaceholder = ->
-  placeholder = $(this)
+positionAtPlaceholder = (placeholder) ->
   newParentId = placeholder.closest('.goal-card').attr('id')
   draggedId = draggingElement.id
   nextSubgoalId = placeholder.next('.subgoal-row').attr('id')
   nextSubgoal = Goals.findOne nextSubgoalId
   newIndex = if nextSubgoal? then nextSubgoal.index else null
   Meteor.call "changePosition", draggedId, newParentId, newIndex
-  (tearDownCardDragging.bind $(@).closest '.goal-card')()
 
-positionInSubgoal = ->
-  newParentId = $(this).attr('id')
+positionInSubgoal = (subgoalRow) ->
+  newParentId = subgoalRow.attr('id')
   draggedId = draggingElement.id
   dragged = Goals.findOne draggedId
   priorParent = dragged.parentId
   priorIndex = dragged.index
   Meteor.call "changePosition", draggedId, newParentId, null
-  (tearDownCardDragging.bind $(@).closest '.goal-card')()
   share.saveLastNesting draggedId, newParentId, priorParent, priorIndex
   share.showNestingUndo()
+
+positionInCard = ->
+  card = $(this)
+  hovered = card.find '.dragging-hover'
+  if hovered.length
+    if hovered.hasClass 'drag-placeholder'
+      positionAtPlaceholder hovered
+    else
+      positionInSubgoal hovered
 
 
 setPlaceholderPadding = (card) ->
   lastPlaceholder = card.find('.drag-placeholder').last()
-  positionInCard = lastPlaceholder.offset().top - card.offset().top
+  placeholderPosition = lastPlaceholder.offset().top - card.offset().top
   cardBottomPadding = (card.innerHeight() - card.height()) / 2
   placeholderTopPadding = lastPlaceholder.innerHeight()
-  remainingSpace = card.outerHeight() - positionInCard - cardBottomPadding - placeholderTopPadding
+  remainingSpace = card.outerHeight() - placeholderPosition - cardBottomPadding - placeholderTopPadding
   placeholderBottomPadding = Math.max(remainingSpace, 0)
   lastPlaceholder.find 'td'
       .css
         "padding-bottom": placeholderBottomPadding + "px"
 
 
+setDragHover = null
+
+
+elementPosition = (el) ->
+  top     = el.offset().top
+  left    = el.offset().left
+  right   = left + el.outerWidth()
+  bottom  = top + el.outerHeight()
+  cTop    = top + el.css('border-top') + el.css('padding-top')
+  cLeft   = left + el.css('border-left') + el.css('padding-left')
+  cRight  = right - el.css('border-right') - el.css('padding-right')
+  cBottom = bottom - el.css('border-bottom') - el.css('padding-bottom')
+  { top: top, left: left, right: right, bottom: bottom, cTop: cTop, cLeft: cLeft, cRight: cRight, cBottom: cBottom }
+
+
 setupCardDragging = ->
   card = $(this)
+  subgoalTable = card.find('table.goal-card-checklist')
   subgoalRows = card.find('.subgoal-row')
-  card.find('table.goal-card-checklist').addClass 'dragging'
+
+  subgoalTable.addClass 'dragging'
 
   placeholderHtml = '<tr class="drag-placeholder"><td class="menu-cell"></td><td></td></tr>'
   subgoalRows.before (index) -> placeholderHtml
   card.find('tbody').append placeholderHtml
   setPlaceholderPadding card
 
-  card.find('.drag-placeholder, .subgoal-row').on 'mouseenter', addDraggingHover
-  card.find('.drag-placeholder, .subgoal-row').on 'mouseleave', removeDraggingHover
+  slots = card.find('.drag-placeholder, .subgoal-row')
+  lastSlot = slots.last()
+  exclude = slots.index($('#' + draggingElement.id)) # Note that this cannot be zero
+  excludedSlots = if exclude < 0 then [] else [exclude - 1, exclude, exclude + 1]
 
-  card.find('.drag-placeholder').on 'mouseup', positionAtPlaceholder
-  card.find('.subgoal-row').on 'mouseup', positionInSubgoal
+  removeDragHover = ->
+    subgoalTable.find(".dragging-hover").removeClass("dragging-hover")
 
-  # Disable drag interactions around the dragged element
+  switchDragHover = (slot) ->
+    if !slot.hasClass("dragging-hover")
+      removeDragHover()
+      slot.addClass("dragging-hover")
 
-  disableDragging = (el) ->
-    $(el).off 'mouseenter', addDraggingHover
-    $(el).off 'mouseup', positionInSubgoal
-    $(el).off 'mouseup', positionAtPlaceholder
+  setDragHover = (event) ->
+    cPos = elementPosition card
+    stPos = elementPosition subgoalTable
+    if event.pageX < stPos.left || event.pageX > stPos.right
+      removeDragHover()
+    else
+      if stPos.bottom < event.pageY < cPos.cBottom
+        switchDragHover lastSlot
+      else
+        slots.each (index) ->
+          slot = $(this)
+          slotPos = elementPosition slot
+          if slotPos.top <= event.pageY <= slotPos.bottom
+            if excludedSlots.indexOf(index) == -1
+              switchDragHover slot
+            else
+              removeDragHover()
 
-  disableDragging card.find('#' + draggingElement.id)
-  disableDragging card.find('#' + draggingElement.id).next()
-  disableDragging card.find('#' + draggingElement.id).prev()
+  card.on 'mousemove', setDragHover
+  card.on 'mouseup', positionInCard
 
 
 tearDownCardDragging = ->
   card = $(this)
+  card.off 'mousemove', setDragHover
+  card.off 'mouseup', positionInCard
   card.find('.drag-placeholder').remove()
   card.find('.dragging-hover').removeClass 'dragging-hover'
-  card.find('.subgoal-row').off 'mouseenter', addDraggingHover
-  card.find('.subgoal-row').off 'mouseleave', removeDraggingHover
-  card.find('.subgoal-row').off 'mouseup', positionInSubgoal
   card.find('table.goal-card-checklist').removeClass 'dragging'
 
 
