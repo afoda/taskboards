@@ -93,16 +93,11 @@ setPlaceholderPadding = (card) ->
 setDragHover = null
 
 
-elementPosition = (el) ->
-  top     = el.offset().top
-  left    = el.offset().left
-  right   = left + el.outerWidth()
-  bottom  = top + el.outerHeight()
-  cTop    = top + el.css('border-top') + el.css('padding-top')
-  cLeft   = left + el.css('border-left') + el.css('padding-left')
-  cRight  = right - el.css('border-right') - el.css('padding-right')
-  cBottom = bottom - el.css('border-bottom') - el.css('padding-bottom')
-  { top: top, left: left, right: right, bottom: bottom, cTop: cTop, cLeft: cLeft, cRight: cRight, cBottom: cBottom }
+posTop     = (el) -> el.offset().top
+posLeft    = (el) -> el.offset().left
+posRight   = (el) -> (posLeft el) + el.outerWidth()
+posBottom  = (el) -> (posTop el) + el.outerHeight()
+posBottomC = (el) -> (posBottom el) - parseFloat(el.css('border-bottom-width')) - parseFloat(el.css('padding-bottom'))
 
 
 setupCardDragging = ->
@@ -131,22 +126,20 @@ setupCardDragging = ->
       slot.addClass("dragging-hover")
 
   setDragHover = (event) ->
-    cPos = elementPosition card
-    stPos = elementPosition subgoalTable
-    if event.pageX < stPos.left || event.pageX > stPos.right
+    if event.pageX < (posLeft subgoalTable) || event.pageX > (posRight subgoalTable)
+      removeDragHover()
+    else if (posBottom subgoalTable) < event.pageY <= (posBottomC card)
+      switchDragHover lastSlot
+    else if (posBottomC card) < event.pageY <= (posBottom card)
       removeDragHover()
     else
-      if stPos.bottom < event.pageY < cPos.cBottom
-        switchDragHover lastSlot
-      else
-        slots.each (index) ->
-          slot = $(this)
-          slotPos = elementPosition slot
-          if slotPos.top <= event.pageY <= slotPos.bottom
-            if excludedSlots.indexOf(index) == -1
-              switchDragHover slot
-            else
-              removeDragHover()
+      slots.each (index) ->
+        slot = $(this)
+        if (posTop slot) <= event.pageY <= (posBottom slot)
+          if excludedSlots.indexOf(index) == -1
+            switchDragHover slot
+          else
+            removeDragHover()
 
   card.on 'mousemove', setDragHover
   card.on 'mouseup', positionInCard
