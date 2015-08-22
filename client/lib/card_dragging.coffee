@@ -114,6 +114,7 @@ setupCardDragging = ->
 
   slots = card.find('.drag-placeholder, .subgoal-row')
   lastSlot = slots.last()
+  lastSlotIndex = slots.length - 1
   exclude = slots.index($('#' + draggingElement.id)) # Note that this cannot be zero
   excludedSlots = if exclude < 0 then [] else [exclude - 1, exclude, exclude + 1]
 
@@ -129,7 +130,10 @@ setupCardDragging = ->
     if event.pageX < (posLeft subgoalTable) || event.pageX > (posRight subgoalTable)
       removeDragHover()
     else if (posBottom subgoalTable) < event.pageY <= (posBottomC card)
-      switchDragHover lastSlot
+      if excludedSlots.indexOf(lastSlotIndex) == -1
+        switchDragHover lastSlot
+      else
+        removeDragHover()
     else if (posBottomC card) < event.pageY <= (posBottom card)
       removeDragHover()
     else
