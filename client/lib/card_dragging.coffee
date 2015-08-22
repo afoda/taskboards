@@ -116,6 +116,8 @@ setupCardDragging = ->
   setDragHover = (event) ->
     if event.pageX < (posLeft subgoalTable) || event.pageX > (posRight subgoalTable)
       removeDragHover()
+    else if event.pageY < (posTop subgoalTable)
+      removeDragHover()
     else if (posBottom subgoalTable) < event.pageY <= (posBottomC card)
       if excludedSlots.indexOf(lastSlotIndex) == -1
         switchDragHover lastSlot
