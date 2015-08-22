@@ -78,18 +78,6 @@ positionInCard = ->
       positionInSubgoal hovered
 
 
-setPlaceholderPadding = (card) ->
-  lastPlaceholder = card.find('.drag-placeholder').last()
-  placeholderPosition = lastPlaceholder.offset().top - card.offset().top
-  cardBottomPadding = (card.innerHeight() - card.height()) / 2
-  placeholderTopPadding = lastPlaceholder.innerHeight()
-  remainingSpace = card.outerHeight() - placeholderPosition - cardBottomPadding - placeholderTopPadding
-  placeholderBottomPadding = Math.max(remainingSpace, 0)
-  lastPlaceholder.find 'td'
-      .css
-        "padding-bottom": placeholderBottomPadding + "px"
-
-
 setDragHover = null
 
 
@@ -110,7 +98,6 @@ setupCardDragging = ->
   placeholderHtml = '<tr class="drag-placeholder"><td class="menu-cell"></td><td></td></tr>'
   subgoalRows.before (index) -> placeholderHtml
   card.find('tbody').append placeholderHtml
-  setPlaceholderPadding card
 
   slots = card.find('.drag-placeholder, .subgoal-row')
   lastSlot = slots.last()
