@@ -33,5 +33,8 @@ share.toggleActiveGoal = (_id) ->
   else
     share.activateGoal _id
 
+share.clearActiveGoal = ->
+  share.deactivateGoal share.activeGoalId()
+
 share.secondsSinceActiveGoalStart = ->
   Session.get 'SecondsSinceActiveGoalStart'
