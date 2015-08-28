@@ -114,6 +114,9 @@ class Step extends Evented
       offset: opts.offset or '0 0'
       attachment: attachment
 
+    if @tether?
+      @tether.destroy()
+
     @tether = new Tether extend(tetherOpts, @options.tetherOptions)
 
   show: =>
@@ -239,6 +242,8 @@ class Step extends Evented
     content.appendChild footer
 
     document.body.appendChild @el
+
+    @setupTether()
 
     if @options.advanceOn
       @bindAdvance()

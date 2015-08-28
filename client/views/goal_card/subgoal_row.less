@@ -1,4 +1,4 @@
-@import "colours.less";
+@import "../../stylesheets/colours.less";
 
 
 .complete .subgoal-row {
@@ -21,6 +21,10 @@
     color: @action-icon-color;
   }
 
+  a {
+    color: @semi-opaque-black;
+  }
+
   &.complete {
     opacity: 0.55;
     .subgoal-title {
@@ -38,6 +42,7 @@
   }
 
   .ui.dropdown .menu a.completed-goal {
+    opacity: 0.55;
     color: @completed-goal-color;
     text-decoration: line-through;
   }
@@ -45,7 +50,11 @@
 
 .new-subgoal-row {
   transition: all 0.2s;
-  opacity: 1.0;
+
+  i {
+    color: #34495e;
+    opacity: 0.8;
+  }
 
   input {
     border: 0;

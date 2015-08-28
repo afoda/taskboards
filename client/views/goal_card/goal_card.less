@@ -1,4 +1,4 @@
-@import "colours.less";
+@import "../../stylesheets/colours.less";
 
 
 // Card
@@ -17,18 +17,21 @@
     // Menu falls to the right by default. This doesn't work on the
     // right-most cards because the menu falls off the screen.
     .ui.simple.dropdown:hover .menu {
-      left: -9em;
+      left: -9.5em;
 
       i.icon {
         color: @action-icon-color;
       }
     }
-  }
 
-  .action-box-icon {
-    transition: all 0.2s;
-    opacity: 0.0;
-    color: @action-icon-color;
+    .action-box-icon {
+      width: 1em;
+      height: 1em;
+      margin-right: 0.5em;
+      transition: all 0.2s;
+      opacity: 1.0;
+      color: @action-icon-color;
+    }
   }
 
   &.complete, &.active-goal, &:hover {
@@ -42,13 +45,12 @@
   .header a {
     color: @goal-title-color;
     word-wrap: break-word;
-  }
+    transition: color 0.8s ease-in;
 
-
-  // Subgoal rows
-
-  .subgoal-row a {
-    color: @semi-opaque-black;
+    &.highlight {
+      color: @active-goal-color;
+      transition: color 0.3s ease-in;
+    }
   }
 
 
@@ -71,14 +73,6 @@
     .action-box-icon {
       color: rgba(0, 0, 0, 0.45);
     }
-  }
-
-
-  // Highlighting animation
-
-  &.highlight {
-      background: @active-goal-color-bg !important;
-      transition: all 0.3s ease-out;
   }
 }
 

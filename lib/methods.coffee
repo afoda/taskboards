@@ -51,16 +51,17 @@ Meteor.methods
 
   changePosition: (id, newParentId, index) ->
     check(id, String)
-    check(newParentId, String)
+    check(newParentId, Match.OneOf(null, String))
     check(index, Match.OneOf(Number, undefined, null))
     validateGoalAccess id
-    validateGoalAccess newParentId
-    # Check that the move doesn't introduce a cycle
-    ancestor = Goals.findOne newParentId
-    throw new Meteor.Error("cycle") if ancestor._id == id
-    while ancestor.parentId?
-      ancestor = Goals.findOne ancestor.parentId
+    if newParentId != null
+      validateGoalAccess newParentId
+      # Check that the move doesn't introduce a cycle
+      ancestor = Goals.findOne newParentId
       throw new Meteor.Error("cycle") if ancestor._id == id
+      while ancestor.parentId?
+        ancestor = Goals.findOne ancestor.parentId
+        throw new Meteor.Error("cycle") if ancestor._id == id
     if index?
       Goals.update {parentId: newParentId, index: {$gte: index}}, {$inc: {index: 1}}, {multi: true}
       Goals.update id, $set: {parentId: newParentId, index: index}

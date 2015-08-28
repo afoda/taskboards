@@ -13,11 +13,12 @@ enableDragging = (event) ->
     $('body').append(helperHtml)
     updateDragHelper(event)
 
-    $('.goal-card').each (index, card) ->
-      $card = $ card
-      if $card.attr('id') != draggingElement.id
-        $card.on "mouseenter", setupCardDragging
-        $card.on "mouseleave", tearDownCardDragging
+    $('.goal-card')
+      .filter(":not(#" + draggingElement.id + ")")
+      .filter(":not(.new-card-placeholder)")
+      .each (index, card) ->
+        $(card).on "mouseenter", setupCardDragging
+        $(card).on "mouseleave", tearDownCardDragging
 
     if not draggingElement.isTile
       card = $('#' + draggingElement.id).closest('.goal-card')
@@ -48,66 +49,103 @@ updateDragHelper = (event) ->
   return false
 
 
-addDraggingHover = -> $(this).addClass 'dragging-hover'
-removeDraggingHover = -> $(this).removeClass 'dragging-hover'
+positionInCard = ->
+  card = $(this)
+  slots = card.find('.subgoal-row, .drag-placeholder')
+  dragged = Goals.findOne draggingElement.id
+  hovered = card.find('.dragging-hover')
+  if hovered.length
+    if hovered.hasClass('subgoal-row')
+      Meteor.call "changePosition", dragged._id, hovered.attr('id'), null
+      share.saveLastNesting dragged._id, hovered.attr('id'), dragged.parentId, dragged.index
+      share.showNestingUndo()
+    else
+      nextSlot = hovered.next()
+      if nextSlot.length
+        nextGoal = Goals.findOne nextSlot.attr('id')
+        Meteor.call "changePosition", dragged._id, card.attr('id'), nextGoal.index
+      else
+        Meteor.call "changePosition", dragged._id, card.attr('id'), null
 
 
-positionAtPlaceholder = ->
-  placeholder = $(this)
-  newParentId = placeholder.closest('.goal-card').attr('id')
-  draggedId = draggingElement.id
-  nextSubgoalId = placeholder.next('.subgoal-row').attr('id')
-  nextSubgoal = Goals.findOne nextSubgoalId
-  newIndex = if nextSubgoal? then nextSubgoal.index else null
-  Meteor.call "changePosition", draggedId, newParentId, newIndex
-  (tearDownCardDragging.bind $(@).closest '.goal-card')()
+posTop     = (el) -> el.offset()?.top
+posLeft    = (el) -> el.offset()?.left
+posRight   = (el) -> (posLeft el) + el.outerWidth()
+posBottom  = (el) -> (posTop el) + el.outerHeight()
+posBottomC = (el) -> (posBottom el) - parseFloat(el.css('border-bottom-width')) - parseFloat(el.css('padding-bottom'))
 
-positionInSubgoal = ->
-  newParentId = $(this).attr('id')
-  draggedId = draggingElement.id
-  dragged = Goals.findOne draggedId
-  priorParent = dragged.parentId
-  priorIndex = dragged.index
-  Meteor.call "changePosition", draggedId, newParentId, null
-  (tearDownCardDragging.bind $(@).closest '.goal-card')()
-  share.saveLastNesting draggedId, newParentId, priorParent, priorIndex
-  share.showNestingUndo()
+
+cardDragClasses = 'first-expanded middle-expanded last-expanded'
+
+setDragHover = null
+
+clearDragHover = (card) ->
+  card.find('.dragging-hover').removeClass 'dragging-hover'
+  card.find('.goal-card-checklist').removeClass cardDragClasses
 
 
 setupCardDragging = ->
   card = $(this)
-  subgoalRows = card.find('.subgoal-row')
-  card.find('table.goal-card-checklist').addClass 'dragging'
+  cardId = card.attr("id")
+
+  subgoalTable = card.find('table.goal-card-checklist')
+  subgoalTable.addClass 'dragging'
+  subgoalRows = subgoalTable.find('.subgoal-row')
 
   placeholderHtml = '<tr class="drag-placeholder"><td class="menu-cell"></td><td></td></tr>'
-  subgoalRows.before (index) -> placeholderHtml
-  card.find('tbody').append placeholderHtml
+  subgoalRows.before placeholderHtml
+  subgoalTable.find('tbody').append placeholderHtml
 
-  card.find('.drag-placeholder, .subgoal-row').on 'mouseenter', addDraggingHover
-  card.find('.drag-placeholder, .subgoal-row').on 'mouseleave', removeDraggingHover
+  slots = subgoalTable.find('.subgoal-row, .drag-placeholder')
+  exclude = slots.index($('#' + draggingElement.id)) # Note that this cannot be zero
+  excludedSlots = if exclude < 0 then [] else [exclude - 1, exclude, exclude + 1]
 
-  card.find('.drag-placeholder').on 'mouseup', positionAtPlaceholder
-  card.find('.subgoal-row').on 'mouseup', positionInSubgoal
+  stPos =
+    top: posTop subgoalTable
+    left: posLeft subgoalTable
+    right: posRight subgoalTable
+    bottom: posBottom subgoalTable
 
-  # Disable drag interactions around the dragged element
+  cPos =
+    bottom: posBottom card
+    bottomC: posBottomC card
 
-  disableDragging = (el) ->
-    $(el).off 'mouseenter', addDraggingHover
-    $(el).off 'mouseup', positionInSubgoal
-    $(el).off 'mouseup', positionAtPlaceholder
+  switchDragHover = (index) ->
+    slot = $(slots[index])
+    if !slot.hasClass('dragging-hover')
+      clearDragHover card
+      if excludedSlots.indexOf(index) == -1
+        slot.addClass 'dragging-hover'
+        switch index
+          when 0
+            subgoalTable.addClass 'first-expanded'
+          when slots.length - 1
+            subgoalTable.addClass 'last-expanded'
+          else
+            subgoalTable.addClass 'middle-expanded'
 
-  disableDragging card.find('#' + draggingElement.id)
-  disableDragging card.find('#' + draggingElement.id).next()
-  disableDragging card.find('#' + draggingElement.id).prev()
+  setDragHover = (event) ->
+    [x, y] = [event.pageX, event.pageY]
+    if x < stPos.left || x > stPos.right || y < stPos.top || cPos.bottomC < y <= cPos.bottom
+      clearDragHover card
+    else if stPos.bottom < y <= cPos.bottomC
+      switchDragHover (slots.length - 1)
+    else
+      slots.each (index) ->
+        row = $(this)
+        if (posTop row) <= y <= (posBottom row)
+          switchDragHover index
+
+  card.on 'mousemove', setDragHover
+  card.on 'mouseup', positionInCard
 
 
 tearDownCardDragging = ->
   card = $(this)
+  card.off 'mousemove', setDragHover
+  card.off 'mouseup', positionInCard
+  clearDragHover card
   card.find('.drag-placeholder').remove()
-  card.find('.dragging-hover').removeClass 'dragging-hover'
-  card.find('.subgoal-row').off 'mouseenter', addDraggingHover
-  card.find('.subgoal-row').off 'mouseleave', removeDraggingHover
-  card.find('.subgoal-row').off 'mouseup', positionInSubgoal
   card.find('table.goal-card-checklist').removeClass 'dragging'
 
 

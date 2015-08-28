@@ -16,39 +16,56 @@
 table.goal-card-checklist.dragging {
   margin-top: 0.3em;
 
-  td {
-    padding-top: 0.1em;
-    padding-bottom: 0.1em;
-  }
-
-  tr.drag-placeholder td {
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-  }
-
-  tr.dragging-hover td {
-    a {
-      color: black;
-    }
-    padding-top: 0.4em;
-    padding-bottom: 0.4em;
-  }
-
-  tr.drag-placeholder.dragging-hover td {
-    padding-top: 0.8em;
-    padding-bottom: 0.8em;
-  }
-
   tr.dragging-hover {
-    background: @color-secondary-2-1;
+    background: #EEE;
+    opacity: 1.0;
+    a {
+      font-weight: bold;
+    }
   }
 
-  tr:only-child td {
-    padding-bottom: 3.0em;
+  tr {
+    td {
+      padding-bottom: 0.1em;
+      padding-top: 0.1em;
+    }
+    &.dragging-hover td {
+      padding-bottom: 0.4em;
+      padding-top: 0.4em;
+    }
   }
 
-  tr.drag-placeholder.dragging-hover:only-child td {
-    padding-bottom: 3.0em;
+  tr.drag-placeholder {
+    td {
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+    }
+    &.dragging-hover td {
+      padding-bottom: 0.8em;
+      padding-top: 0.8em;
+    }
+  }
+
+  tr:last-child td {
+    padding-bottom: 1.2em;
+  }
+
+  &.first-expanded {
+    tr:last-child td {
+      padding-bottom: 0.6em;
+    }
+  }
+
+  &.middle-expanded {
+    tr:last-child td {
+      padding-bottom: 0.6em;
+    }
+  }
+
+  &.last-expanded {
+    tr:last-child td {
+      padding-bottom: 0.9em;
+    }
   }
 }
 
